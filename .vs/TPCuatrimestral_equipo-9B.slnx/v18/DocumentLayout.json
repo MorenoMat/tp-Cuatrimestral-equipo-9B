@@ -1,0 +1,334 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\usuarionegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\compranegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\ventanegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\categorianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\marcanegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\proveedornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\clientenegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\productonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\marca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\marca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\venta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\venta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\proveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\proveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\producto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\compra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|solutionrelative:dominio\\compra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48108254-E2F5-4C6F-BC08-EDA187BFE185}|Comercio-Web\\Comercio-Web.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\comercio-web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{48108254-E2F5-4C6F-BC08-EDA187BFE185}|Comercio-Web\\Comercio-Web.csproj|solutionrelative:comercio-web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{974D539C-098C-4E52-89FB-7B433F91DC0C}|..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\negocio.csproj|c:\\users\\norma\\onedrive\\documentos\\visual studio 18\\projects_utn\\tp-winform\\negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|dominio||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DBEB068-493A-4450-8854-5873A4F14DCF}|Dominio\\Dominio.csproj|c:\\users\\norma\\source\\repos\\tpcuatrimestral_equipo-9b\\dominio\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c6f34f0d-7ae5-4f3a-be61-fe0c21ae9eb8}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsuarioNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\UsuarioNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\UsuarioNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\UsuarioNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\UsuarioNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:37:43.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CompraNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CompraNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CompraNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CompraNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CompraNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:37:30.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VentaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\VentaNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\VentaNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\VentaNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\VentaNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:37:20.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoriaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CategoriaNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CategoriaNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CategoriaNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\CategoriaNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:37:10.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MarcaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\MarcaNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\MarcaNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\MarcaNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\MarcaNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:36:58.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProveedorNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProveedorNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProveedorNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProveedorNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProveedorNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:36:45.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClienteNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ClienteNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ClienteNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ClienteNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ClienteNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:36:31.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProductoNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProductoNegocio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProductoNegocio.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProductoNegocio.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\ProductoNegocio.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:36:11.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Categoria.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Categoria.cs",
+              "RelativeDocumentMoniker": "Dominio\\Categoria.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Categoria.cs",
+              "RelativeToolTip": "Dominio\\Categoria.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:34:30.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Marca.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Marca.cs",
+              "RelativeDocumentMoniker": "Dominio\\Marca.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Marca.cs",
+              "RelativeToolTip": "Dominio\\Marca.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:34:20.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Venta.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Venta.cs",
+              "RelativeDocumentMoniker": "Dominio\\Venta.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Venta.cs",
+              "RelativeToolTip": "Dominio\\Venta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:33:58.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Proveedor.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Proveedor.cs",
+              "RelativeDocumentMoniker": "Dominio\\Proveedor.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Proveedor.cs",
+              "RelativeToolTip": "Dominio\\Proveedor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:31:41.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Cliente.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Cliente.cs",
+              "RelativeDocumentMoniker": "Dominio\\Cliente.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Cliente.cs",
+              "RelativeToolTip": "Dominio\\Cliente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:29:35.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Producto.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Producto.cs",
+              "RelativeDocumentMoniker": "Dominio\\Producto.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Producto.cs",
+              "RelativeToolTip": "Dominio\\Producto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:29:08.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Compra.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Compra.cs",
+              "RelativeDocumentMoniker": "Dominio\\Compra.cs",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\Compra.cs",
+              "RelativeToolTip": "Dominio\\Compra.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:22:41.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Comercio-Web\\Default.aspx",
+              "RelativeDocumentMoniker": "Comercio-Web\\Default.aspx",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Comercio-Web\\Default.aspx",
+              "RelativeToolTip": "Comercio-Web\\Default.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-06-01T05:20:13.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AccesoDatos.cs",
+              "DocumentMoniker": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\AccesoDatos.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\AccesoDatos.cs",
+              "ToolTip": "C:\\Users\\norma\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\AccesoDatos.cs",
+              "RelativeToolTip": "..\\..\\..\\OneDrive\\Documentos\\Visual Studio 18\\projects_utn\\tp-winform\\negocio\\AccesoDatos.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T05:18:33.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "dominio",
+              "DocumentMoniker": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\dominio.csproj",
+              "RelativeDocumentMoniker": "Dominio\\dominio.csproj",
+              "ToolTip": "C:\\Users\\norma\\source\\repos\\TPCuatrimestral_equipo-9B\\Dominio\\dominio.csproj",
+              "RelativeToolTip": "Dominio\\dominio.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-06-01T05:17:34.06Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

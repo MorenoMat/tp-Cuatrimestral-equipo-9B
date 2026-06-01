@@ -1,0 +1,8 @@
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.Properties.Resources.resources
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.csproj.GenerateResource.cache
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\bin\Debug\Dominio.dll
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\bin\Debug\Dominio.pdb
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.dll
+C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Dominio\obj\Debug\Dominio.pdb
