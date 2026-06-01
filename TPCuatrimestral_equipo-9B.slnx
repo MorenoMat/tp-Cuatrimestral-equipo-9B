@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="../../../OneDrive/Documentos/Visual Studio 18/projects_utn/tp-winform/negocio/negocio.csproj" />
-  <Project Path="Comercio-Web/Comercio-Web.csproj" />
-  <Project Path="Dominio/dominio.csproj" />
+  <Project Path="../../../OneDrive/Documentos/Visual Studio 18/projects_utn/tp-winform/negocio/negocio.csproj" Id="974d539c-098c-4e52-89fb-7b433f91dc0c" />
+  <Project Path="Comercio-Web/Comercio-Web.csproj" Id="48108254-e2f5-4c6f-bc08-eda187bfe185" />
+  <Project Path="Dominio/dominio.csproj" Id="4dbeb068-493a-4450-8854-5873a4f14dcf" />
 </Solution>
