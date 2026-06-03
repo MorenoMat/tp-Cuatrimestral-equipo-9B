@@ -57,7 +57,5 @@ C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\obj\Debug\Com
 C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\obj\Debug\Comercio.64725348.Up2Date
 C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\obj\Debug\Comercio-Web.dll
 C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\obj\Debug\Comercio-Web.pdb
-C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\bin\Dominio.dll
 C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\bin\negocio.dll
 C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\bin\negocio.pdb
-C:\Users\norma\source\repos\TPCuatrimestral_equipo-9B\Comercio-Web\bin\Dominio.pdb
