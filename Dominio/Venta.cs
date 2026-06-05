@@ -8,9 +8,9 @@ namespace Dominio
 {
     public class Venta
     {
-        public int ID { get; set; }
+        public int IdVenta{ get; set; }
         public int NumeroFactura { get; set; }
-        public string Name { get; set; }
+        public int IdCliente { get; set; }
         public int Total { get; set; }
 
         public List<DetalleVenta> detalleVentas { get; set; }
