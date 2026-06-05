@@ -15,9 +15,10 @@ namespace Dominio
         public int StockActual { get; set; }
         public int StockMinimo { get; set; }
         public string Descripcion { get; set; }
-        public int IDMarca { get; set; }
-        public int IDCategoria { get; set; }
+        public Marca Marca { get; set; }
+        public Categoria Categoria { get; set; }
         public List<Proveedor> Proveedores { get; set; }
 
     }
 }
+// cuando hago la consulta, cargo la marca y la categoria  ademas del producto  

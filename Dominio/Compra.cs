@@ -11,7 +11,9 @@ namespace Dominio
         public int IdCompra { get; set; }
         public int Cantidad { get; set; }
         public DateTime FechaCompra { get; set; }
+        public Usuario Usuario { get; set; }
         public Proveedor Proveedor { get; set; }
-        public int IdProducto { get; set; }
+        public List<DetalleCompra> DetalleCompras { get; set; }
     }
 }
+// falta estado de la compra 

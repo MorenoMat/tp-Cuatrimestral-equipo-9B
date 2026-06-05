@@ -10,9 +10,12 @@ namespace Dominio
     {
         public int IdVenta{ get; set; }
         public int NumeroFactura { get; set; }
-        public int IdCliente { get; set; }
+        public Cliente Cliente { get; set; }
+        public Usuario Usuario { get; set; } // tener el usuario que hizo la venta
         public int Total { get; set; }
+       
 
         public List<DetalleVenta> detalleVentas { get; set; }
     }
 }
+// tener unos 2 roles fijos
