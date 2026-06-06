@@ -90,8 +90,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\OneDrive\Documentos\Visual Studio 18\projects_utn\tp-winform\negocio\negocio.csproj">
-      <Project>{974d539c-098c-4e52-89fb-7b433f91dc0c}</Project>
+    <ProjectReference Include="..\Dominio\dominio.csproj">
+      <Project>{4dbeb068-493a-4450-8854-5873a4f14dcf}</Project>
+      <Name>dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\negocio\negocio.csproj">
+      <Project>{96227684-ebfc-4883-a25c-59583e36b0c0}</Project>
       <Name>negocio</Name>
     </ProjectReference>
   </ItemGroup>
