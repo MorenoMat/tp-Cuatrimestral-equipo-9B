@@ -51,9 +51,11 @@
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="MarcaNegocio.cs" />
     <Compile Include="CategoriaNegocio.cs" />
+    <Compile Include="ClienteNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
+
 
 
