@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="MarcasFormulario.aspx" />
+    <Content Include="MarcasLista.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +79,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarcasFormulario.aspx.cs">
+      <DependentUpon>MarcasFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarcasFormulario.aspx.designer.cs">
+      <DependentUpon>MarcasFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarcasLista.aspx.cs">
+      <DependentUpon>MarcasLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarcasLista.aspx.designer.cs">
+      <DependentUpon>MarcasLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
