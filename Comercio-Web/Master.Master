@@ -1,4 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.Master.cs" Inherits="Comercio_Web.Master" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.Master.cs" Inherits="Comercio_Web.Master" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
@@ -23,6 +23,9 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="MarcasLista.aspx">Marcas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="CategoriasLista.aspx">Categorías</a>
                         </li>
                     </ul>
                 </div>

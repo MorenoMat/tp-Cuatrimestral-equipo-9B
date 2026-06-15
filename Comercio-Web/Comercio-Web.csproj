@@ -70,6 +70,8 @@
     <Content Include="Default.aspx" />
     <Content Include="MarcasFormulario.aspx" />
     <Content Include="MarcasLista.aspx" />
+    <Content Include="CategoriasFormulario.aspx" />
+    <Content Include="CategoriasLista.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +95,20 @@
     </Compile>
     <Compile Include="MarcasLista.aspx.designer.cs">
       <DependentUpon>MarcasLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriasFormulario.aspx.cs">
+      <DependentUpon>CategoriasFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoriasFormulario.aspx.designer.cs">
+      <DependentUpon>CategoriasFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriasLista.aspx.cs">
+      <DependentUpon>CategoriasLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoriasLista.aspx.designer.cs">
+      <DependentUpon>CategoriasLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
@@ -159,3 +175,4 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
 </Project>
+
