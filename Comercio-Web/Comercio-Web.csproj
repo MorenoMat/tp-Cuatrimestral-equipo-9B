@@ -74,6 +74,8 @@
     <Content Include="CategoriasLista.aspx" />
     <Content Include="ClientesFormulario.aspx" />
     <Content Include="ClientesLista.aspx" />
+    <Content Include="ProveedoresFormulario.aspx" />
+    <Content Include="ProveedoresLista.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +133,20 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProveedoresFormulario.aspx.cs">
+      <DependentUpon>ProveedoresFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProveedoresFormulario.aspx.designer.cs">
+      <DependentUpon>ProveedoresFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProveedoresLista.aspx.cs">
+      <DependentUpon>ProveedoresLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProveedoresLista.aspx.designer.cs">
+      <DependentUpon>ProveedoresLista.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
@@ -191,4 +207,3 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
 </Project>
-
