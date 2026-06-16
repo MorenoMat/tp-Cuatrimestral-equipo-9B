@@ -68,6 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="MarcasFormulario.aspx" />
+    <Content Include="MarcasLista.aspx" />
+    <Content Include="CategoriasFormulario.aspx" />
+    <Content Include="CategoriasLista.aspx" />
+    <Content Include="ClientesFormulario.aspx" />
+    <Content Include="ClientesLista.aspx" />
+    <Content Include="ProveedoresFormulario.aspx" />
+    <Content Include="ProveedoresLista.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +86,70 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MarcasFormulario.aspx.cs">
+      <DependentUpon>MarcasFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarcasFormulario.aspx.designer.cs">
+      <DependentUpon>MarcasFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarcasLista.aspx.cs">
+      <DependentUpon>MarcasLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarcasLista.aspx.designer.cs">
+      <DependentUpon>MarcasLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriasFormulario.aspx.cs">
+      <DependentUpon>CategoriasFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoriasFormulario.aspx.designer.cs">
+      <DependentUpon>CategoriasFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriasLista.aspx.cs">
+      <DependentUpon>CategoriasLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoriasLista.aspx.designer.cs">
+      <DependentUpon>CategoriasLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClientesFormulario.aspx.cs">
+      <DependentUpon>ClientesFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClientesFormulario.aspx.designer.cs">
+      <DependentUpon>ClientesFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClientesLista.aspx.cs">
+      <DependentUpon>ClientesLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClientesLista.aspx.designer.cs">
+      <DependentUpon>ClientesLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Master.Master.cs">
+      <DependentUpon>Master.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProveedoresFormulario.aspx.cs">
+      <DependentUpon>ProveedoresFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProveedoresFormulario.aspx.designer.cs">
+      <DependentUpon>ProveedoresFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProveedoresLista.aspx.cs">
+      <DependentUpon>ProveedoresLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProveedoresLista.aspx.designer.cs">
+      <DependentUpon>ProveedoresLista.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Master.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
