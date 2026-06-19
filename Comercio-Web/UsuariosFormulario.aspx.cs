@@ -17,7 +17,7 @@ namespace Comercio_Web
                     Usuario usuario = negocio.BuscarPorId(id);
                     txtNombre.Text = usuario.Nombre;
                     txtUsuarioLogin.Text = usuario.UsuarioLogin;
-                    chkAdmin.Checked = usuario.Admin;
+                    chkAdmin.Checked = usuario.esAdmin;
                     lblTitulo.Text = "Editar Usuario";
                     btnEliminar.Visible = true;
                 }
@@ -33,7 +33,7 @@ namespace Comercio_Web
                 usuario.Nombre = txtNombre.Text;
                 usuario.UsuarioLogin = txtUsuarioLogin.Text;
                 usuario.Contraseña = txtContraseña.Text;
-                usuario.Admin = chkAdmin.Checked;
+                usuario.esAdmin = chkAdmin.Checked;
 
                 if (Request.QueryString["id"] != null)
                 {

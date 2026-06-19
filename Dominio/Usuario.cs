@@ -12,6 +12,6 @@ namespace Dominio
         public string Nombre { get; set; }
         public string UsuarioLogin { get; set; }
         public string Contraseña { get; set; }
-        public bool Administrador { get; set; }
+        public bool esAdmin { get; set; }
     }
 }

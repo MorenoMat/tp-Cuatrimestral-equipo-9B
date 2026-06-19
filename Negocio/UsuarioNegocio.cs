@@ -20,7 +20,7 @@ namespace negocio
                     u.IdUsuario = (int)datos.Lector["IdUsuario"];
                     u.Nombre = (string)datos.Lector["Nombre"];
                     u.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
-                    u.Admin = (bool)datos.Lector["EsAdmin"];
+                    u.esAdmin = (bool)datos.Lector["EsAdmin"];
                     lista.Add(u);
                 }
                 datos.cerrarConexion();
@@ -48,7 +48,7 @@ namespace negocio
                     usuario.Nombre = (string)datos.Lector["Nombre"];
                     usuario.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
                     usuario.Contraseña = (string)datos.Lector["Contraseña"];
-                    usuario.Admin = (bool)datos.Lector["EsAdmin"];
+                    usuario.esAdmin = (bool)datos.Lector["EsAdmin"];
                 }
                 datos.cerrarConexion();
                 return usuario;
@@ -68,7 +68,7 @@ namespace negocio
                 datos.setearParametro("@nombre", usuario.Nombre);
                 datos.setearParametro("@login", usuario.UsuarioLogin);
                 datos.setearParametro("@pass", usuario.Contraseña);
-                datos.setearParametro("@admin", usuario.Admin);
+                datos.setearParametro("@admin", usuario.esAdmin);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -86,7 +86,7 @@ namespace negocio
                 datos.setearParametro("@nombre", usuario.Nombre);
                 datos.setearParametro("@login", usuario.UsuarioLogin);
                 datos.setearParametro("@pass", usuario.Contraseña);
-                datos.setearParametro("@admin", usuario.Admin);
+                datos.setearParametro("@admin", usuario.esAdmin);
                 datos.setearParametro("@id", usuario.IdUsuario);
                 datos.ejecutarAccion();
             }
