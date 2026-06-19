@@ -21,20 +21,20 @@ namespace Comercio_Web
 
         private void cargarDropDowns()
         {
-            ProveedorNegocio pn = new ProveedorNegocio();
-            ddlProveedor.DataSource = pn.Listar();
+            ProveedorNegocio provNeg = new ProveedorNegocio();
+            ddlProveedor.DataSource = provNeg.Listar();
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();
 
-            UsuarioNegocio un = new UsuarioNegocio();
-            ddlUsuario.DataSource = un.Listar();
+            UsuarioNegocio usuNeg = new UsuarioNegocio();
+            ddlUsuario.DataSource = usuNeg.Listar();
             ddlUsuario.DataTextField = "Nombre";
             ddlUsuario.DataValueField = "IdUsuario";
             ddlUsuario.DataBind();
 
-            ProductoNegocio prn = new ProductoNegocio();
-            ddlProducto.DataSource = prn.Listar();
+            ProductoNegocio prodN = new ProductoNegocio();
+            ddlProducto.DataSource = prodN.Listar();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
@@ -119,7 +119,6 @@ namespace Comercio_Web
 
             Compra compra = new Compra();
             compra.FechaCompra = DateTime.Now;
-            compra.EstadoCompra = chkEstado.Checked;
             compra.Proveedor = new Proveedor { IdProveedor = int.Parse(ddlProveedor.SelectedValue) };
             compra.Usuario = new Usuario { IdUsuario = int.Parse(ddlUsuario.SelectedValue) };
             compra.DetalleCompras = lineas;

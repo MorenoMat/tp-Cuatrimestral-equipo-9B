@@ -15,7 +15,7 @@ namespace Comercio_Web
                     int id = int.Parse(Request.QueryString["id"]);
                     ClienteNegocio negocio = new ClienteNegocio();
                     Cliente cliente = negocio.BuscarPorId(id);
-                    txtDni.Text = cliente.Dni.ToString();
+                    txtDni.Text = cliente.Dni;
                     txtNombre.Text = cliente.Nombre;
                     txtEmail.Text = cliente.Email;
                     lblTitulo.Text = "Editar Cliente";
@@ -30,7 +30,7 @@ namespace Comercio_Web
             {
                 ClienteNegocio negocio = new ClienteNegocio();
                 Cliente cliente = new Cliente();
-                cliente.Dni = int.Parse(txtDni.Text);
+                cliente.Dni = txtDni.Text;
                 cliente.Nombre = txtNombre.Text;
                 cliente.Email = txtEmail.Text;
 

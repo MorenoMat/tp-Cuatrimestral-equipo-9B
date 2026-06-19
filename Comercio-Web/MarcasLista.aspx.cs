@@ -24,7 +24,7 @@ namespace Comercio_Web
         protected void dgvMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dgvMarcas.SelectedDataKey.Value.ToString();
-            Response.Redirect("MarcasFormulario.aspx?id=" + id);
+            Response.Redirect("MarcasFormulario.aspx?id=" + id); // redirecciona a MarcasFormulario.aspx
         }
     }
 }

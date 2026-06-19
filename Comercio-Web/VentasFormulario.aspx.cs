@@ -140,8 +140,7 @@ namespace Comercio_Web
                 total += d.Cantidad * d.PrecioUnitario;
 
             Venta venta = new Venta();
-            venta.NumeroFactura = nroFactura;
-            venta.EstadoVenta = chkEstado.Checked;
+            venta.NumeroFactura = nroFactura; 
             venta.Total = total;
             venta.Cliente = new Cliente { IdCliente = int.Parse(ddlCliente.SelectedValue) };
             venta.Usuario = new Usuario { IdUsuario = int.Parse(ddlUsuario.SelectedValue) };
