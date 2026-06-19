@@ -1,0 +1,114 @@
+using System;
+using System.Collections.Generic;
+using Dominio;
+
+namespace negocio
+{
+    public class UsuarioNegocio
+    {
+        public List<Usuario> Listar()
+        {
+            List<Usuario> lista = new List<Usuario>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdUsuario, Nombre, UsuarioLogin, EsAdmin FROM Usuarios");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Usuario u = new Usuario();
+                    u.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    u.Nombre = (string)datos.Lector["Nombre"];
+                    u.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
+                    u.Admin = (bool)datos.Lector["EsAdmin"];
+                    lista.Add(u);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Usuario BuscarPorId(int id)
+        {
+            Usuario usuario = null;
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdUsuario, Nombre, UsuarioLogin, Contraseña, EsAdmin FROM Usuarios WHERE IdUsuario = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    usuario = new Usuario();
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.Nombre = (string)datos.Lector["Nombre"];
+                    usuario.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
+                    usuario.Contraseña = (string)datos.Lector["Contraseña"];
+                    usuario.Admin = (bool)datos.Lector["EsAdmin"];
+                }
+                datos.cerrarConexion();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Agregar(Usuario usuario)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("INSERT INTO Usuarios (Nombre, UsuarioLogin, Contraseña, EsAdmin) VALUES (@nombre, @login, @pass, @admin)");
+                datos.setearParametro("@nombre", usuario.Nombre);
+                datos.setearParametro("@login", usuario.UsuarioLogin);
+                datos.setearParametro("@pass", usuario.Contraseña);
+                datos.setearParametro("@admin", usuario.Admin);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Modificar(Usuario usuario)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Usuarios SET Nombre = @nombre, UsuarioLogin = @login, Contraseña = @pass, EsAdmin = @admin WHERE IdUsuario = @id");
+                datos.setearParametro("@nombre", usuario.Nombre);
+                datos.setearParametro("@login", usuario.UsuarioLogin);
+                datos.setearParametro("@pass", usuario.Contraseña);
+                datos.setearParametro("@admin", usuario.Admin);
+                datos.setearParametro("@id", usuario.IdUsuario);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("DELETE FROM Usuarios WHERE IdUsuario = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+}
