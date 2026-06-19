@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using Dominio;
+
+namespace negocio
+{
+    public class VentasNegocio
+    {
+        public List<Venta> Listar()
+        {
+            List<Venta> lista = new List<Venta>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT v.IdVenta, v.NumeroFactura, v.EstadoVenta, v.Total,
+                                              c.IdCliente, c.Nombre AS ClienteNombre,
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                       FROM Ventas v
+                                       INNER JOIN Clientes c ON v.IdCliente = c.IdCliente
+                                       INNER JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
+                                       ORDER BY v.IdVenta DESC");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Venta v = new Venta();
+                    v.IdVenta = (int)datos.Lector["IdVenta"];
+                    v.NumeroFactura = (int)datos.Lector["NumeroFactura"];
+                    v.EstadoVenta = (bool)datos.Lector["EstadoVenta"];
+                    v.Total = (decimal)datos.Lector["Total"];
+                    v.Cliente = new Cliente();
+                    v.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                    v.Cliente.Nombre = (string)datos.Lector["ClienteNombre"];
+                    v.Usuario = new Usuario();
+                    v.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    v.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
+                    lista.Add(v);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Registrar(Venta venta)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, EstadoVenta, Total, IdCliente, IdUsuario)
+                                       VALUES (@nroFactura, @estado, @total, @idCliente, @idUsuario);
+                                       SELECT SCOPE_IDENTITY();");
+                datos.setearParametro("@nroFactura", venta.NumeroFactura);
+                datos.setearParametro("@estado", venta.EstadoVenta);
+                datos.setearParametro("@total", venta.Total);
+                datos.setearParametro("@idCliente", venta.Cliente.IdCliente);
+                datos.setearParametro("@idUsuario", venta.Usuario.IdUsuario);
+                int idVenta = datos.ejecutarAccionScalar();
+
+                foreach (DetalleVenta detalle in venta.detalleVentas)
+                {
+                    AccesoDatos datosDetalle = new AccesoDatos();
+                    datosDetalle.setearConsulta(@"INSERT INTO DetalleVentas (Cantidad, PrecioUnitario, IdVenta, IdProducto)
+                                                  VALUES (@cantidad, @precio, @idVenta, @idProducto)");
+                    datosDetalle.setearParametro("@cantidad", detalle.Cantidad);
+                    datosDetalle.setearParametro("@precio", detalle.PrecioUnitario);
+                    datosDetalle.setearParametro("@idVenta", idVenta);
+                    datosDetalle.setearParametro("@idProducto", detalle.IdProducto);
+                    datosDetalle.ejecutarAccion();
+
+                    AccesoDatos datosStock = new AccesoDatos();
+                    datosStock.setearConsulta(@"UPDATE Productos 
+                                                SET StockActual = StockActual - @cantidad
+                                                WHERE IdProducto = @idProducto");
+                    datosStock.setearParametro("@cantidad", detalle.Cantidad);
+                    datosStock.setearParametro("@idProducto", detalle.IdProducto);
+                    datosStock.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+}

@@ -13,7 +13,7 @@ namespace Dominio
         public bool EstadoVenta { get; set; }
         public Cliente Cliente { get; set; }
         public Usuario Usuario { get; set; } // tener el usuario que hizo la venta
-        public int Total { get; set; }
+        public decimal Total { get; set; }
        
 
         public List<DetalleVenta> detalleVentas { get; set; }
