@@ -76,6 +76,8 @@
     <Content Include="ClientesLista.aspx" />
     <Content Include="ProveedoresFormulario.aspx" />
     <Content Include="ProveedoresLista.aspx" />
+    <Content Include="UsuariosFormulario.aspx" />
+    <Content Include="UsuariosLista.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +148,20 @@
     </Compile>
     <Compile Include="ProveedoresLista.aspx.designer.cs">
       <DependentUpon>ProveedoresLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosFormulario.aspx.cs">
+      <DependentUpon>UsuariosFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuariosFormulario.aspx.designer.cs">
+      <DependentUpon>UsuariosFormulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosLista.aspx.cs">
+      <DependentUpon>UsuariosLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuariosLista.aspx.designer.cs">
+      <DependentUpon>UsuariosLista.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
