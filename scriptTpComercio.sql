@@ -56,7 +56,7 @@ CREATE TABLE Compras (
     idCompra INT PRIMARY KEY IDENTITY(1,1),
     idProveedor INT NOT NULL,
     idUsuario INT NOT NULL, -- Quién registró la compra (Auditoría)
-    fecha DATETIME NOT NULL DEFAULT GETDATE(),
+    fechaCompra DATETIME NOT NULL DEFAULT GETDATE(),
     total DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_Compras_Proveedores FOREIGN KEY (idProveedor) REFERENCES Proveedores(idProveedor),
     CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
@@ -74,7 +74,7 @@ CREATE TABLE Ventas (
     idVenta INT PRIMARY KEY IDENTITY(1,1),
     idCliente INT NOT NULL,
     idUsuario INT NOT NULL, -- Vendedor o Admin que atendió en el sistema
-    fecha DATETIME NOT NULL DEFAULT GETDATE(),
+    fechaVenta DATETIME NOT NULL DEFAULT GETDATE(),
     total DECIMAL(10,2) NOT NULL,
     numeroFactura VARCHAR(30) NOT NULL, -- Generada de forma única por  código
     CONSTRAINT FK_Ventas_Clientes FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente),
