@@ -22,3 +22,27 @@ idCategoria int   not null
 CONSTRAINT FK_Productos_Marcas FOREIGN KEY (idMarca) REFERENCES Marcas(idMarca),
 CONSTRAINT FK_Productos_Categorias FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
 )
+
+create table Clientes(
+idCliente int primary key identity(1,1),
+ dni int not null,
+ nombre int not null,
+ email varchar(50)
+)
+
+create table Usuarios(
+idUsuario int primary key identity(1,1),
+nombre varchar(30) not null,
+usuarioLogin varchar(15) unique not null,
+contraseña varchar(15) not null,
+administrador bit not null default 0,
+)
+
+create table Proveedores(
+idProveedor int primary key identity(1,1),
+ dni int not null,
+ nombre varchar(40) not null,
+ Telefono varchar(25)
+ email varchar(50)
+
+)
