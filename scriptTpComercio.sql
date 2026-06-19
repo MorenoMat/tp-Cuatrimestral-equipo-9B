@@ -42,7 +42,7 @@ create table Proveedores(
 idProveedor int primary key identity(1,1),
  dni int not null,
  nombre varchar(40) not null,
- Telefono varchar(25)
+ Telefono varchar(25),
  email varchar(50)
 )
 CREATE TABLE Producto_Proveedor (
@@ -76,14 +76,14 @@ CREATE TABLE Ventas (
     idUsuario INT NOT NULL, -- Vendedor o Admin que atendió en el sistema
     fecha DATETIME NOT NULL DEFAULT GETDATE(),
     total DECIMAL(10,2) NOT NULL,
-    numeroFactura VARCHAR(30) NOT NULL, -- Generada de forma única por tu código
+    numeroFactura VARCHAR(30) NOT NULL, -- Generada de forma única por  código
     CONSTRAINT FK_Ventas_Clientes FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente),
     CONSTRAINT FK_Ventas_Usuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
 CREATE TABLE DetalleVenta (
     idDetalleVenta INT PRIMARY KEY IDENTITY(1,1),
     idVenta INT NOT NULL,
-    idProducto INT NOT NULL, -
+    idProducto INT NOT NULL, 
     cantidad INT NOT NULL,
     precioUnitario DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_DetalleVenta_Ventas FOREIGN KEY (idVenta) REFERENCES Ventas(idVenta),
