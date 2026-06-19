@@ -54,10 +54,12 @@
     <Compile Include="ClienteNegocio.cs" />
     <Compile Include="ProveedorNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
+    <Compile Include="ProductoNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
+
 
 
 
