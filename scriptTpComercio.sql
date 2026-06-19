@@ -25,14 +25,14 @@ CONSTRAINT FK_Productos_Categorias FOREIGN KEY (idCategoria) REFERENCES Categori
  
 create table Clientes(
 idCliente int primary key identity(1,1),
- dni  varchar(8) not null,
+ dni  varchar(8) not null unique,
  nombre varchar(30) not null,
  email varchar(50)
 )
 
 create table Usuarios(
 idUsuario int primary key identity(1,1),
-nombre varchar(30) not null,
+nombre varchar(30) not null unique,
 usuarioLogin varchar(15) unique not null,
 contraseña varchar(15) not null,
 administrador bit not null default 0
@@ -40,7 +40,7 @@ administrador bit not null default 0
 
 create table Proveedores(
 idProveedor int primary key identity(1,1),
- cuit varchar(11) not null,
+ cuit varchar(11) not null unique,
  nombre varchar(40) not null,
  Telefono varchar(25),
  email varchar(50)
