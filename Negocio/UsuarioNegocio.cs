@@ -20,7 +20,7 @@ namespace negocio
                     u.IdUsuario = (int)datos.Lector["IdUsuario"];
                     u.Nombre = (string)datos.Lector["Nombre"];
                     u.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
-                    u.Admin = (bool)datos.Lector["EsAdmin"];
+                    u.eAdmin = (bool)datos.Lector["EsAdmin"];
                     lista.Add(u);
                 }
                 datos.cerrarConexion();
