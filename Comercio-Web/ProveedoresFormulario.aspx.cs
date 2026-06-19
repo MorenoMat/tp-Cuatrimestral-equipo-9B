@@ -1,4 +1,6 @@
 using System;
+using System.Data.SqlClient;
+using System.Web.Services.Description;
 using Dominio;
 using negocio;
 
@@ -18,6 +20,7 @@ namespace Comercio_Web
                     txtNombre.Text = proveedor.Nombre;
                     txtTelefono.Text = proveedor.Telefono;
                     txtEmail.Text = proveedor.Email;
+                    txtCuit.Text = proveedor.Cuit;  
                     lblTitulo.Text = "Editar Proveedor";
                     btnEliminar.Visible = true;
                 }
@@ -33,6 +36,7 @@ namespace Comercio_Web
                 proveedor.Nombre = txtNombre.Text;
                 proveedor.Telefono = txtTelefono.Text;
                 proveedor.Email = txtEmail.Text;
+                proveedor.Cuit = txtCuit.Text;
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -45,9 +49,14 @@ namespace Comercio_Web
                 }
                 Response.Redirect("ProveedoresLista.aspx");
             }
+            catch (SqlException ex)
+            {
+                Response.Write("No se ha podido guardar el proveedor por ERROR SQL" + ex.Message);
+                
+            }
             catch (Exception ex)
             {
-                throw ex;
+                Response.Write("No se ha podido guardar el proveedor por " + ex.Message);
             }
         }
 

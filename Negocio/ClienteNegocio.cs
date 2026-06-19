@@ -18,7 +18,7 @@ namespace negocio
                 {
                     Cliente c = new Cliente();
                     c.IdCliente = (int)datos.Lector["IdCliente"];
-                    c.Dni = (int)datos.Lector["Dni"];
+                    c.Dni = (string)datos.Lector["Dni"];
                     c.Nombre = (string)datos.Lector["Nombre"];
                     c.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
                     lista.Add(c);
@@ -45,7 +45,7 @@ namespace negocio
                 {
                     cliente = new Cliente();
                     cliente.IdCliente = (int)datos.Lector["IdCliente"];
-                    cliente.Dni = (int)datos.Lector["Dni"];
+                    cliente.Dni = (string)datos.Lector["Dni"];
                     cliente.Nombre = (string)datos.Lector["Nombre"];
                     cliente.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
                 }

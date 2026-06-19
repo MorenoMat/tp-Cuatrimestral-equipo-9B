@@ -12,7 +12,8 @@
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
             <asp:BoundField HeaderText="Email" DataField="Email" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+            <asp:BoundField HeaderText="CUIT o CUIL" DataField="Cuit" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Proveedores" />
         </Columns>
     </asp:GridView>
     <a href="ProveedoresFormulario.aspx" class="btn btn-primary">Agregar</a>

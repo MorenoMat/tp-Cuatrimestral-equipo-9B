@@ -12,7 +12,7 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT c.IdCompra, c.FechaCompra, c.EstadoCompra,
+                datos.setearConsulta(@"SELECT c.IdCompra, c.FechaCompra, 
                                               p.IdProveedor, p.Nombre AS ProveedorNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
                                        FROM Compras c
@@ -25,7 +25,6 @@ namespace negocio
                     Compra c = new Compra();
                     c.IdCompra = (int)datos.Lector["IdCompra"];
                     c.FechaCompra = (DateTime)datos.Lector["FechaCompra"];
-                    c.EstadoCompra = (bool)datos.Lector["EstadoCompra"];
                     c.Proveedor = new Proveedor();
                     c.Proveedor.IdProveedor = (int)datos.Lector["IdProveedor"];
                     c.Proveedor.Nombre = (string)datos.Lector["ProveedorNombre"];
@@ -48,11 +47,10 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"INSERT INTO Compras (FechaCompra, EstadoCompra, IdProveedor, IdUsuario)
+                datos.setearConsulta(@"INSERT INTO Compras (FechaCompra, IdProveedor, IdUsuario)
                                        VALUES (@fecha, @estado, @idProveedor, @idUsuario);
                                        SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@fecha", compra.FechaCompra);
-                datos.setearParametro("@estado", compra.EstadoCompra);
                 datos.setearParametro("@idProveedor", compra.Proveedor.IdProveedor);
                 datos.setearParametro("@idUsuario", compra.Usuario.IdUsuario);
                 int idCompra = datos.ejecutarAccionScalar();

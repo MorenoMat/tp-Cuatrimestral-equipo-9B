@@ -17,6 +17,10 @@
         <asp:Label Text="Email" runat="server" CssClass="form-label" />
         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
     </div>
+       <div class="mb-3">
+       <asp:Label Text="Cuit o Cuil" runat="server" CssClass="form-label" />
+       <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control"     TextMode="SingleLine" MaxLength="13"/>
+   </div>
     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger ms-2" OnClick="btnEliminar_Click" Visible="false" />
     <a href="ProveedoresLista.aspx" class="btn btn-secondary ms-2">Cancelar</a>

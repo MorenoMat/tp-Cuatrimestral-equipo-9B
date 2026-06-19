@@ -15,10 +15,6 @@
             <label class="form-label">Usuario</label>
             <asp:DropDownList ID="ddlUsuario" runat="server" CssClass="form-select" />
         </div>
-        <div class="col-md-4">
-            <label class="form-label">Estado</label>
-            <asp:CheckBox ID="chkEstado" runat="server" Text=" Activa" CssClass="form-check-input ms-2" Checked="true" />
-        </div>
     </div>
 
     <h4>Agregar producto</h4>

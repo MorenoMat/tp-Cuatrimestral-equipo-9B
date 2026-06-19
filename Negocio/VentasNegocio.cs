@@ -12,7 +12,7 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT v.IdVenta, v.NumeroFactura, v.EstadoVenta, v.Total,
+                datos.setearConsulta(@"SELECT v.IdVenta, v.NumeroFactura, v.Total,
                                               c.IdCliente, c.Nombre AS ClienteNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
                                        FROM Ventas v
@@ -25,7 +25,6 @@ namespace negocio
                     Venta v = new Venta();
                     v.IdVenta = (int)datos.Lector["IdVenta"];
                     v.NumeroFactura = (int)datos.Lector["NumeroFactura"];
-                    v.EstadoVenta = (bool)datos.Lector["EstadoVenta"];
                     v.Total = (decimal)datos.Lector["Total"];
                     v.Cliente = new Cliente();
                     v.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
@@ -49,11 +48,10 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, EstadoVenta, Total, IdCliente, IdUsuario)
+                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, , Total, IdCliente, IdUsuario)
                                        VALUES (@nroFactura, @estado, @total, @idCliente, @idUsuario);
                                        SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@nroFactura", venta.NumeroFactura);
-                datos.setearParametro("@estado", venta.EstadoVenta);
                 datos.setearParametro("@total", venta.Total);
                 datos.setearParametro("@idCliente", venta.Cliente.IdCliente);
                 datos.setearParametro("@idUsuario", venta.Usuario.IdUsuario);
