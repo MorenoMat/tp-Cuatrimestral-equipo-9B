@@ -21,7 +21,8 @@ namespace negocio
         public AccesoDatos()
         {
             //conexion = new SqlConnection(ConfigurationManager.AppSettings["cadenaConexion"]);
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=ComercioWeb; integrated security=true");
+            //conexion = new SqlConnection("server=.\\SQLEXPRESS; database=ComercioWeb; integrated security=true");
+            conexion = new SqlConnection("server=localhost,1434;database=TpComercio;User Id=sa;Password=Mateo46023;Encrypt=False;TrustServerCertificate=True;");
             comando = new SqlCommand();
         }
 
