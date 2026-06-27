@@ -13,5 +13,6 @@ namespace Comercio_Web
 
     public partial class Default
     {
+        protected global::System.Web.UI.WebControls.Panel pnlAlertas;
     }
 }
