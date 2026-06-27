@@ -11,7 +11,7 @@
         <Columns>
             <asp:BoundField HeaderText="Usuario" DataField="UsuarioLogin" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <asp:CheckBoxField HeaderText="Admin" DataField="Admin" />
+            <asp:CheckBoxField HeaderText="Admin" DataField="esAdmin" />
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
         </Columns>
     </asp:GridView>
