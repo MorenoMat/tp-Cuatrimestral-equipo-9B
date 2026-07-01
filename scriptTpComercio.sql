@@ -1,5 +1,19 @@
 
--- 2. Luego: Crear con EsAdmin  
+-- Eliminar tablas con FK primero
+DROP TABLE IF EXISTS DetalleVentas;
+DROP TABLE IF EXISTS DetalleCompras;
+DROP TABLE IF EXISTS Ventas;
+DROP TABLE IF EXISTS Compras;
+DROP TABLE IF EXISTS Producto_Proveedor;
+DROP TABLE IF EXISTS Productos;
+
+-- Eliminar tablas base
+DROP TABLE IF EXISTS Clientes;
+DROP TABLE IF EXISTS Usuarios;
+DROP TABLE IF EXISTS Proveedores;
+DROP TABLE IF EXISTS Marcas;
+DROP TABLE IF EXISTS Categorias;
+
 CREATE TABLE Marcas (
     idMarca INT PRIMARY KEY IDENTITY(1,1),
     descripcion VARCHAR(30) NOT NULL
@@ -36,8 +50,8 @@ CREATE TABLE Usuarios (
     idUsuario INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(30) NOT NULL UNIQUE,
     usuarioLogin VARCHAR(15) UNIQUE NOT NULL,
-    contraseña VARCHAR(15) NOT NULL,
-    EsAdmin BIT NOT NULL DEFAULT 0  -- ✅ Nombre correcto
+    contraseña VARCHAR(100) NOT NULL,
+    EsAdmin BIT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE Proveedores (
@@ -98,60 +112,56 @@ CREATE TABLE DetalleVentas (  -- renombrado de DetalleVenta
 );
 
 
--- 1. Marcas
+
 INSERT INTO Marcas (descripcion) VALUES 
     ('Samsung'), ('LG'), ('Sony'), ('Philips');
 
--- 2. Categorias
+
 INSERT INTO Categorias (descripcion) VALUES 
     ('Electrónica'), ('Hogar'), ('Computación'), ('Telefonía');
 
--- 3. Clientes
 INSERT INTO Clientes (dni, nombre, email) VALUES 
     ('12345678', 'Juan Pérez',    'juan.perez@email.com'),
     ('87654321', 'María González','maria.gonzalez@email.com'),
     ('11223344', 'Carlos López',  'carlos.lopez@email.com');
 
--- 4. Usuarios  (columna EsAdmin)
-INSERT INTO Usuarios (nombre, usuarioLogin, contraseña, EsAdmin) VALUES 
-    ('Administrador', 'admin',     'admin123', 1),
-    ('Vendedor 1',    'vendedor1', 'vend123',  0),
-    ('Vendedor 2',    'vendedor2', 'vend456',  0);
+-- Usuario: admin | Contraseña: admin
+INSERT INTO Usuarios (Nombre, UsuarioLogin, Contraseña, EsAdmin)
+VALUES ('Administrador', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1)
 
--- 5. Proveedores
+
 INSERT INTO Proveedores (cuit, nombre, Telefono, email) VALUES 
     ('20123456789', 'Distribuidora Tech SRL', '011-4567-8900', 'ventas@techsrl.com'),
     ('20987654321', 'ElectroMundo SA',         '011-1234-5678', 'info@electromundo.com');
 
--- 6. Productos  (columna UltimoPrecioCompra)
+
 INSERT INTO Productos (nombre, UltimoPrecioCompra, porcentajeGanancia, stockActual, stockMinimo, descripcion, idMarca, idCategoria) VALUES 
     ('TV 55 pulgadas',  85000.00, 25.00, 10, 3, 'Smart TV 4K',         1, 1),
     ('Heladera 300L',  120000.00, 30.00,  5, 2, 'Heladera no frost',   2, 2),
     ('Notebook Core i5',95000.00, 20.00,  8, 3, '8GB RAM, 256GB SSD', 1, 3),
     ('Celular Android', 45000.00, 35.00, 15, 5, 'Dual SIM, 128GB',    1, 4);
 
--- 7. Producto_Proveedor
 INSERT INTO Producto_Proveedor (idProducto, idProveedor) VALUES 
     (1, 1), (2, 2), (3, 1), (4, 1), (1, 2);
 
--- 8. Compras  (sin total, usa DEFAULT 0)
+
 INSERT INTO Compras (idProveedor, idUsuario, fechaCompra) VALUES 
     (1, 1, '2024-01-15'),
     (2, 1, '2024-01-20');
 
--- 9. DetalleCompras  (tabla renombrada)
+
 INSERT INTO DetalleCompras (idCompra, idProducto, cantidad, precioUnitario) VALUES 
     (1, 1, 3, 68000.00),
     (1, 3, 1, 76000.00),
     (2, 2, 2, 92000.00);
 
--- 10. Ventas  (numeroFactura ahora es INT)
-INSERT INTO Ventas (idCliente, idUsuario, fechaVenta, total, numeroFactura) VALUES 
-    (1, 2, '2024-02-01',  85000.00, 1),
-    (2, 3, '2024-02-02', 140000.00, 2),
-    (3, 2, '2024-02-03',  90000.00, 3);
 
--- 11. DetalleVentas  (tabla renombrada)
+INSERT INTO Ventas (idCliente, idUsuario, fechaVenta, total, numeroFactura) VALUES 
+    (1, 1, '2024-02-01',  85000.00, 1),
+    (2, 1, '2024-02-02', 140000.00, 2),
+    (3, 1, '2024-02-03',  90000.00, 3);
+
+
 INSERT INTO DetalleVentas (idVenta, idProducto, cantidad, precioUnitario) VALUES 
     (1, 1, 1,  85000.00),
     (2, 2, 1, 120000.00),
