@@ -15,5 +15,9 @@ namespace Dominio
         public int IdProducto { get; set; }
         public string ProductoNombre { get; set; }
         public Producto Producto { get; set; }
+        public decimal PrecioTotalDelProducto
+        {
+            get { return Cantidad * PrecioUnitario; }  // se recalcula con cantidad y precio unitario, no se guarda en BD
+        }
     }
 }

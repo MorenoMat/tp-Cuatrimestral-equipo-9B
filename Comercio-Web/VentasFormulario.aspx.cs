@@ -80,7 +80,7 @@ namespace Comercio_Web
             string nombreProducto = ddlProducto.SelectedItem.Text;
             int cantidad;
             decimal precio;
-
+           
             if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad <= 0)
             {
                 lblMensaje.Text = "La cantidad debe ser un número mayor a 0.";
@@ -107,7 +107,7 @@ namespace Comercio_Web
                     IdProducto = idProducto,
                     ProductoNombre = nombreProducto,
                     Cantidad = cantidad,
-                    PrecioUnitario = precio
+                    PrecioUnitario = precio,  
                 });
             }
 

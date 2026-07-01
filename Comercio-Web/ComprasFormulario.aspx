@@ -45,10 +45,16 @@
             <asp:BoundField HeaderText="Producto" DataField="ProductoNombre" />
             <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" />
             <asp:BoundField HeaderText="Precio Unit." DataField="PrecioUnitario" DataFormatString="{0:N2}" />
+            <asp:BoundField HeaderText="Precio Total por Producto" DataField="PrecioTotalDelProducto" DataFormatString="{0:N2}" />
             <asp:ButtonField HeaderText="" Text="Quitar" CommandName="Quitar" ButtonType="Button"
                 ControlStyle-CssClass="btn btn-sm btn-danger" />
         </Columns>
     </asp:GridView>
+
+      <div class="mt-2">
+      <strong>Total: $</strong>
+      <asp:Label ID="lblTotal" runat="server" Text="0,00" CssClass="fw-bold" />
+  </div>
 
     <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" />
     <br />

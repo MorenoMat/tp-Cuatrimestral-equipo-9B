@@ -52,7 +52,7 @@
             <asp:BoundField HeaderText="Producto" DataField="ProductoNombre" />
             <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" />
             <asp:BoundField HeaderText="Precio Unit." DataField="PrecioUnitario" DataFormatString="{0:N2}" />
-          
+            <asp:BoundField HeaderText="Precio Total por Producto" DataField="PrecioTotalDelProducto" DataFormatString="{0:N2}" />
             <asp:ButtonField HeaderText="" Text="Quitar" CommandName="Quitar" ButtonType="Button"
                 ControlStyle-CssClass="btn btn-sm btn-danger" />
         </Columns>

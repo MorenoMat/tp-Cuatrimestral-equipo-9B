@@ -17,6 +17,7 @@ namespace Comercio_Web
                 cargarDropDowns();
                 cargarPrecio();
             }
+          //  actualizarTotal();
             cargarGrillaLineas();
 
         }
@@ -67,6 +68,13 @@ namespace Comercio_Web
             dgvLineas.DataSource = ObtenerLineas();
             dgvLineas.DataBind();
         }
+        private void actualizarTotal()
+        {
+            decimal total = 0;
+            foreach (DetalleCompra d in ObtenerLineas())
+                total += d.Cantidad * d.PrecioUnitario;
+            lblTotal.Text = total.ToString("N2");
+        }
 
         protected void btnAgregarLinea_Click(object sender, EventArgs e)
         {
@@ -74,7 +82,7 @@ namespace Comercio_Web
             string nombreProducto = ddlProducto.SelectedItem.Text;
             int cantidad;
             decimal precio;
-
+            //decimal total;
             if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad <= 0)
             {
                 lblMensaje.Text = "La cantidad debe ser un número mayor a 0.";
@@ -107,6 +115,7 @@ namespace Comercio_Web
 
             Session[SESSION_LINEAS] = lineas;
             lblMensaje.Text = "";
+             actualizarTotal();
             cargarGrillaLineas();
         }
 
@@ -117,8 +126,10 @@ namespace Comercio_Web
                 int index = int.Parse(e.CommandArgument.ToString());
                 int idProducto = (int)dgvLineas.DataKeys[index].Value;
                 List<DetalleCompra> lineas = ObtenerLineas();
+
                 lineas.RemoveAll(l => l.IdProducto == idProducto);
                 Session[SESSION_LINEAS] = lineas;
+                actualizarTotal();
                 cargarGrillaLineas();
             }
         }

@@ -8,12 +8,17 @@ namespace Dominio
 {
     public class DetalleCompra
     {
-            public int Id { get; set; }
-            public int Cantidad { get; set; }
-            public decimal PrecioUnitario { get; set; }
-            public string ProductoNombre { get; set; }
-            public int IdProducto { get; set; }
-            public int IdCompra { get; set; }
-            public Producto Producto { get; set; }
+        public int Id { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PrecioUnitario { get; set; }
+        public string ProductoNombre { get; set; }
+        public int IdProducto { get; set; }
+        public int IdCompra { get; set; }
+        public Producto Producto { get; set; }
+        public decimal PrecioTotalDelProducto
+        {
+            get { return Cantidad * PrecioUnitario; }  // se recalcula con cantidad y precio unitario, no se guarda en BD
+        }
     }
+
 }
