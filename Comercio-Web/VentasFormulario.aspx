@@ -29,7 +29,7 @@
     <div class="row mb-3">
         <div class="col-md-4">
             <label class="form-label">Producto</label>
-            <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-select" />
+            <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-select" AutoPostBack ="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged" />
         </div>
         <div class="col-md-2">
             <label class="form-label">Cantidad</label>
@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-2">
             <label class="form-label">Precio unitario</label>
-            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text="0" />
+            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text="0" ReadOnly="true" BackColor="lightgray" />
         </div>
         <div class="col-md-2 align-self-end">
             <asp:Button ID="btnAgregarLinea" runat="server" Text="Agregar" CssClass="btn btn-secondary"
@@ -52,6 +52,7 @@
             <asp:BoundField HeaderText="Producto" DataField="ProductoNombre" />
             <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" />
             <asp:BoundField HeaderText="Precio Unit." DataField="PrecioUnitario" DataFormatString="{0:N2}" />
+          
             <asp:ButtonField HeaderText="" Text="Quitar" CommandName="Quitar" ButtonType="Button"
                 ControlStyle-CssClass="btn btn-sm btn-danger" />
         </Columns>

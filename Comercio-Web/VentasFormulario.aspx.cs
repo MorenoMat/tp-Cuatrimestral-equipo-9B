@@ -15,6 +15,7 @@ namespace Comercio_Web
             {
                 Session.Remove(SESSION_LINEAS);
                 cargarDropDowns();
+                cargarPrecio();
             }
             actualizarTotal();
             cargarGrillaLineas();
@@ -40,7 +41,18 @@ namespace Comercio_Web
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
         }
-
+        private void cargarPrecio()
+        {
+            int idProducto = int.Parse(ddlProducto.SelectedValue);
+            ProductoNegocio prodN = new ProductoNegocio();
+            Producto producto = prodN.BuscarPorId(idProducto);
+            txtPrecio.Text = producto.UltimoPrecio.ToString("F2"); //  f2 = lo paso a 2 decimales
+            Session["PrecioActual"] = producto.UltimoPrecio.ToString("F2");
+        }
+        protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarPrecio();
+        }
         private List<DetalleVenta> ObtenerLineas()
         {
             if (Session[SESSION_LINEAS] == null)
