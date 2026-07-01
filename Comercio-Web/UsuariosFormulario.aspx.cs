@@ -32,16 +32,23 @@ namespace Comercio_Web
                 Usuario usuario = new Usuario();
                 usuario.Nombre = txtNombre.Text;
                 usuario.UsuarioLogin = txtUsuarioLogin.Text;
-                usuario.Contraseña = txtContraseña.Text;
                 usuario.esAdmin = chkAdmin.Checked;
 
                 if (Request.QueryString["id"] != null)
                 {
                     usuario.IdUsuario = int.Parse(Request.QueryString["id"]);
+                    if (!string.IsNullOrEmpty(txtContraseña.Text))
+                        usuario.Contraseña = Seguridad.HashearContraseña(txtContraseña.Text);
+                    else
+                    {
+                        Usuario existente = negocio.BuscarPorId(usuario.IdUsuario);
+                        usuario.Contraseña = existente.Contraseña;
+                    }
                     negocio.Modificar(usuario);
                 }
                 else
                 {
+                    usuario.Contraseña = Seguridad.HashearContraseña(txtContraseña.Text);
                     negocio.Agregar(usuario);
                 }
                 Response.Redirect("UsuariosLista.aspx");

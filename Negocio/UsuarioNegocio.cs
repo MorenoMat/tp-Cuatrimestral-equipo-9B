@@ -110,5 +110,32 @@ namespace negocio
                 throw ex;
             }
         }
+
+        public bool Login(Usuario usuario)
+        {
+            try
+            {
+                string hashPass = Seguridad.HashearContraseña(usuario.Contraseña);
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdUsuario, Nombre, UsuarioLogin, EsAdmin FROM Usuarios WHERE UsuarioLogin = @login AND Contraseña = @pass");
+                datos.setearParametro("@login", usuario.UsuarioLogin);
+                datos.setearParametro("@pass", hashPass);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.Nombre = (string)datos.Lector["Nombre"];
+                    usuario.esAdmin = (bool)datos.Lector["EsAdmin"];
+                    datos.cerrarConexion();
+                    return true;
+                }
+                datos.cerrarConexion();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
