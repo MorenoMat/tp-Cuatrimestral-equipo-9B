@@ -1,7 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Dominio;
 using negocio;
+using System;
+using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace Comercio_Web
 {
@@ -16,9 +17,9 @@ namespace Comercio_Web
                 Session.Remove(SESSION_LINEAS);
                 cargarDropDowns();
                 cargarPrecio();
+            cargarGrillaLineas();
             }
             actualizarTotal();
-            cargarGrillaLineas();
         }
 
         private void cargarDropDowns()
@@ -119,16 +120,27 @@ namespace Comercio_Web
 
         protected void dgvLineas_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Quitar")
-            {
-                int index = int.Parse(e.CommandArgument.ToString());
-                int idProducto = (int)dgvLineas.DataKeys[index].Value;
-                List<DetalleVenta> lineas = ObtenerLineas();
-                lineas.RemoveAll(l => l.IdProducto == idProducto);
-                Session[SESSION_LINEAS] = lineas;
-                actualizarTotal();
-                cargarGrillaLineas();
-            }
+            int idProducto = int.Parse(e.CommandArgument.ToString());
+            List<DetalleVenta> lineas = ObtenerLineas(); // carga la lista de  detallesCompra
+            DetalleVenta linea = lineas.Find(l => l.IdProducto == idProducto); // carga en el detalleCompra la q coincida con el id
+                if (e.CommandName == "Quitar")
+                {
+                    lineas.RemoveAll(l => l.IdProducto == idProducto);
+                }
+                else if (e.CommandName == "Restar")
+                {
+                    if (linea.Cantidad > 1)
+                        linea.Cantidad--;
+                    else
+                        lineas.RemoveAll(l => l.IdProducto == idProducto);
+                }
+                else if (e.CommandName == "Sumar")
+                {
+                    linea.Cantidad++;
+                }
+            Session[SESSION_LINEAS] = lineas;
+            actualizarTotal();
+            cargarGrillaLineas();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
