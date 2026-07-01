@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-3">
             <label class="form-label">Usuario</label>
-            <asp:DropDownList ID="ddlUsuario" runat="server" CssClass="form-select" />
+            <asp:Label ID="lblUsuarioVenta" runat="server" CssClass="form-control bg-light" />
         </div>
         <div class="col-md-3">
             <label class="form-label">Estado</label>

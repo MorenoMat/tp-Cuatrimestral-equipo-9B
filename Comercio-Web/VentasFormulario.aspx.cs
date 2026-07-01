@@ -29,11 +29,8 @@ namespace Comercio_Web
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
 
-            UsuarioNegocio un = new UsuarioNegocio();
-            ddlUsuario.DataSource = un.Listar();
-            ddlUsuario.DataTextField = "Nombre";
-            ddlUsuario.DataValueField = "IdUsuario";
-            ddlUsuario.DataBind();
+            Usuario usuarioLogueado = (Usuario)Session["usuario"];
+            lblUsuarioVenta.Text = usuarioLogueado.Nombre;
 
             ProductoNegocio pn = new ProductoNegocio();
             ddlProducto.DataSource = pn.Listar();
@@ -155,7 +152,7 @@ namespace Comercio_Web
             venta.NumeroFactura = nroFactura; 
             venta.Total = total;
             venta.Cliente = new Cliente { IdCliente = int.Parse(ddlCliente.SelectedValue) };
-            venta.Usuario = new Usuario { IdUsuario = int.Parse(ddlUsuario.SelectedValue) };
+            venta.Usuario = (Usuario)Session["usuario"];
             venta.detalleVentas = lineas;
 
             try
