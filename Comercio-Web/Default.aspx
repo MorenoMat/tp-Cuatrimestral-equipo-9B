@@ -10,7 +10,7 @@
             <%-- Primer tercio: Alertas de stock --%>
             <div class="col-md-4">
                 <div class="card h-100">
-                    <div class="card-header bg-warning text-dark">
+                    <div class="card-header card-header-stock">
                         <h5 class="mb-0">&#9888; Alertas de Stock</h5>
                     </div>
                     <div class="card-body">

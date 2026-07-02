@@ -38,7 +38,7 @@ namespace Comercio_Web
                     {
                         Literal alerta = new Literal();
                         alerta.Text = string.Format(
-                            "<div class=\"alert alert-danger mb-2\"><strong>{0}</strong> tiene poco stock ({1} unidades)</div>",
+                            "<div class=\"alert-stock\"><strong>{0}</strong> tiene poco stock ({1} unidades)</div>",
                             System.Web.HttpUtility.HtmlEncode(p.Nombre),
                             p.StockActual);
                         pnlAlertas.Controls.Add(alerta);
