@@ -12,5 +12,6 @@ namespace Dominio
         public string Dni { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
+        public bool Activo { get; set; } // para poder desactivar un cliente y no eliminarlo de la base de datos
     }
 }

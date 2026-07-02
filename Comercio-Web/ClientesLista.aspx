@@ -12,7 +12,13 @@
             <asp:BoundField HeaderText="DNI" DataField="Dni" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Email" DataField="Email" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Clientes" />
+            <asp:TemplateField HeaderText="Cliente Activo">
+            <ItemTemplate>
+             <asp:CheckBox ID="chkEstadoCliente" runat="server"  Checked='<%# Eval("Activo") %>'  AutoPostBack="true"  OnCheckedChanged="chkAccion_CheckedChanged"
+                 onclick="return confirm('¿Está seguro de cambiar el estado del cliente?');" />
+            </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <a href="ClientesFormulario.aspx" class="btn btn-primary">Agregar</a>

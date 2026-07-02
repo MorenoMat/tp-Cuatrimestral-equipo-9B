@@ -34,6 +34,7 @@ namespace Comercio_Web
                 cliente.Nombre = txtNombre.Text;
                 cliente.Email = txtEmail.Text;
 
+
                 if (Request.QueryString["id"] != null)
                 {
                     cliente.IdCliente = int.Parse(Request.QueryString["id"]);

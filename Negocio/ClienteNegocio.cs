@@ -12,7 +12,7 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("SELECT IdCliente, Dni, Nombre, Email FROM Clientes");
+                datos.setearConsulta("SELECT IdCliente, Dni, Nombre, Email, Activo FROM Clientes");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -21,6 +21,7 @@ namespace negocio
                     c.Dni = (string)datos.Lector["Dni"];
                     c.Nombre = (string)datos.Lector["Nombre"];
                     c.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
+                    c.Activo = Convert.ToBoolean(datos.Lector["Activo"]);
                     lista.Add(c);
                 }
                 datos.cerrarConexion();
@@ -57,6 +58,47 @@ namespace negocio
                 throw ex;
             }
         }
+        public Cliente cambiarEstadoCliente(int idCliente, bool Activo)
+        {
+            Cliente cliente = null;
+           
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Clientes SET Activo = @activo WHERE IdCliente = @id");
+                datos.setearParametro("@activo", Activo);
+                datos.setearParametro("@id", idCliente);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return cliente;
+        }
+
+        public bool leerEstadoCliente(int idCliente)
+        {
+            bool estado = false;
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT Activo FROM Clientes WHERE IdCliente = @id");
+                datos.setearParametro("@id", idCliente);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    estado = (bool)datos.Lector["Activo"];
+                }
+                datos.cerrarConexion();
+                return estado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public void Agregar(Cliente cliente)
         {

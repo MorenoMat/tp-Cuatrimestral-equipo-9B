@@ -1,5 +1,6 @@
-using System;
 using negocio;
+using System;
+using System.Web.UI.WebControls;
 
 namespace Comercio_Web
 {
@@ -24,6 +25,16 @@ namespace Comercio_Web
         {
             string id = dgvClientes.SelectedDataKey.Value.ToString();
             Response.Redirect("ClientesFormulario.aspx?id=" + id);
+        }
+        protected void chkAccion_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkEstadoCliente = (CheckBox)sender;
+            GridViewRow fila = (GridViewRow)chkEstadoCliente.NamingContainer;
+            ClienteNegocio negocio = new ClienteNegocio();
+            int idCliente = Convert.ToInt32(dgvClientes.DataKeys[fila.RowIndex].Value);
+            bool activo = chkEstadoCliente.Checked;
+            negocio.cambiarEstadoCliente(idCliente, activo);
+            cargarGrilla();
         }
     }
 }
