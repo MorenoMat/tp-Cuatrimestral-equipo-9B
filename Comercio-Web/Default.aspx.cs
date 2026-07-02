@@ -18,9 +18,9 @@ namespace Comercio_Web
                 return;
             }
 
+            CargarAlertasStock();
             if (!IsPostBack)
             {
-                CargarAlertasStock();
                 CargarDropDowns();
                 CargarPrecio();
             }

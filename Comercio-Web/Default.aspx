@@ -24,7 +24,6 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Nueva Venta</h5>
-                    <span class="badge" style="background-color: var(--primary-btn);">BORRADOR</span>
                 </div>
                 <div class="card-body">
 
