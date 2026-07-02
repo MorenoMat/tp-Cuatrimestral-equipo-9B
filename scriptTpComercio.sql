@@ -17,11 +17,13 @@ DROP TABLE IF EXISTS Categorias;
 CREATE TABLE Marcas (
     idMarca INT PRIMARY KEY IDENTITY(1,1),
     descripcion VARCHAR(30) NOT NULL
+    activo BIT NOT NULL DEFAULT 1,
 );
 
 CREATE TABLE Categorias (
     idCategoria INT PRIMARY KEY IDENTITY(1,1),
     descripcion VARCHAR(30) NOT NULL
+    
 );
 
 CREATE TABLE Productos (
@@ -34,6 +36,7 @@ CREATE TABLE Productos (
     descripcion VARCHAR(50) NULL,
     idMarca INT NOT NULL,
     idCategoria INT NOT NULL,
+    activo BIT NOT NULL DEFAULT 1,
 
     CONSTRAINT FK_Productos_Marcas FOREIGN KEY (idMarca) REFERENCES Marcas(idMarca),
     CONSTRAINT FK_Productos_Categorias FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
@@ -43,7 +46,8 @@ CREATE TABLE Clientes (
     idCliente INT PRIMARY KEY IDENTITY(1,1),
     dni VARCHAR(8) NOT NULL UNIQUE,
     nombre VARCHAR(30) NOT NULL,
-    email VARCHAR(50)
+    email VARCHAR(50),
+    activo BIT not null default 1
 );
 
 CREATE TABLE Usuarios (
@@ -59,7 +63,9 @@ CREATE TABLE Proveedores (
     cuit VARCHAR(11) NOT NULL UNIQUE,
     nombre VARCHAR(40) NOT NULL,
     Telefono VARCHAR(25),
-    email VARCHAR(50)
+    email VARCHAR(50),
+    Direccion null,
+    activo BIT not null default 1
 );
 
 CREATE TABLE Producto_Proveedor (
@@ -76,6 +82,7 @@ CREATE TABLE Compras (
     idUsuario INT NOT NULL,
     fechaCompra DATETIME NOT NULL DEFAULT GETDATE(),
     total DECIMAL(10,2) NOT NULL DEFAULT 0,  -- DEFAULT 0: el negocio no inserta este campo
+    estado VARCHAR(15) NOT NULL   check (estado in ('Pendiente','Finalizada')) DEFAULT 'Pendiente',
     CONSTRAINT FK_Compras_Proveedores FOREIGN KEY (idProveedor) REFERENCES Proveedores(idProveedor),
     CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario)
 );
