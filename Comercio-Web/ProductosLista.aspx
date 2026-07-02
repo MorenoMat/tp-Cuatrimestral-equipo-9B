@@ -15,7 +15,7 @@
             <asp:BoundField HeaderText="Stock Actual" DataField="StockActual" />
             <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMinimo" />
             <asp:BoundField HeaderText="% Ganancia" DataField="PorcentajeGanancia" DataFormatString="{0:N2}%" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Producto" />
         </Columns>
     </asp:GridView>
     <a href="ProductosFormulario.aspx" class="btn btn-primary">Agregar</a>

@@ -79,8 +79,33 @@
                             <asp:BoundField HeaderText="Cantidad"       DataField="Cantidad" />
                             <asp:BoundField HeaderText="Precio Unitario" DataField="PrecioUnitario"        DataFormatString="{0:N2}" />
                             <asp:BoundField HeaderText="Subtotal"       DataField="PrecioTotalDelProducto" DataFormatString="{0:N2}" />
-                            <asp:ButtonField HeaderText="Acciones" Text="Quitar" CommandName="Quitar"
-                                ButtonType="Button" ControlStyle-CssClass="btn btn-sm btn-outline-danger" />
+<asp:TemplateField HeaderText="Herramientas">
+    <ItemTemplate>
+        <asp:Button
+            ID="btnQuitar"
+            runat="server"
+            Text="Quitar"
+            CommandName="Quitar"
+            CommandArgument='<%# Eval("IdProducto") %>'
+            CssClass="btn btn-sm btn-outline-danger" />
+
+        <asp:Button
+            ID="btnRestar"
+            runat="server"
+            Text="-1"
+            CommandName="Restar"
+            CommandArgument='<%# Eval("IdProducto") %>'
+            CssClass="btn btn-sm btn-warning me-1" />
+
+        <asp:Button
+            ID="btnSumar"
+            runat="server"
+            Text="+1"
+            CommandName="Sumar"
+            CommandArgument='<%# Eval("IdProducto") %>'
+            CssClass="btn btn-sm btn-warning" />
+    </ItemTemplate>
+</asp:TemplateField>
                         </Columns>
                     </asp:GridView>
 

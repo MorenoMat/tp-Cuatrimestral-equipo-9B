@@ -23,9 +23,9 @@ namespace Comercio_Web
             {
                 CargarDropDowns();
                 CargarPrecio();
+            CargarGrillaLineas();
             }
             ActualizarTotal();
-            CargarGrillaLineas();
         }
 
         // --- Alertas de stock -----------------------------------------------
@@ -150,6 +150,7 @@ namespace Comercio_Web
             }
             else
             {
+               
                 lineas.Add(new DetalleVenta
                 {
                     IdProducto = idProducto,
@@ -167,20 +168,35 @@ namespace Comercio_Web
 
         protected void dgvLineas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+  
+            int idProducto = int.Parse(e.CommandArgument.ToString());
+            List<DetalleVenta> lineas = ObtenerLineas(); // carga la lista de  detallesCompra
+            DetalleVenta linea = lineas.Find(l => l.IdProducto == idProducto); // carga en el detalleCompra la q coincida con el id
             if (e.CommandName == "Quitar")
             {
-                int index = int.Parse(e.CommandArgument.ToString());
-                int idProducto = (int)dgvLineas.DataKeys[index].Value;
-                List<DetalleVenta> lineas = ObtenerLineas();
                 lineas.RemoveAll(l => l.IdProducto == idProducto);
-                Session[SESSION_LINEAS] = lineas;
-                ActualizarTotal();
-                CargarGrillaLineas();
             }
+            else if (e.CommandName == "Restar")
+            {
+                if (linea.Cantidad > 1)
+                    linea.Cantidad--;
+                else
+                    lineas.RemoveAll(l => l.IdProducto == idProducto);
+            }
+            else if (e.CommandName == "Sumar")
+            {
+                linea.Cantidad++;
+            }
+            Session[SESSION_LINEAS] = lineas;
+            ActualizarTotal();
+            CargarGrillaLineas();
+        
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+
+
             List<DetalleVenta> lineas = ObtenerLineas();
             if (lineas.Count == 0)
             {
@@ -201,10 +217,20 @@ namespace Comercio_Web
                 return;
             }
             decimal total = 0;
+            ProductoNegocio prodN = new ProductoNegocio();
             foreach (DetalleVenta d in lineas)
+            {
                 total += d.Cantidad * d.PrecioUnitario;
+                Producto producto = prodN.BuscarPorId(d.IdProducto);
+                if (d.Cantidad > producto.StockActual)
+                {
+                    lblMensaje.Text = $"No hay stock suficiente para {producto.Nombre}. " +
+                                      $"Stock disponible: {producto.StockActual}.";
+                    return;
+                }
+            }
 
-            Venta venta = new Venta();
+                Venta venta = new Venta();
             venta.NumeroFactura = nroFactura;
             venta.Total = total;
             venta.Cliente = new Cliente { IdCliente = int.Parse(ddlCliente.SelectedValue) };

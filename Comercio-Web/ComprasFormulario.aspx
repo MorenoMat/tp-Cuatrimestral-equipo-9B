@@ -36,6 +36,10 @@
             <asp:Button ID="btnAgregarLinea" runat="server" Text="Agregar" CssClass="btn btn-secondary"
                 OnClick="btnAgregarLinea_Click" />
         </div>
+                            <div>
+                        <span class="text-muted me-1">Stock:</span>
+                        <span class="fs-5 fw-bold"> <asp:Label ID="lblStock" runat="server" Text="0,00" /></span>
+                    </div>
     </div>
 
     <asp:GridView ID="dgvLineas" runat="server" DataKeyNames="IdProducto"
