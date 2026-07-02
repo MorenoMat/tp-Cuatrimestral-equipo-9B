@@ -15,5 +15,4 @@
             <asp:BoundField HeaderText="Total" DataField="Total" DataFormatString="{0:N2}" />
         </Columns>
     </asp:GridView>
-    <a href="VentasFormulario.aspx" class="btn btn-primary">Nueva Venta</a>
 </asp:Content>

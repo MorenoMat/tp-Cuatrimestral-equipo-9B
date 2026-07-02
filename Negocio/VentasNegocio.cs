@@ -48,8 +48,8 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, , Total, IdCliente, IdUsuario)
-                                       VALUES (@nroFactura, @estado, @total, @idCliente, @idUsuario);
+                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, Total, IdCliente, IdUsuario)
+                                       VALUES (@nroFactura, @total, @idCliente, @idUsuario);
                                        SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@nroFactura", venta.NumeroFactura);
                 datos.setearParametro("@total", venta.Total);
