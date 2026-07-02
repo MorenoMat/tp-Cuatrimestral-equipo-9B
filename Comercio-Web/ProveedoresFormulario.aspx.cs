@@ -10,6 +10,12 @@ namespace Comercio_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Seguridad.ValidarAccesoAdmin(Session["usuario"]))
+            {
+                Response.Redirect("Default.aspx", false);
+                return;
+            }
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["id"] != null)

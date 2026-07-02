@@ -20,6 +20,14 @@ namespace Comercio_Web
                 {
                     Usuario usuario = (Usuario)Session["usuario"];
                     lblUsuario.Text = usuario.Nombre;
+
+                    bool esAdministrador = Seguridad.esAdmin(Session["usuario"]);
+                    navMarcas.Visible = esAdministrador;
+                    navCategorias.Visible = esAdministrador;
+                    navProveedores.Visible = esAdministrador;
+                    navUsuarios.Visible = esAdministrador;
+                    navProductos.Visible = esAdministrador;
+                    navCompras.Visible = esAdministrador;
                 }
             }
         }

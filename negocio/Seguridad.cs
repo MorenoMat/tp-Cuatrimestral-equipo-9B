@@ -27,5 +27,14 @@ namespace negocio
             Usuario usuario = user != null ? (Usuario)user : null;
             return usuario != null && usuario.esAdmin;
         }
+
+        public static bool ValidarAccesoAdmin(object user)
+        {
+            if (!esAdmin(user))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
