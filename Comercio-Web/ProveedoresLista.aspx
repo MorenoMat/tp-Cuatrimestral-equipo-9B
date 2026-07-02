@@ -14,6 +14,11 @@
             <asp:BoundField HeaderText="Email" DataField="Email" />
             <asp:BoundField HeaderText="CUIT o CUIL" DataField="Cuit" />
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Proveedores" />
+             <asp:TemplateField HeaderText="Proveedor Activo">
+            <ItemTemplate>
+           <asp:CheckBox ID="chkEstadoProveedor" runat="server"  Checked='<%# Eval("Activo") %>'  AutoPostBack="true"  OnCheckedChanged="chkAccion_CheckedChanged"/>
+            </ItemTemplate>
+             </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <a href="ProveedoresFormulario.aspx" class="btn btn-primary">Agregar</a>

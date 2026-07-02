@@ -31,7 +31,7 @@ namespace Comercio_Web
         private void cargarDropDowns()
         {
             ProveedorNegocio provNeg = new ProveedorNegocio();
-            ddlProveedor.DataSource = provNeg.Listar();
+            ddlProveedor.DataSource = provNeg.Listar().FindAll(p => p.Activo);
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();

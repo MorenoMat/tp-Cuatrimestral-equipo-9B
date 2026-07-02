@@ -1,5 +1,6 @@
-using System;
 using negocio;
+using System;
+using System.Web.UI.WebControls;
 
 namespace Comercio_Web
 {
@@ -31,5 +32,15 @@ namespace Comercio_Web
             string id = dgvProveedores.SelectedDataKey.Value.ToString();
             Response.Redirect("ProveedoresFormulario.aspx?id=" + id);
         }
+        protected void chkAccion_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkEstadoProveedor = (CheckBox)sender;
+            GridViewRow fila = (GridViewRow)chkEstadoProveedor.NamingContainer;
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            int idProveedor = Convert.ToInt32(dgvProveedores.DataKeys[fila.RowIndex].Value);
+            bool activo = chkEstadoProveedor.Checked;
+            negocio.cambiarEstadoProveedor(idProveedor, activo);
+            cargarGrilla();
+        }   
     }
 }

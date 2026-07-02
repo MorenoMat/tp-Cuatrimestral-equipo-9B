@@ -15,8 +15,7 @@
             <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Clientes" />
             <asp:TemplateField HeaderText="Cliente Activo">
             <ItemTemplate>
-             <asp:CheckBox ID="chkEstadoCliente" runat="server"  Checked='<%# Eval("Activo") %>'  AutoPostBack="true"  OnCheckedChanged="chkAccion_CheckedChanged"
-                 onclick="return confirm('¿Está seguro de cambiar el estado del cliente?');" />
+             <asp:CheckBox ID="chkEstadoCliente" runat="server"  Checked='<%# Eval("Activo") %>'  AutoPostBack="true"  OnCheckedChanged="chkAccion_CheckedChanged" />
             </ItemTemplate>
             </asp:TemplateField>
         </Columns>

@@ -76,7 +76,7 @@ namespace negocio
             }
             return cliente;
         }
-
+        /*
         public bool leerEstadoCliente(int idCliente)
         {
             bool estado = false;
@@ -97,7 +97,7 @@ namespace negocio
             {
                 throw ex;
             }
-        }
+        } */
 
 
         public void Agregar(Cliente cliente)

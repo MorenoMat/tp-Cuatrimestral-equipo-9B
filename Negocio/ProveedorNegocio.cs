@@ -12,7 +12,7 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("SELECT IdProveedor, Nombre, Telefono, Email, Cuit FROM Proveedores");
+                datos.setearConsulta("SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -22,6 +22,7 @@ namespace negocio
                     p.Telefono = datos.Lector["Telefono"] is DBNull ? "" : (string)datos.Lector["Telefono"];
                     p.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
                     p.Cuit = (string)datos.Lector["Cuit"];
+                    p.Activo = Convert.ToBoolean(datos.Lector["Activo"]);
                     lista.Add(p);
                 }
                 datos.cerrarConexion();
@@ -58,6 +59,22 @@ namespace negocio
             {
                 throw ex;
             }
+        }
+       public void  cambiarEstadoProveedor(int idProveedor, bool Activo)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Proveedores SET Activo = @activo WHERE IdProveedor = @id");
+                datos.setearParametro("@activo", Activo);
+                datos.setearParametro("@id", idProveedor);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public void Agregar(Proveedor proveedor)
