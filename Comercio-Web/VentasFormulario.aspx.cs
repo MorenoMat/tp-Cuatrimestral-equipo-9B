@@ -156,6 +156,7 @@ namespace Comercio_Web
                 return;
             }
 
+
             decimal total = 0;
             foreach (DetalleVenta d in lineas)
                 total += d.Cantidad * d.PrecioUnitario;
@@ -173,6 +174,11 @@ namespace Comercio_Web
                 vn.Registrar(venta);
                 Session.Remove(SESSION_LINEAS);
                 Response.Redirect("VentasLista.aspx");
+                if (vn.nroFacturaExiste(nroFactura))
+                {
+                    lblMensaje.Text = "El número de factura ya existe.";
+                    return;
+                }
             }
             catch (Exception ex)
             {

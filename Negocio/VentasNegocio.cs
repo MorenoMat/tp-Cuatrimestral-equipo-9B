@@ -48,7 +48,7 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura, , Total, IdCliente, IdUsuario)
+                datos.setearConsulta(@"INSERT INTO Ventas (NumeroFactura,  Total, IdCliente, IdUsuario)
                                        VALUES (@nroFactura, @total, @idCliente, @idUsuario);
                                        SELECT SCOPE_IDENTITY();"); //@estado,
                 datos.setearParametro("@nroFactura", venta.NumeroFactura);
@@ -82,5 +82,27 @@ namespace negocio
                 throw ex;
             }
         }
-    }
+        public bool nroFacturaExiste(int nroFactura) {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(
+                    "SELECT COUNT(*) FROM Ventas WHERE numeroFactura = @nroFactura");
+
+                datos.setearParametro("@nroFactura", nroFactura);
+
+                int cantidad = Convert.ToInt32(datos.ejecutarAccionScalar());
+
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+    } 
 }
