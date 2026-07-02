@@ -150,6 +150,11 @@ h5 { font-size: 20px; font-weight: 600; line-height: 1.4; }
     outline: none;
 }
 
+.form-control[readonly] {
+    background-color: var(--surface-container-low);
+    cursor: default;
+}
+
 /* --- Tablas -------------------------------------------------- */
 .table thead th {
     background-color: #f1f3f5;

@@ -80,7 +80,6 @@
     <Content Include="ProductosLista.aspx" />
     <Content Include="ComprasFormulario.aspx" />
     <Content Include="ComprasLista.aspx" />
-    <Content Include="VentasFormulario.aspx" />
     <Content Include="VentasLista.aspx" />
     <Content Include="ProveedoresFormulario.aspx" />
     <Content Include="ProveedoresLista.aspx" />
@@ -179,13 +178,6 @@
     </Compile>
     <Compile Include="ComprasLista.aspx.designer.cs">
       <DependentUpon>ComprasLista.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="VentasFormulario.aspx.cs">
-      <DependentUpon>VentasFormulario.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="VentasFormulario.aspx.designer.cs">
-      <DependentUpon>VentasFormulario.aspx</DependentUpon>
     </Compile>
     <Compile Include="VentasLista.aspx.cs">
       <DependentUpon>VentasLista.aspx</DependentUpon>
