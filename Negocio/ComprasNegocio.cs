@@ -44,12 +44,12 @@ namespace negocio
 
         public void Registrar(Compra compra)
         {
-            try
+            try 
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"INSERT INTO Compras (FechaCompra, IdProveedor, IdUsuario)
-                                       VALUES (@fecha, @estado, @idProveedor, @idUsuario);
-                                       SELECT SCOPE_IDENTITY();");
+                datos.setearConsulta(@"INSERT INTO Compras (FechaCompra, IdProveedor, IdUsuario) 
+                                       VALUES (@fecha,  @idProveedor, @idUsuario); 
+                                       SELECT SCOPE_IDENTITY();"); //@estado,
                 datos.setearParametro("@fecha", compra.FechaCompra);
                 datos.setearParametro("@idProveedor", compra.Proveedor.IdProveedor);
                 datos.setearParametro("@idUsuario", compra.Usuario.IdUsuario);
@@ -59,7 +59,7 @@ namespace negocio
                 {
                     AccesoDatos datosDetalle = new AccesoDatos();
                     datosDetalle.setearConsulta(@"INSERT INTO DetalleCompras (Cantidad, PrecioUnitario, IdCompra, IdProducto)
-                                                  VALUES (@cantidad, @precio, @idCompra, @idProducto)");
+                                                  VALUES (@cantidad, @precio, @idCompra, @idProducto)"); 
                     datosDetalle.setearParametro("@cantidad", detalle.Cantidad);
                     datosDetalle.setearParametro("@precio", detalle.PrecioUnitario);
                     datosDetalle.setearParametro("@idCompra", idCompra);
