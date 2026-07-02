@@ -16,9 +16,9 @@ namespace Comercio_Web
                 Session.Remove(SESSION_LINEAS);
                 cargarDropDowns();
                 cargarPrecio();
+            cargarGrillaLineas();
             }
           //  actualizarTotal();
-            cargarGrillaLineas();
 
         }
 
@@ -121,17 +121,27 @@ namespace Comercio_Web
 
         protected void dgvLineas_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
+            int idProducto = int.Parse(e.CommandArgument.ToString());
+            List<DetalleCompra> lineas = ObtenerLineas(); // carga la lista de  detallesCompra
+            DetalleCompra linea = lineas.Find(l => l.IdProducto == idProducto); // carga en el detalleCompra la q coincida con el id
             if (e.CommandName == "Quitar")
-            {
-                int index = int.Parse(e.CommandArgument.ToString());
-                int idProducto = (int)dgvLineas.DataKeys[index].Value;
-                List<DetalleCompra> lineas = ObtenerLineas();
-
+            { 
                 lineas.RemoveAll(l => l.IdProducto == idProducto);
-                Session[SESSION_LINEAS] = lineas;
-                actualizarTotal();
-                cargarGrillaLineas();
             }
+            else if(e.CommandName == "Restar")
+               { if(linea.Cantidad > 1) 
+                    linea.Cantidad --;
+                    else 
+                     lineas.RemoveAll(l => l.IdProducto == idProducto);
+            }
+            else if(e.CommandName == "Sumar")
+            {
+                linea.Cantidad++;
+            }   
+
+            Session[SESSION_LINEAS] = lineas;
+            actualizarTotal();
+            cargarGrillaLineas();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
