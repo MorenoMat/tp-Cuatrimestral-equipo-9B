@@ -15,7 +15,7 @@ namespace negocio
                 datos.setearConsulta("SELECT IdCliente, Dni, Nombre, Email, Activo FROM Clientes");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
-                {
+                {  
                     Cliente c = new Cliente();
                     c.IdCliente = (int)datos.Lector["IdCliente"];
                     c.Dni = (string)datos.Lector["Dni"];

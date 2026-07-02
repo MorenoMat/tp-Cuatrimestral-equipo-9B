@@ -72,7 +72,7 @@ namespace Comercio_Web
         private void CargarDropDowns()
         {
             ClienteNegocio cn = new ClienteNegocio();
-            ddlCliente.DataSource = cn.Listar();
+            ddlCliente.DataSource = cn.Listar().FindAll(c => c.Activo);
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
