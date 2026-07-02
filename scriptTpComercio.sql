@@ -64,7 +64,7 @@ CREATE TABLE Proveedores (
     nombre VARCHAR(40) NOT NULL,
     Telefono VARCHAR(25),
     email VARCHAR(50),
-    Direccion null,
+    Direccion VARCHAR(30) null,
     activo BIT not null default 1
 );
 
