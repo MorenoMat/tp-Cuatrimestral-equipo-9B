@@ -93,8 +93,9 @@ namespace negocio
 
                 datos.setearParametro("@nroFactura", nroFactura);
 
-                int cantidad = Convert.ToInt32(datos.ejecutarAccionScalar());
 
+                int cantidad = Convert.ToInt32(datos.ejecutarAccionScalar());
+               
                 return cantidad > 0;
             }
             catch (Exception ex)

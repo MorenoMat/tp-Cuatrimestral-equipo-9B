@@ -194,7 +194,12 @@ namespace Comercio_Web
                 lblMensaje.Text = "Ingrese un número de factura válido.";
                 return;
             }
-
+            VentasNegocio vn = new VentasNegocio();
+            if (vn.nroFacturaExiste(nroFactura))
+            {
+                lblMensaje.Text = "El número de factura ya existe.";
+                return;
+            }
             decimal total = 0;
             foreach (DetalleVenta d in lineas)
                 total += d.Cantidad * d.PrecioUnitario;
@@ -208,7 +213,7 @@ namespace Comercio_Web
 
             try
             {
-                VentasNegocio vn = new VentasNegocio();
+               // VentasNegocio vn = new VentasNegocio();
                 vn.Registrar(venta);
                 Session.Remove(SESSION_LINEAS);
                 Response.Redirect("Default.aspx");
