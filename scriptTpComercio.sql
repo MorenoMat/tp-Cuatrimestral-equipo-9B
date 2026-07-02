@@ -16,8 +16,8 @@ DROP TABLE IF EXISTS Categorias;
 
 CREATE TABLE Marcas (
     idMarca INT PRIMARY KEY IDENTITY(1,1),
-    descripcion VARCHAR(30) NOT NULL
-    activo BIT NOT NULL DEFAULT 1,
+    descripcion VARCHAR(30) NOT NULL,
+    activo BIT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE Categorias (
