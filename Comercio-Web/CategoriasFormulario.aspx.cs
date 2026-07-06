@@ -1,4 +1,5 @@
 using System;
+using System.Web.UI;
 using Dominio;
 using negocio;
 
@@ -32,6 +33,8 @@ namespace Comercio_Web
         {
             try
             {
+                Page.Validate();
+                if (!Page.IsValid) return;
                 CategoriaNegocio negocio = new CategoriaNegocio();
                 Categoria categoria = new Categoria();
                 categoria.Descripcion = txtDescripcion.Text;

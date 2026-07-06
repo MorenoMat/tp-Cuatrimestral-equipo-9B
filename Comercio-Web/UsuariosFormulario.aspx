@@ -12,10 +12,12 @@
     <div class="mb-3">
         <asp:Label Text="Usuario" runat="server" CssClass="form-label" />
         <asp:TextBox ID="txtUsuarioLogin" runat="server" CssClass="form-control" />
+        <asp:RequiredFieldValidator ErrorMessage="Rellena el Usuario" ControlToValidate="txtUsuarioLogin" runat="server" />
     </div>
     <div class="mb-3">
         <asp:Label Text="Contraseña" runat="server" CssClass="form-label" />
         <asp:TextBox ID="txtContraseña" runat="server" CssClass="form-control" TextMode="Password" />
+        <asp:RequiredFieldValidator ErrorMessage="Rellena la Contraseña" ControlToValidate="txtContraseña" runat="server" />
     </div>
     <div class="mb-3 form-check">
         <asp:CheckBox ID="chkAdmin" runat="server" CssClass="form-check-input" />

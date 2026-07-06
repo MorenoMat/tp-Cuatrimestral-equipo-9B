@@ -4,10 +4,14 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+        .validation{ color: red; font-size: 12px }
+</style>
     <h1><asp:Label ID="lblTitulo" runat="server" Text="Nueva Categoría" /></h1>
     <div class="mb-3">
         <asp:Label Text="Descripción" runat="server" CssClass="form-label" />
         <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" />
+        <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtDescripcion" runat="server"  TextStyle=""/> 
     </div>
     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger ms-2" OnClick="btnEliminar_Click" Visible="false" />
