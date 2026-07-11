@@ -105,7 +105,7 @@ namespace Comercio_Web
             }
             catch (Exception ex)
             {
-                throw ex;
+                Response.Write("No se ha podido guardar el usuario por " + ex.Message);
             }
         }
 
