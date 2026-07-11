@@ -8,10 +8,15 @@ namespace negocio
     {
         public List<Venta> Listar()
         {
-            return Buscar(null);
+            return Buscar(null, null);
         }
 
         public List<Venta> Buscar(string busqueda)
+        {
+            return Buscar(busqueda, null);
+        }
+
+        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura)
         {
             List<Venta> lista = new List<Venta>();
             try
@@ -25,17 +30,27 @@ namespace negocio
                                        INNER JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
                                        WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
+                if (!string.IsNullOrWhiteSpace(busquedaVenta))
                 {
-                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busqueda";
+                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busquedaVenta";
+                }
+
+                if (!string.IsNullOrWhiteSpace(busquedaFactura))
+                {
+                    consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
                 }
 
                 consulta += " ORDER BY v.IdVenta DESC";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
+                if (!string.IsNullOrWhiteSpace(busquedaVenta))
                 {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                    datos.setearParametro("@busquedaVenta", "%" + busquedaVenta + "%");
+                }
+
+                if (!string.IsNullOrWhiteSpace(busquedaFactura))
+                {
+                    datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
                 }
 
                 datos.ejecutarLectura();

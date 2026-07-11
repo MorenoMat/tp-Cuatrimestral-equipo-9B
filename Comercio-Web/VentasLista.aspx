@@ -11,8 +11,11 @@
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por número de venta" />
+                    </div>
+                    <div class="col-md-4">
+                        <asp:TextBox ID="txtBuscarFactura" runat="server" CssClass="form-control" placeholder="Buscar por número de factura" />
                     </div>
                     <div class="col-md-4 d-flex gap-2">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />

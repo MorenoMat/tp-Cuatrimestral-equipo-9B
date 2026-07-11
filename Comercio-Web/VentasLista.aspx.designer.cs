@@ -9,6 +9,7 @@ namespace Comercio_Web
     public partial class VentasLista
     {
         protected global::System.Web.UI.WebControls.TextBox txtBuscar;
+        protected global::System.Web.UI.WebControls.TextBox txtBuscarFactura;
         protected global::System.Web.UI.WebControls.Button btnBuscar;
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
         protected global::System.Web.UI.WebControls.GridView dgvVentas;
