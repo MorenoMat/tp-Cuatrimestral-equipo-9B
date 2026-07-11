@@ -10,10 +10,10 @@ namespace Dominio
     {
         public int IdVenta{ get; set; }
         public int NumeroFactura { get; set; }
+        public DateTime FechaVenta { get; set; }
         public Cliente Cliente { get; set; }
         public Usuario Usuario { get; set; } // tener el usuario que hizo la venta
         public decimal Total { get; set; }
-       
 
         public List<DetalleVenta> detalleVentas { get; set; }
     }

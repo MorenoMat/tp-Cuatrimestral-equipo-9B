@@ -8,21 +8,26 @@ namespace negocio
     {
         public List<Venta> Listar()
         {
-            return Buscar(null, null);
+            return Buscar(null, null, null, null);
         }
 
         public List<Venta> Buscar(string busqueda)
         {
-            return Buscar(busqueda, null);
+            return Buscar(busqueda, null, null, null);
         }
 
         public List<Venta> Buscar(string busquedaVenta, string busquedaFactura)
+        {
+            return Buscar(busquedaVenta, busquedaFactura, null, null);
+        }
+
+        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             List<Venta> lista = new List<Venta>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                string consulta = @"SELECT v.IdVenta, v.NumeroFactura, v.Total,
+                string consulta = @"SELECT v.IdVenta, v.NumeroFactura, v.FechaVenta, v.Total,
                                               c.IdCliente, c.Nombre AS ClienteNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
                                        FROM Ventas v
@@ -40,6 +45,16 @@ namespace negocio
                     consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
                 }
 
+                if (fechaDesde.HasValue)
+                {
+                    consulta += " AND v.fechaVenta >= @fechaDesde";
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    consulta += " AND v.fechaVenta < @fechaHasta";
+                }
+
                 consulta += " ORDER BY v.IdVenta DESC";
 
                 datos.setearConsulta(consulta);
@@ -53,12 +68,23 @@ namespace negocio
                     datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
                 }
 
+                if (fechaDesde.HasValue)
+                {
+                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
+                }
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Venta v = new Venta();
                     v.IdVenta = (int)datos.Lector["IdVenta"];
                     v.NumeroFactura = (int)datos.Lector["NumeroFactura"];
+                    v.FechaVenta = (DateTime)datos.Lector["FechaVenta"];
                     v.Total = (decimal)datos.Lector["Total"];
                     v.Cliente = new Cliente();
                     v.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
