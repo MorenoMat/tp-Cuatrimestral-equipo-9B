@@ -8,17 +8,36 @@ namespace negocio
     {
         public List<Venta> Listar()
         {
+            return Buscar(null);
+        }
+
+        public List<Venta> Buscar(string busqueda)
+        {
             List<Venta> lista = new List<Venta>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT v.IdVenta, v.NumeroFactura, v.Total,
+                string consulta = @"SELECT v.IdVenta, v.NumeroFactura, v.Total,
                                               c.IdCliente, c.Nombre AS ClienteNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
                                        FROM Ventas v
                                        INNER JOIN Clientes c ON v.IdCliente = c.IdCliente
                                        INNER JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
-                                       ORDER BY v.IdVenta DESC");
+                                       WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busqueda";
+                }
+
+                consulta += " ORDER BY v.IdVenta DESC";
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
