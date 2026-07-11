@@ -4,16 +4,24 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Usuarios</h1>
-    <asp:GridView ID="dgvUsuarios" runat="server" DataKeyNames="IdUsuario"
-        CssClass="table table-bordered table-hover" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="dgvUsuarios_SelectedIndexChanged">
-        <Columns>
-            <asp:BoundField HeaderText="Usuario" DataField="UsuarioLogin" />
-            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <asp:CheckBoxField HeaderText="Admin" DataField="esAdmin" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Usuario" />
-        </Columns>
-    </asp:GridView>
-    <a href="UsuariosFormulario.aspx" class="btn btn-primary">Agregar</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Usuarios</h1>
+        <a href="UsuariosFormulario.aspx" class="btn btn-primary">Agregar Usuario</a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <asp:GridView ID="dgvUsuarios" runat="server" DataKeyNames="IdUsuario"
+                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
+                    OnSelectedIndexChanged="dgvUsuarios_SelectedIndexChanged">
+                    <Columns>
+                        <asp:BoundField HeaderText="Usuario" DataField="UsuarioLogin" />
+                        <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                        <asp:CheckBoxField HeaderText="Admin" DataField="esAdmin" />
+                        <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Usuario" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
+    </div>
 </asp:Content>

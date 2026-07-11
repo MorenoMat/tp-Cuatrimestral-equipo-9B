@@ -4,15 +4,23 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Compras</h1>
-    <asp:GridView ID="dgvCompras" runat="server" DataKeyNames="IdCompra"
-        CssClass="table table-bordered table-hover" AutoGenerateColumns="false">
-        <Columns>
-            <asp:BoundField HeaderText="N° Compra" DataField="IdCompra" />
-            <asp:BoundField HeaderText="Fecha" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-            <asp:BoundField HeaderText="Proveedor" DataField="Proveedor.Nombre" />
-            <asp:BoundField HeaderText="Usuario" DataField="Usuario.Nombre" />
-        </Columns>
-    </asp:GridView>
-    <a href="ComprasFormulario.aspx" class="btn btn-primary">Nueva Compra</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Compras</h1>
+        <a href="ComprasFormulario.aspx" class="btn btn-primary">Nueva Compra</a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <asp:GridView ID="dgvCompras" runat="server" DataKeyNames="IdCompra"
+                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:BoundField HeaderText="N° Compra" DataField="IdCompra" />
+                        <asp:BoundField HeaderText="Fecha" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
+                        <asp:BoundField HeaderText="Proveedor" DataField="Proveedor.Nombre" />
+                        <asp:BoundField HeaderText="Usuario" DataField="Usuario.Nombre" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
+    </div>
 </asp:Content>

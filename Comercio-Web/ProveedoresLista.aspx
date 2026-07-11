@@ -4,22 +4,30 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Proveedores</h1>
-    <asp:GridView ID="dgvProveedores" runat="server" DataKeyNames="IdProveedor"
-        CssClass="table table-bordered table-hover" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="dgvProveedores_SelectedIndexChanged">
-        <Columns>
-            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
-            <asp:BoundField HeaderText="Email" DataField="Email" />
-            <asp:BoundField HeaderText="CUIT o CUIL" DataField="Cuit" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Proveedores" />
-             <asp:TemplateField HeaderText="Proveedor Activo">
-            <ItemTemplate>
-           <asp:CheckBox ID="chkEstadoProveedor" runat="server"  Checked='<%# Eval("Activo") %>'  AutoPostBack="true"  OnCheckedChanged="chkAccion_CheckedChanged"/>
-            </ItemTemplate>
-             </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-    <a href="ProveedoresFormulario.aspx" class="btn btn-primary">Agregar</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Proveedores</h1>
+        <a href="ProveedoresFormulario.aspx" class="btn btn-primary">Agregar Proveedor</a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <asp:GridView ID="dgvProveedores" runat="server" DataKeyNames="IdProveedor"
+                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
+                    OnSelectedIndexChanged="dgvProveedores_SelectedIndexChanged">
+                    <Columns>
+                        <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                        <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
+                        <asp:BoundField HeaderText="Email" DataField="Email" />
+                        <asp:BoundField HeaderText="CUIT o CUIL" DataField="Cuit" />
+                        <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Proveedores" />
+                        <asp:TemplateField HeaderText="Proveedor Activo">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkEstadoProveedor" runat="server" Checked='<%# Eval("Activo") %>' AutoPostBack="true" OnCheckedChanged="chkAccion_CheckedChanged" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
+    </div>
 </asp:Content>
