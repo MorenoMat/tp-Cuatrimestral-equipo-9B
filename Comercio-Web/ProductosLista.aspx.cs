@@ -17,6 +17,7 @@ namespace Comercio_Web
             if (!IsPostBack)
             {
                 cargarMarcas();
+                cargarCategorias();
                 cargarGrilla();
             }
         }
@@ -31,11 +32,22 @@ namespace Comercio_Web
             ddlMarca.Items.Insert(0, new ListItem("TODAS", "0"));
         }
 
+        private void cargarCategorias()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            ddlCategoria.DataSource = categoriaNegocio.Listar();
+            ddlCategoria.DataTextField = "Descripcion";
+            ddlCategoria.DataValueField = "IdCategoria";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("TODAS", "0"));
+        }
+
         private void cargarGrilla(string busqueda = null)
         {
             ProductoNegocio negocio = new ProductoNegocio();
             int idMarca = int.Parse(ddlMarca.SelectedValue);
-            dgvProductos.DataSource = negocio.Buscar(busqueda, idMarca);
+            int idCategoria = int.Parse(ddlCategoria.SelectedValue);
+            dgvProductos.DataSource = negocio.Buscar(busqueda, idMarca, idCategoria);
             dgvProductos.DataBind();
         }
 
@@ -48,6 +60,7 @@ namespace Comercio_Web
         {
             txtBuscar.Text = string.Empty;
             ddlMarca.SelectedValue = "0";
+            ddlCategoria.SelectedValue = "0";
             cargarGrilla();
         }
 

@@ -9,6 +9,9 @@
             $('#<%= ddlMarca.ClientID %>').select2({
                 width: '100%'
             });
+            $('#<%= ddlCategoria.ClientID %>').select2({
+                width: '100%'
+            });
         });
     </script>
 </asp:Content>
@@ -22,12 +25,16 @@
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar producto por nombre" />
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltroMarca" runat="server" Text="Filtrar por marca" CssClass="form-label" />
                         <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-select" />
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFiltroCategoria" runat="server" Text="Filtrar por categoría" CssClass="form-label" />
+                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" />
                     </div>
                     <div class="col-md-3 d-flex gap-2">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />

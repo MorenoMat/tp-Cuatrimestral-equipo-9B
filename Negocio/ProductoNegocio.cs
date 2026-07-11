@@ -8,15 +8,20 @@ namespace negocio
     {
         public List<Producto> Listar()
         {
-            return Buscar(null, 0);
+            return Buscar(null, 0, 0);
         }
 
         public List<Producto> Buscar(string busqueda)
         {
-            return Buscar(busqueda, 0);
+            return Buscar(busqueda, 0, 0);
         }
 
         public List<Producto> Buscar(string busqueda, int idMarca)
+        {
+            return Buscar(busqueda, idMarca, 0);
+        }
+
+        public List<Producto> Buscar(string busqueda, int idMarca, int idCategoria)
         {
             List<Producto> lista = new List<Producto>();
             try
@@ -42,6 +47,11 @@ namespace negocio
                     consulta += " AND p.IdMarca = @idMarca";
                 }
 
+                if (idCategoria > 0)
+                {
+                    consulta += " AND p.IdCategoria = @idCategoria";
+                }
+
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
@@ -51,6 +61,11 @@ namespace negocio
                 if (idMarca > 0)
                 {
                     datos.setearParametro("@idMarca", idMarca);
+                }
+
+                if (idCategoria > 0)
+                {
+                    datos.setearParametro("@idCategoria", idCategoria);
                 }
 
                 datos.ejecutarLectura();
