@@ -22,6 +22,14 @@
         <a href="ProductosFormulario.aspx" class="btn btn-primary">Agregar Producto</a>
     </div>
     <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header card-header-stock">
+            <h5 class="mb-0">&#9888; Alertas de Stock</h5>
+        </div>
+        <div class="card-body">
+            <asp:Panel ID="pnlAlertas" runat="server"></asp:Panel>
+        </div>
+    </div>
+    <div class="card shadow-sm border-0 mb-3">
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">

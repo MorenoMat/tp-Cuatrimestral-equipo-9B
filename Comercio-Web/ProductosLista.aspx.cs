@@ -1,5 +1,6 @@
 using System;
 using System.Web.UI.WebControls;
+using Comercio_Web.Helpers;
 using negocio;
 
 namespace Comercio_Web
@@ -13,6 +14,8 @@ namespace Comercio_Web
                 Response.Redirect("Default.aspx", false);
                 return;
             }
+
+            AlertasStockHelper.Cargar(pnlAlertas);
 
             if (!IsPostBack)
             {
