@@ -12,7 +12,7 @@
             <asp:BoundField HeaderText="Usuario" DataField="UsuarioLogin" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:CheckBoxField HeaderText="Admin" DataField="esAdmin" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Usuario" />
         </Columns>
     </asp:GridView>
     <a href="UsuariosFormulario.aspx" class="btn btn-primary">Agregar</a>

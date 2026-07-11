@@ -10,7 +10,7 @@
         OnSelectedIndexChanged="dgvCategorias_SelectedIndexChanged">
         <Columns>
             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
-            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="✍" />
+            <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Categoria" />
         </Columns>
     </asp:GridView>
     <a href="CategoriasFormulario.aspx" class="btn btn-primary">Agregar</a>
