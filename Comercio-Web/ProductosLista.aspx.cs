@@ -1,4 +1,5 @@
 using System;
+using System.Web.UI.WebControls;
 using negocio;
 
 namespace Comercio_Web
@@ -15,14 +16,26 @@ namespace Comercio_Web
 
             if (!IsPostBack)
             {
+                cargarMarcas();
                 cargarGrilla();
             }
+        }
+
+        private void cargarMarcas()
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            ddlMarca.DataSource = marcaNegocio.Listar();
+            ddlMarca.DataTextField = "Descripcion";
+            ddlMarca.DataValueField = "IdMarca";
+            ddlMarca.DataBind();
+            ddlMarca.Items.Insert(0, new ListItem("TODAS", "0"));
         }
 
         private void cargarGrilla(string busqueda = null)
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            dgvProductos.DataSource = negocio.Buscar(busqueda);
+            int idMarca = int.Parse(ddlMarca.SelectedValue);
+            dgvProductos.DataSource = negocio.Buscar(busqueda, idMarca);
             dgvProductos.DataBind();
         }
 
@@ -34,6 +47,7 @@ namespace Comercio_Web
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = string.Empty;
+            ddlMarca.SelectedValue = "0";
             cargarGrilla();
         }
 

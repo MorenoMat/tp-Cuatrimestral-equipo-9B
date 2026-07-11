@@ -8,10 +8,15 @@ namespace negocio
     {
         public List<Producto> Listar()
         {
-            return Buscar(null);
+            return Buscar(null, 0);
         }
 
         public List<Producto> Buscar(string busqueda)
+        {
+            return Buscar(busqueda, 0);
+        }
+
+        public List<Producto> Buscar(string busqueda, int idMarca)
         {
             List<Producto> lista = new List<Producto>();
             try
@@ -24,17 +29,28 @@ namespace negocio
                                         c.IdCategoria, c.Descripcion AS CategoriaDesc
                                        FROM Productos p
                                        INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
-                                       INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria";
+                                       INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                                       WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta += " WHERE p.Nombre LIKE @busqueda";
+                    consulta += " AND p.Nombre LIKE @busqueda";
+                }
+
+                if (idMarca > 0)
+                {
+                    consulta += " AND p.IdMarca = @idMarca";
                 }
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                if (idMarca > 0)
+                {
+                    datos.setearParametro("@idMarca", idMarca);
                 }
 
                 datos.ejecutarLectura();
