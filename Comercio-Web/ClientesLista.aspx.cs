@@ -14,11 +14,22 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarGrilla()
+        private void cargarGrilla(string busqueda = null)
         {
             ClienteNegocio negocio = new ClienteNegocio();
-            dgvClientes.DataSource = negocio.Listar();
+            dgvClientes.DataSource = negocio.Buscar(busqueda);
             dgvClientes.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            cargarGrilla(txtBuscar.Text.Trim());
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            cargarGrilla();
         }
 
         protected void dgvClientes_SelectedIndexChanged(object sender, EventArgs e)
@@ -34,7 +45,7 @@ namespace Comercio_Web
             int idCliente = Convert.ToInt32(dgvClientes.DataKeys[fila.RowIndex].Value);
             bool activo = chkEstadoCliente.Checked;
             negocio.cambiarEstadoCliente(idCliente, activo);
-            cargarGrilla();
+            cargarGrilla(txtBuscar.Text.Trim());
         }
     }
 }
