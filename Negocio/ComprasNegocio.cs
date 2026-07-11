@@ -8,17 +8,36 @@ namespace negocio
     {
         public List<Compra> Listar()
         {
+            return Buscar(null);
+        }
+
+        public List<Compra> Buscar(string busqueda)
+        {
             List<Compra> lista = new List<Compra>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT c.IdCompra, c.FechaCompra, 
+                string consulta = @"SELECT c.IdCompra, c.FechaCompra, 
                                               p.IdProveedor, p.Nombre AS ProveedorNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
                                        FROM Compras c
                                        INNER JOIN Proveedores p ON c.IdProveedor = p.IdProveedor
                                        INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
-                                       ORDER BY c.FechaCompra DESC");
+                                       WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
+                }
+
+                consulta += " ORDER BY c.FechaCompra DESC";
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {

@@ -21,12 +21,23 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarGrilla()
+        private void cargarGrilla(string busqueda = null)
         {
             ComprasNegocio n = new ComprasNegocio();
-            List<Compra> lista = n.Listar();
+            List<Compra> lista = n.Buscar(busqueda);
             dgvCompras.DataSource = lista;
             dgvCompras.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            cargarGrilla(txtBuscar.Text.Trim());
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            cargarGrilla();
         }
     }
 }
