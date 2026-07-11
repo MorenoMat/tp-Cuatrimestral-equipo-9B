@@ -8,15 +8,20 @@ namespace negocio
     {
         public List<Compra> Listar()
         {
-            return Buscar(null, 0);
+            return Buscar(null, 0, 0);
         }
 
         public List<Compra> Buscar(string busqueda)
         {
-            return Buscar(busqueda, 0);
+            return Buscar(busqueda, 0, 0);
         }
 
         public List<Compra> Buscar(string busqueda, int idProveedor)
+        {
+            return Buscar(busqueda, idProveedor, 0);
+        }
+
+        public List<Compra> Buscar(string busqueda, int idProveedor, int idUsuario)
         {
             List<Compra> lista = new List<Compra>();
             try
@@ -40,6 +45,11 @@ namespace negocio
                     consulta += " AND c.IdProveedor = @idProveedor";
                 }
 
+                if (idUsuario > 0)
+                {
+                    consulta += " AND c.IdUsuario = @idUsuario";
+                }
+
                 consulta += " ORDER BY c.FechaCompra DESC";
 
                 datos.setearConsulta(consulta);
@@ -51,6 +61,11 @@ namespace negocio
                 if (idProveedor > 0)
                 {
                     datos.setearParametro("@idProveedor", idProveedor);
+                }
+
+                if (idUsuario > 0)
+                {
+                    datos.setearParametro("@idUsuario", idUsuario);
                 }
 
                 datos.ejecutarLectura();

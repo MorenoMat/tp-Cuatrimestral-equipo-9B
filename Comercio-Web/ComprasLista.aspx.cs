@@ -19,6 +19,7 @@ namespace Comercio_Web
             if (!IsPostBack)
             {
                 cargarProveedores();
+                cargarUsuarios();
                 cargarGrilla();
             }
         }
@@ -33,11 +34,22 @@ namespace Comercio_Web
             ddlProveedor.Items.Insert(0, new ListItem("TODOS", "0"));
         }
 
+        private void cargarUsuarios()
+        {
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            ddlUsuario.DataSource = usuarioNegocio.Listar();
+            ddlUsuario.DataTextField = "Nombre";
+            ddlUsuario.DataValueField = "IdUsuario";
+            ddlUsuario.DataBind();
+            ddlUsuario.Items.Insert(0, new ListItem("TODOS", "0"));
+        }
+
         private void cargarGrilla(string busqueda = null)
         {
             ComprasNegocio n = new ComprasNegocio();
             int idProveedor = int.Parse(ddlProveedor.SelectedValue);
-            List<Compra> lista = n.Buscar(busqueda, idProveedor);
+            int idUsuario = int.Parse(ddlUsuario.SelectedValue);
+            List<Compra> lista = n.Buscar(busqueda, idProveedor, idUsuario);
             dgvCompras.DataSource = lista;
             dgvCompras.DataBind();
         }
@@ -51,6 +63,7 @@ namespace Comercio_Web
         {
             txtBuscar.Text = string.Empty;
             ddlProveedor.SelectedValue = "0";
+            ddlUsuario.SelectedValue = "0";
             cargarGrilla();
         }
     }
