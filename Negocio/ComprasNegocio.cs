@@ -8,10 +8,15 @@ namespace negocio
     {
         public List<Compra> Listar()
         {
-            return Buscar(null);
+            return Buscar(null, 0);
         }
 
         public List<Compra> Buscar(string busqueda)
+        {
+            return Buscar(busqueda, 0);
+        }
+
+        public List<Compra> Buscar(string busqueda, int idProveedor)
         {
             List<Compra> lista = new List<Compra>();
             try
@@ -30,12 +35,22 @@ namespace negocio
                     consulta += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
                 }
 
+                if (idProveedor > 0)
+                {
+                    consulta += " AND c.IdProveedor = @idProveedor";
+                }
+
                 consulta += " ORDER BY c.FechaCompra DESC";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                if (idProveedor > 0)
+                {
+                    datos.setearParametro("@idProveedor", idProveedor);
                 }
 
                 datos.ejecutarLectura();

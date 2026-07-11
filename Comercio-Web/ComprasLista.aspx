@@ -1,6 +1,16 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ComprasLista.aspx.cs" Inherits="Comercio_Web.ComprasLista" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#<%= ddlProveedor.ClientID %>').select2({
+                width: '100%'
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -12,8 +22,12 @@
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por número de compra" />
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Label ID="lblFiltroProveedor" runat="server" Text="Filtrar por proveedor" CssClass="form-label" />
+                        <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-select" />
                     </div>
                     <div class="col-md-4 d-flex gap-2">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
