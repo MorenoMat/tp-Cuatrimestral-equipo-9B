@@ -19,11 +19,22 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarGrilla()
+        private void cargarGrilla(string busqueda = null)
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            dgvProductos.DataSource = negocio.Listar();
+            dgvProductos.DataSource = negocio.Buscar(busqueda);
             dgvProductos.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            cargarGrilla(txtBuscar.Text.Trim());
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            cargarGrilla();
         }
 
         protected void dgvProductos_SelectedIndexChanged(object sender, EventArgs e)

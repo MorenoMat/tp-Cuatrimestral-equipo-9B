@@ -8,18 +8,35 @@ namespace negocio
     {
         public List<Producto> Listar()
         {
+            return Buscar(null);
+        }
+
+        public List<Producto> Buscar(string busqueda)
+        {
             List<Producto> lista = new List<Producto>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT p.IdProducto, p.Nombre, p.Descripcion, 
+                string consulta = @"SELECT p.IdProducto, p.Nombre, p.Descripcion, 
                                         p.UltimoPrecioCompra, p.PorcentajeGanancia, 
                                         p.StockActual, p.StockMinimo,
                                         m.IdMarca, m.Descripcion AS MarcaDesc,
                                         c.IdCategoria, c.Descripcion AS CategoriaDesc
                                        FROM Productos p
                                        INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
-                                       INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria");
+                                       INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " WHERE p.Nombre LIKE @busqueda";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
