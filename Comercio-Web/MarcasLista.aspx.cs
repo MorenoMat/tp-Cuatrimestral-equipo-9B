@@ -20,11 +20,22 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarGrilla()
+        private void cargarGrilla(string busqueda = null)
         {
             MarcaNegocio negocio = new MarcaNegocio();
-            dgvMarcas.DataSource = negocio.Listar();
+            dgvMarcas.DataSource = negocio.Buscar(busqueda);
             dgvMarcas.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            cargarGrilla(txtBuscar.Text.Trim());
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            cargarGrilla();
         }
 
         protected void dgvMarcas_SelectedIndexChanged(object sender, EventArgs e)

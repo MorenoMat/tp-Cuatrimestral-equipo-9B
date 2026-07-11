@@ -8,11 +8,28 @@ namespace negocio
     {
         public List<Marca> Listar()
         {
+            return Buscar(null);
+        }
+
+        public List<Marca> Buscar(string busqueda)
+        {
             List<Marca> lista = new List<Marca>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("SELECT IdMarca, Descripcion FROM Marcas");
+                string consulta = "SELECT IdMarca, Descripcion FROM Marcas";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " WHERE Descripcion LIKE @busqueda";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
