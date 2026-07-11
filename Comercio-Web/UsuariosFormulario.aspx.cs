@@ -1,6 +1,7 @@
-using System;
 using Dominio;
 using negocio;
+using System;
+using System.Data.SqlClient;
 
 namespace Comercio_Web
 {
@@ -40,28 +41,40 @@ namespace Comercio_Web
                 usuario.UsuarioLogin = txtUsuarioLogin.Text;
                 usuario.esAdmin = chkAdmin.Checked;
 
-                if (Request.QueryString["id"] != null)
-                {
-                    usuario.IdUsuario = int.Parse(Request.QueryString["id"]);
+                if (Request.QueryString["id"] != null) // edicion
+                 {
+                   usuario.IdUsuario = int.Parse(Request.QueryString["id"]);
                     if (!string.IsNullOrEmpty(txtContraseña.Text))
                         usuario.Contraseña = Seguridad.HashearContraseña(txtContraseña.Text);
-                    else
-                    {
+                     else
+                     {
                         Usuario existente = negocio.BuscarPorId(usuario.IdUsuario);
                         usuario.Contraseña = existente.Contraseña;
-                    }
+                     }
+
                     negocio.Modificar(usuario);
-                }
-                else
+                 }
+
+               else //agregar
                 {
+                    if(negocio.BuscarPorUsuario(usuario.UsuarioLogin) != null)
+                    {
+                        Response.Write("El nombre de usuario ya existe.");
+                        return;
+                    }
                     usuario.Contraseña = Seguridad.HashearContraseña(txtContraseña.Text);
                     negocio.Agregar(usuario);
                 }
-                Response.Redirect("UsuariosLista.aspx");
+               Response.Redirect("UsuariosLista.aspx");
+            }
+            catch (SqlException ex)
+            {
+                Response.Write("No se ha podido guardar el usuario por ERROR SQL: " + ex.Message);
+
             }
             catch (Exception ex)
             {
-                throw ex;
+                Response.Write("No se ha podido guardar el usuario por " + ex.Message);
             }
         }
 

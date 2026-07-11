@@ -59,6 +59,34 @@ namespace negocio
             }
         }
 
+        public Usuario BuscarPorUsuario(string UsuarioLogin)
+        {
+            Usuario usuario = null;
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdUsuario, Nombre, UsuarioLogin, Contraseña, EsAdmin FROM Usuarios WHERE UsuarioLogin = @UsuarioLogin");
+                datos.setearParametro("@UsuarioLogin", UsuarioLogin);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    usuario = new Usuario();
+                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    usuario.Nombre = (string)datos.Lector["Nombre"];
+                    usuario.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
+                    usuario.Contraseña = (string)datos.Lector["Contraseña"];
+                    usuario.esAdmin = (bool)datos.Lector["EsAdmin"];
+                }
+                datos.cerrarConexion();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public void Agregar(Usuario usuario)
         {
             try
