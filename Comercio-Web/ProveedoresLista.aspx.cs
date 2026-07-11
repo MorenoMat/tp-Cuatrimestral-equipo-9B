@@ -23,7 +23,9 @@ namespace Comercio_Web
         private void cargarGrilla(string busqueda = null)
         {
             ProveedorNegocio negocio = new ProveedorNegocio();
-            dgvProveedores.DataSource = negocio.Buscar(busqueda);
+            bool valorEstado;
+            bool? estado = bool.TryParse(ddlEstado.SelectedValue, out valorEstado) ? valorEstado : (bool?)null;
+            dgvProveedores.DataSource = negocio.Buscar(busqueda, estado);
             dgvProveedores.DataBind();
         }
 
@@ -35,6 +37,7 @@ namespace Comercio_Web
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = string.Empty;
+            ddlEstado.SelectedIndex = 0;
             cargarGrilla();
         }
 

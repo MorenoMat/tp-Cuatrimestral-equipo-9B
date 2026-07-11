@@ -8,26 +8,41 @@ namespace negocio
     {
         public List<Proveedor> Listar()
         {
-            return Buscar(null);
+            return Buscar(null, null);
         }
 
         public List<Proveedor> Buscar(string busqueda)
+        {
+            return Buscar(busqueda, null);
+        }
+
+        public List<Proveedor> Buscar(string busqueda, bool? activo)
         {
             List<Proveedor> lista = new List<Proveedor>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                string consulta = "SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores";
+                string consulta = "SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta += " WHERE Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda";
+                    consulta += " AND (Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda)";
+                }
+
+                if (activo.HasValue)
+                {
+                    consulta += " AND Activo = @activo";
                 }
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                if (activo.HasValue)
+                {
+                    datos.setearParametro("@activo", activo.Value);
                 }
 
                 datos.ejecutarLectura();
