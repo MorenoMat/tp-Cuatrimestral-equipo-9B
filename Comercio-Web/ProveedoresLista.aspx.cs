@@ -20,11 +20,22 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarGrilla()
+        private void cargarGrilla(string busqueda = null)
         {
             ProveedorNegocio negocio = new ProveedorNegocio();
-            dgvProveedores.DataSource = negocio.Listar();
+            dgvProveedores.DataSource = negocio.Buscar(busqueda);
             dgvProveedores.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            cargarGrilla(txtBuscar.Text.Trim());
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = string.Empty;
+            cargarGrilla();
         }
 
         protected void dgvProveedores_SelectedIndexChanged(object sender, EventArgs e)
@@ -40,7 +51,7 @@ namespace Comercio_Web
             int idProveedor = Convert.ToInt32(dgvProveedores.DataKeys[fila.RowIndex].Value);
             bool activo = chkEstadoProveedor.Checked;
             negocio.cambiarEstadoProveedor(idProveedor, activo);
-            cargarGrilla();
+            cargarGrilla(txtBuscar.Text.Trim());
         }   
     }
 }
