@@ -1,6 +1,19 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="VentasLista.aspx.cs" Inherits="Comercio_Web.VentasLista" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#<%= ddlCliente.ClientID %>').select2({
+                width: '100%'
+            });
+            $('#<%= ddlUsuario.ClientID %>').select2({
+                width: '100%'
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -11,11 +24,19 @@
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por número de venta" />
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:TextBox ID="txtBuscarFactura" runat="server" CssClass="form-control" placeholder="Buscar por número de factura" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroCliente" runat="server" Text="Filtrar por cliente" CssClass="form-label" />
+                        <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-select" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroUsuario" runat="server" Text="Filtrar por usuario" CssClass="form-label" />
+                        <asp:DropDownList ID="ddlUsuario" runat="server" CssClass="form-select" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblFechaDesde" runat="server" Text="Fecha desde" CssClass="form-label" />
@@ -25,7 +46,9 @@
                         <asp:Label ID="lblFechaHasta" runat="server" Text="Fecha hasta" CssClass="form-label" />
                         <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="form-control" TextMode="Date" />
                     </div>
-                    <div class="col-md-2 d-flex gap-2">
+                </div>
+                <div class="row g-2 mt-1">
+                    <div class="col-md-12 d-flex gap-2 justify-content-end">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
                         <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                     </div>

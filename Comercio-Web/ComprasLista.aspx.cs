@@ -44,19 +44,24 @@ namespace Comercio_Web
             ddlUsuario.Items.Insert(0, new ListItem("TODOS", "0"));
         }
 
-        private void cargarGrilla(string busqueda = null)
+        private void cargarGrilla(string busqueda = null, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
         {
             ComprasNegocio n = new ComprasNegocio();
             int idProveedor = int.Parse(ddlProveedor.SelectedValue);
             int idUsuario = int.Parse(ddlUsuario.SelectedValue);
-            List<Compra> lista = n.Buscar(busqueda, idProveedor, idUsuario);
+            List<Compra> lista = n.Buscar(busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
             dgvCompras.DataSource = lista;
             dgvCompras.DataBind();
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            cargarGrilla(txtBuscar.Text.Trim());
+            DateTime fechaDesde;
+            DateTime fechaHasta;
+            DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
+            DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
+
+            cargarGrilla(txtBuscar.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
@@ -64,6 +69,8 @@ namespace Comercio_Web
             txtBuscar.Text = string.Empty;
             ddlProveedor.SelectedValue = "0";
             ddlUsuario.SelectedValue = "0";
+            txtFechaDesde.Text = string.Empty;
+            txtFechaHasta.Text = string.Empty;
             cargarGrilla();
         }
     }

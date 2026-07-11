@@ -11,6 +11,8 @@ namespace Comercio_Web
         protected global::System.Web.UI.WebControls.TextBox txtBuscar;
         protected global::System.Web.UI.WebControls.DropDownList ddlProveedor;
         protected global::System.Web.UI.WebControls.DropDownList ddlUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaDesde;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaHasta;
         protected global::System.Web.UI.WebControls.Button btnBuscar;
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
         protected global::System.Web.UI.WebControls.GridView dgvCompras;

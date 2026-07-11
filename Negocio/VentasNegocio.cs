@@ -8,20 +8,25 @@ namespace negocio
     {
         public List<Venta> Listar()
         {
-            return Buscar(null, null, null, null);
+            return Buscar(null, null, 0, 0, null, null);
         }
 
         public List<Venta> Buscar(string busqueda)
         {
-            return Buscar(busqueda, null, null, null);
+            return Buscar(busqueda, null, 0, 0, null, null);
         }
 
         public List<Venta> Buscar(string busquedaVenta, string busquedaFactura)
         {
-            return Buscar(busquedaVenta, busquedaFactura, null, null);
+            return Buscar(busquedaVenta, busquedaFactura, 0, 0, null, null);
         }
 
         public List<Venta> Buscar(string busquedaVenta, string busquedaFactura, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            return Buscar(busquedaVenta, busquedaFactura, 0, 0, fechaDesde, fechaHasta);
+        }
+
+        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             List<Venta> lista = new List<Venta>();
             try
@@ -45,6 +50,16 @@ namespace negocio
                     consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
                 }
 
+                if (idCliente > 0)
+                {
+                    consulta += " AND v.IdCliente = @idCliente";
+                }
+
+                if (idUsuario > 0)
+                {
+                    consulta += " AND v.IdUsuario = @idUsuario";
+                }
+
                 if (fechaDesde.HasValue)
                 {
                     consulta += " AND v.fechaVenta >= @fechaDesde";
@@ -66,6 +81,16 @@ namespace negocio
                 if (!string.IsNullOrWhiteSpace(busquedaFactura))
                 {
                     datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
+                }
+
+                if (idCliente > 0)
+                {
+                    datos.setearParametro("@idCliente", idCliente);
+                }
+
+                if (idUsuario > 0)
+                {
+                    datos.setearParametro("@idUsuario", idUsuario);
                 }
 
                 if (fechaDesde.HasValue)

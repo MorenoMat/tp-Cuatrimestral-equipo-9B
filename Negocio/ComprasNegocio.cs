@@ -8,20 +8,25 @@ namespace negocio
     {
         public List<Compra> Listar()
         {
-            return Buscar(null, 0, 0);
+            return Buscar(null, 0, 0, null, null);
         }
 
         public List<Compra> Buscar(string busqueda)
         {
-            return Buscar(busqueda, 0, 0);
+            return Buscar(busqueda, 0, 0, null, null);
         }
 
         public List<Compra> Buscar(string busqueda, int idProveedor)
         {
-            return Buscar(busqueda, idProveedor, 0);
+            return Buscar(busqueda, idProveedor, 0, null, null);
         }
 
         public List<Compra> Buscar(string busqueda, int idProveedor, int idUsuario)
+        {
+            return Buscar(busqueda, idProveedor, idUsuario, null, null);
+        }
+
+        public List<Compra> Buscar(string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             List<Compra> lista = new List<Compra>();
             try
@@ -50,6 +55,16 @@ namespace negocio
                     consulta += " AND c.IdUsuario = @idUsuario";
                 }
 
+                if (fechaDesde.HasValue)
+                {
+                    consulta += " AND c.FechaCompra >= @fechaDesde";
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    consulta += " AND c.FechaCompra < @fechaHasta";
+                }
+
                 consulta += " ORDER BY c.FechaCompra DESC";
 
                 datos.setearConsulta(consulta);
@@ -66,6 +81,16 @@ namespace negocio
                 if (idUsuario > 0)
                 {
                     datos.setearParametro("@idUsuario", idUsuario);
+                }
+
+                if (fechaDesde.HasValue)
+                {
+                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
                 }
 
                 datos.ejecutarLectura();

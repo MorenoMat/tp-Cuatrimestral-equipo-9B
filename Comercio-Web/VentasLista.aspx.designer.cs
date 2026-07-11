@@ -10,6 +10,8 @@ namespace Comercio_Web
     {
         protected global::System.Web.UI.WebControls.TextBox txtBuscar;
         protected global::System.Web.UI.WebControls.TextBox txtBuscarFactura;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCliente;
+        protected global::System.Web.UI.WebControls.DropDownList ddlUsuario;
         protected global::System.Web.UI.WebControls.TextBox txtFechaDesde;
         protected global::System.Web.UI.WebControls.TextBox txtFechaHasta;
         protected global::System.Web.UI.WebControls.Button btnBuscar;
