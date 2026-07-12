@@ -1,19 +1,32 @@
 using System;
-using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Dominio;
+using Comercio_Web.Helpers;
 using negocio;
 
 namespace Comercio_Web
 {
     public partial class VentasLista : System.Web.UI.Page
     {
+        private int PaginaActual
+        {
+            get { return ViewState["PaginaActual"] != null ? (int)ViewState["PaginaActual"] : 1; }
+            set { ViewState["PaginaActual"] = value; }
+        }
+
+        private int TamanioPagina
+        {
+            get { return ViewState["TamanioPagina"] != null ? (int)ViewState["TamanioPagina"] : 10; }
+            set { ViewState["TamanioPagina"] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 cargarClientes();
                 cargarUsuarios();
+                TamanioPagina = int.Parse(ddlTamanioPagina.SelectedValue);
+                PaginaActual = 1;
                 cargarGrilla();
             }
         }
@@ -43,9 +56,23 @@ namespace Comercio_Web
             VentasNegocio n = new VentasNegocio();
             int idCliente = int.Parse(ddlCliente.SelectedValue);
             int idUsuario = int.Parse(ddlUsuario.SelectedValue);
-            List<Venta> lista = n.Buscar(busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
-            dgvVentas.DataSource = lista;
+
+            int totalRegistros = n.Contar(busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
+            EstadoPaginacion paginacion = PaginacionHelper.Crear(PaginaActual, TamanioPagina, totalRegistros);
+
+            PaginaActual = paginacion.PaginaActual;
+            dgvVentas.DataSource = n.BuscarPaginado(busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta, PaginaActual, TamanioPagina);
             dgvVentas.DataBind();
+
+            lblPaginacion.Text = "Mostrando " + paginacion.Desde + "-" + paginacion.Hasta + " de " + paginacion.TotalRegistros + " ventas";
+            btnAnterior.Enabled = paginacion.PuedeIrAnterior;
+            btnSiguiente.Enabled = paginacion.PuedeIrSiguiente;
+            btnAnterior.CssClass = btnAnterior.Enabled ? "btn btn-outline-secondary btn-sm" : "btn btn-outline-secondary btn-sm disabled";
+            btnSiguiente.CssClass = btnSiguiente.Enabled ? "btn btn-outline-secondary btn-sm" : "btn btn-outline-secondary btn-sm disabled";
+
+            ddlTamanioPagina.SelectedValue = TamanioPagina.ToString();
+            rptPaginas.DataSource = paginacion.Paginas;
+            rptPaginas.DataBind();
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -55,6 +82,7 @@ namespace Comercio_Web
             DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
             DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
 
+            PaginaActual = 1;
             cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
         }
 
@@ -66,7 +94,57 @@ namespace Comercio_Web
             ddlUsuario.SelectedValue = "0";
             txtFechaDesde.Text = string.Empty;
             txtFechaHasta.Text = string.Empty;
+            PaginaActual = 1;
             cargarGrilla();
+        }
+
+        protected void ddlTamanioPagina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DateTime fechaDesde;
+            DateTime fechaHasta;
+            DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
+            DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
+
+            TamanioPagina = int.Parse(ddlTamanioPagina.SelectedValue);
+            PaginaActual = 1;
+            cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
+        }
+
+        protected void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (PaginaActual > 1)
+                PaginaActual--;
+
+            DateTime fechaDesde;
+            DateTime fechaHasta;
+            DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
+            DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
+            cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
+        }
+
+        protected void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            PaginaActual++;
+
+            DateTime fechaDesde;
+            DateTime fechaHasta;
+            DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
+            DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
+            cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
+        }
+
+        protected void rptPaginas_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "IrAPagina")
+            {
+                PaginaActual = int.Parse(e.CommandArgument.ToString());
+
+                DateTime fechaDesde;
+                DateTime fechaHasta;
+                DateTime? fechaDesdeFiltro = DateTime.TryParse(txtFechaDesde.Text, out fechaDesde) ? fechaDesde : (DateTime?)null;
+                DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
+                cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
+            }
         }
     }
 }

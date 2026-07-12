@@ -8,30 +8,51 @@ namespace negocio
     {
         public List<Venta> Listar()
         {
-            return Buscar(null, null, 0, 0, null, null);
+            List<Venta> lista = new List<Venta>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = @"SELECT v.IdVenta, v.NumeroFactura, v.FechaVenta, v.Total,
+                                              c.IdCliente, c.Nombre AS ClienteNombre,
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                       FROM Ventas v
+                                       INNER JOIN Clientes c ON v.IdCliente = c.IdCliente
+                                       INNER JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
+                                       ORDER BY v.IdVenta DESC";
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Venta v = new Venta();
+                    v.IdVenta = (int)datos.Lector["IdVenta"];
+                    v.NumeroFactura = (int)datos.Lector["NumeroFactura"];
+                    v.FechaVenta = (DateTime)datos.Lector["FechaVenta"];
+                    v.Total = (decimal)datos.Lector["Total"];
+                    v.Cliente = new Cliente();
+                    v.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                    v.Cliente.Nombre = (string)datos.Lector["ClienteNombre"];
+                    v.Usuario = new Usuario();
+                    v.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    v.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
+                    lista.Add(v);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Venta> Buscar(string busqueda)
-        {
-            return Buscar(busqueda, null, 0, 0, null, null);
-        }
-
-        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura)
-        {
-            return Buscar(busquedaVenta, busquedaFactura, 0, 0, null, null);
-        }
-
-        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura, DateTime? fechaDesde, DateTime? fechaHasta)
-        {
-            return Buscar(busquedaVenta, busquedaFactura, 0, 0, fechaDesde, fechaHasta);
-        }
-
-        public List<Venta> Buscar(string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        public List<Venta> BuscarPaginado(string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta, int numeroPagina, int tamanioPagina)
         {
             List<Venta> lista = new List<Venta>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
+                int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = @"SELECT v.IdVenta, v.NumeroFactura, v.FechaVenta, v.Total,
                                               c.IdCliente, c.Nombre AS ClienteNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
@@ -70,7 +91,7 @@ namespace negocio
                     consulta += " AND v.fechaVenta < @fechaHasta";
                 }
 
-                consulta += " ORDER BY v.IdVenta DESC";
+                consulta += " ORDER BY v.IdVenta DESC OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busquedaVenta))
@@ -103,6 +124,9 @@ namespace negocio
                     datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
                 }
 
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -121,6 +145,84 @@ namespace negocio
                 }
                 datos.cerrarConexion();
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Ventas v WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busquedaVenta))
+                {
+                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busquedaVenta";
+                }
+
+                if (!string.IsNullOrWhiteSpace(busquedaFactura))
+                {
+                    consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
+                }
+
+                if (idCliente > 0)
+                {
+                    consulta += " AND v.IdCliente = @idCliente";
+                }
+
+                if (idUsuario > 0)
+                {
+                    consulta += " AND v.IdUsuario = @idUsuario";
+                }
+
+                if (fechaDesde.HasValue)
+                {
+                    consulta += " AND v.fechaVenta >= @fechaDesde";
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    consulta += " AND v.fechaVenta < @fechaHasta";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busquedaVenta))
+                {
+                    datos.setearParametro("@busquedaVenta", "%" + busquedaVenta + "%");
+                }
+
+                if (!string.IsNullOrWhiteSpace(busquedaFactura))
+                {
+                    datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
+                }
+
+                if (idCliente > 0)
+                {
+                    datos.setearParametro("@idCliente", idCliente);
+                }
+
+                if (idUsuario > 0)
+                {
+                    datos.setearParametro("@idUsuario", idUsuario);
+                }
+
+                if (fechaDesde.HasValue)
+                {
+                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
+                }
+
+                int total = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return total;
             }
             catch (Exception ex)
             {

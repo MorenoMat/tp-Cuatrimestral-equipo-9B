@@ -8,21 +8,6 @@ namespace negocio
     {
         public List<Producto> Listar()
         {
-            return Buscar(null, 0, 0);
-        }
-
-        public List<Producto> Buscar(string busqueda)
-        {
-            return Buscar(busqueda, 0, 0);
-        }
-
-        public List<Producto> Buscar(string busqueda, int idMarca)
-        {
-            return Buscar(busqueda, idMarca, 0);
-        }
-
-        public List<Producto> Buscar(string busqueda, int idMarca, int idCategoria)
-        {
             List<Producto> lista = new List<Producto>();
             try
             {
@@ -35,7 +20,124 @@ namespace negocio
                                        FROM Productos p
                                        INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
                                        INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                                       ORDER BY p.Nombre, p.IdProducto";
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Producto p = new Producto();
+                    p.IdProducto = (int)datos.Lector["IdProducto"];
+                    p.Nombre = (string)datos.Lector["Nombre"];
+                    p.Descripcion = datos.Lector["Descripcion"] is DBNull ? "" : (string)datos.Lector["Descripcion"];
+                    p.UltimoPrecio = (decimal)datos.Lector["UltimoPrecioCompra"];
+                    p.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
+                    p.StockActual = (int)datos.Lector["StockActual"];
+                    p.StockMinimo = (int)datos.Lector["StockMinimo"];
+                    p.Marca = new Marca();
+                    p.Marca.IdMarca = (int)datos.Lector["IdMarca"];
+                    p.Marca.Descripcion = (string)datos.Lector["MarcaDesc"];
+                    p.Categoria = new Categoria();
+                    p.Categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    p.Categoria.Descripcion = (string)datos.Lector["CategoriaDesc"];
+                    lista.Add(p);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Producto> BuscarPaginado(string busqueda, int idMarca, int idCategoria, int numeroPagina, int tamanioPagina)
+        {
+            List<Producto> lista = new List<Producto>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                int offset = (numeroPagina - 1) * tamanioPagina;
+                string consulta = @"SELECT p.IdProducto, p.Nombre, p.Descripcion, 
+                                        p.UltimoPrecioCompra, p.PorcentajeGanancia, 
+                                        p.StockActual, p.StockMinimo,
+                                        m.IdMarca, m.Descripcion AS MarcaDesc,
+                                        c.IdCategoria, c.Descripcion AS CategoriaDesc
+                                       FROM Productos p
+                                       INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
+                                       INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
                                        WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND p.Nombre LIKE @busqueda";
+                }
+
+                if (idMarca > 0)
+                {
+                    consulta += " AND p.IdMarca = @idMarca";
+                }
+
+                if (idCategoria > 0)
+                {
+                    consulta += " AND p.IdCategoria = @idCategoria";
+                }
+
+                consulta += " ORDER BY p.Nombre, p.IdProducto OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                if (idMarca > 0)
+                {
+                    datos.setearParametro("@idMarca", idMarca);
+                }
+
+                if (idCategoria > 0)
+                {
+                    datos.setearParametro("@idCategoria", idCategoria);
+                }
+
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Producto p = new Producto();
+                    p.IdProducto = (int)datos.Lector["IdProducto"];
+                    p.Nombre = (string)datos.Lector["Nombre"];
+                    p.Descripcion = datos.Lector["Descripcion"] is DBNull ? "" : (string)datos.Lector["Descripcion"];
+                    p.UltimoPrecio = (decimal)datos.Lector["UltimoPrecioCompra"];
+                    p.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
+                    p.StockActual = (int)datos.Lector["StockActual"];
+                    p.StockMinimo = (int)datos.Lector["StockMinimo"];
+                    p.Marca = new Marca();
+                    p.Marca.IdMarca = (int)datos.Lector["IdMarca"];
+                    p.Marca.Descripcion = (string)datos.Lector["MarcaDesc"];
+                    p.Categoria = new Categoria();
+                    p.Categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    p.Categoria.Descripcion = (string)datos.Lector["CategoriaDesc"];
+                    lista.Add(p);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda, int idMarca, int idCategoria)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Productos p WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
@@ -68,27 +170,9 @@ namespace negocio
                     datos.setearParametro("@idCategoria", idCategoria);
                 }
 
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    Producto p = new Producto();
-                    p.IdProducto = (int)datos.Lector["IdProducto"];
-                    p.Nombre = (string)datos.Lector["Nombre"];
-                    p.Descripcion = datos.Lector["Descripcion"] is DBNull ? "" : (string)datos.Lector["Descripcion"];
-                    p.UltimoPrecio = (decimal)datos.Lector["UltimoPrecioCompra"];
-                    p.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
-                    p.StockActual = (int)datos.Lector["StockActual"];
-                    p.StockMinimo = (int)datos.Lector["StockMinimo"];
-                    p.Marca = new Marca();
-                    p.Marca.IdMarca = (int)datos.Lector["IdMarca"];
-                    p.Marca.Descripcion = (string)datos.Lector["MarcaDesc"];
-                    p.Categoria = new Categoria();
-                    p.Categoria.IdCategoria = (int)datos.Lector["IdCategoria"];
-                    p.Categoria.Descripcion = (string)datos.Lector["CategoriaDesc"];
-                    lista.Add(p);
-                }
+                int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
-                return lista;
+                return total;
             }
             catch (Exception ex)
             {

@@ -8,30 +8,49 @@ namespace negocio
     {
         public List<Compra> Listar()
         {
-            return Buscar(null, 0, 0, null, null);
+            List<Compra> lista = new List<Compra>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = @"SELECT c.IdCompra, c.FechaCompra, 
+                                              p.IdProveedor, p.Nombre AS ProveedorNombre,
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                       FROM Compras c
+                                       INNER JOIN Proveedores p ON c.IdProveedor = p.IdProveedor
+                                       INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
+                                       ORDER BY c.FechaCompra DESC, c.IdCompra DESC";
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Compra c = new Compra();
+                    c.IdCompra = (int)datos.Lector["IdCompra"];
+                    c.FechaCompra = (DateTime)datos.Lector["FechaCompra"];
+                    c.Proveedor = new Proveedor();
+                    c.Proveedor.IdProveedor = (int)datos.Lector["IdProveedor"];
+                    c.Proveedor.Nombre = (string)datos.Lector["ProveedorNombre"];
+                    c.Usuario = new Usuario();
+                    c.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    c.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
+                    lista.Add(c);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Compra> Buscar(string busqueda)
-        {
-            return Buscar(busqueda, 0, 0, null, null);
-        }
-
-        public List<Compra> Buscar(string busqueda, int idProveedor)
-        {
-            return Buscar(busqueda, idProveedor, 0, null, null);
-        }
-
-        public List<Compra> Buscar(string busqueda, int idProveedor, int idUsuario)
-        {
-            return Buscar(busqueda, idProveedor, idUsuario, null, null);
-        }
-
-        public List<Compra> Buscar(string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        public List<Compra> BuscarPaginado(string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta, int numeroPagina, int tamanioPagina)
         {
             List<Compra> lista = new List<Compra>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
+                int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = @"SELECT c.IdCompra, c.FechaCompra, 
                                               p.IdProveedor, p.Nombre AS ProveedorNombre,
                                               u.IdUsuario, u.Nombre AS UsuarioNombre
@@ -65,7 +84,7 @@ namespace negocio
                     consulta += " AND c.FechaCompra < @fechaHasta";
                 }
 
-                consulta += " ORDER BY c.FechaCompra DESC";
+                consulta += " ORDER BY c.FechaCompra DESC, c.IdCompra DESC OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
@@ -93,6 +112,9 @@ namespace negocio
                     datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
                 }
 
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
+
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -109,6 +131,74 @@ namespace negocio
                 }
                 datos.cerrarConexion();
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Compras c WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
+                }
+
+                if (idProveedor > 0)
+                {
+                    consulta += " AND c.IdProveedor = @idProveedor";
+                }
+
+                if (idUsuario > 0)
+                {
+                    consulta += " AND c.IdUsuario = @idUsuario";
+                }
+
+                if (fechaDesde.HasValue)
+                {
+                    consulta += " AND c.FechaCompra >= @fechaDesde";
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    consulta += " AND c.FechaCompra < @fechaHasta";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                if (idProveedor > 0)
+                {
+                    datos.setearParametro("@idProveedor", idProveedor);
+                }
+
+                if (idUsuario > 0)
+                {
+                    datos.setearParametro("@idUsuario", idUsuario);
+                }
+
+                if (fechaDesde.HasValue)
+                {
+                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+                }
+
+                if (fechaHasta.HasValue)
+                {
+                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
+                }
+
+                int total = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return total;
             }
             catch (Exception ex)
             {

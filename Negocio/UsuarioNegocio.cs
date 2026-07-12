@@ -8,27 +8,53 @@ namespace negocio
     {
         public List<Usuario> Listar()
         {
-            return Buscar(null);
+            List<Usuario> lista = new List<Usuario>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdUsuario, Nombre, UsuarioLogin, EsAdmin FROM Usuarios ORDER BY Nombre, IdUsuario");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Usuario u = new Usuario();
+                    u.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    u.Nombre = (string)datos.Lector["Nombre"];
+                    u.UsuarioLogin = (string)datos.Lector["UsuarioLogin"];
+                    u.esAdmin = (bool)datos.Lector["EsAdmin"];
+                    lista.Add(u);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Usuario> Buscar(string busqueda)
+        public List<Usuario> BuscarPaginado(string busqueda, int numeroPagina, int tamanioPagina)
         {
             List<Usuario> lista = new List<Usuario>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                string consulta = "SELECT IdUsuario, Nombre, UsuarioLogin, EsAdmin FROM Usuarios";
+                int offset = (numeroPagina - 1) * tamanioPagina;
+                string consulta = "SELECT IdUsuario, Nombre, UsuarioLogin, EsAdmin FROM Usuarios WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta += " WHERE UsuarioLogin LIKE @busqueda OR Nombre LIKE @busqueda";
+                    consulta += " AND (UsuarioLogin LIKE @busqueda OR Nombre LIKE @busqueda)";
                 }
+
+                consulta += " ORDER BY Nombre, IdUsuario OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
                 }
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
 
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
@@ -42,6 +68,34 @@ namespace negocio
                 }
                 datos.cerrarConexion();
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Usuarios WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND (UsuarioLogin LIKE @busqueda OR Nombre LIKE @busqueda)";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                int total = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return total;
             }
             catch (Exception ex)
             {
