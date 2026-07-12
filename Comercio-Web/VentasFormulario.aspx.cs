@@ -44,8 +44,10 @@ namespace Comercio_Web
             int idProducto = int.Parse(ddlProducto.SelectedValue);
             ProductoNegocio prodN = new ProductoNegocio();
             Producto producto = prodN.BuscarPorId(idProducto);
-            txtPrecio.Text = producto.UltimoPrecio.ToString("F2"); //  f2 = lo paso a 2 decimales
-            Session["PrecioActual"] = producto.UltimoPrecio.ToString("F2");
+
+            decimal precioVenta = producto.UltimoPrecio + (producto.UltimoPrecio * (producto.PorcentajeGanancia / 100m));
+            txtPrecio.Text = precioVenta.ToString("F2");
+            Session["PrecioActual"] = precioVenta.ToString("F2");
         }
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
