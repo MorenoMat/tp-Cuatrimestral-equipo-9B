@@ -1,6 +1,19 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ComprasFormulario.aspx.cs" Inherits="Comercio_Web.ComprasFormulario" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#<%= ddlProveedor.ClientID %>').select2({
+                width: '100%'
+            });
+            $('#<%= ddlProducto.ClientID %>').select2({
+                width: '100%'
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -11,7 +24,8 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label class="form-label">Proveedor</label>
-                    <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-select" />
+                    <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-select" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged" />
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Usuario</label>

@@ -213,6 +213,37 @@ namespace negocio
             }
         }
 
+        public List<Producto> ListarPorProveedor(int idProveedor)
+        {
+            List<Producto> lista = new List<Producto>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT p.IdProducto, p.Nombre
+                                       FROM Productos p
+                                       INNER JOIN Producto_Proveedor pp ON p.IdProducto = pp.IdProducto
+                                       WHERE pp.IdProveedor = @idProveedor
+                                       ORDER BY p.Nombre, p.IdProducto");
+                datos.setearParametro("@idProveedor", idProveedor);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Producto p = new Producto();
+                    p.IdProducto = (int)datos.Lector["IdProducto"];
+                    p.Nombre = (string)datos.Lector["Nombre"];
+                    lista.Add(p);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<Proveedor> ListarProveedoresDeProducto(int idProducto)
         {
             List<Proveedor> lista = new List<Proveedor>();

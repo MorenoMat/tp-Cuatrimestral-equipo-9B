@@ -21,11 +21,8 @@ namespace Comercio_Web
             {
                 Session.Remove(SESSION_LINEAS);
                 cargarDropDowns();
-                cargarPrecio();
-            cargarGrillaLineas();
+                cargarGrillaLineas();
             }
-          //  actualizarTotal();
-
         }
 
         private void cargarDropDowns()
@@ -42,22 +39,48 @@ namespace Comercio_Web
             ddlUsuario.DataValueField = "IdUsuario";
             ddlUsuario.DataBind();
 
+            cargarProductosPorProveedor();
+        }
+
+        private void cargarProductosPorProveedor()
+        {
+            int idProveedor = int.Parse(ddlProveedor.SelectedValue);
             ProductoNegocio prodN = new ProductoNegocio();
-            ddlProducto.DataSource = prodN.Listar();
+            ddlProducto.DataSource = prodN.ListarPorProveedor(idProveedor);
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
 
+            if (ddlProducto.Items.Count > 0)
+            {
+                cargarPrecio();
+            }
+            else
+            {
+                txtPrecio.Text = "0,00";
+                lblStock.Text = "0";
+                Session["PrecioActual"] = "0,00";
+            }
         }
+
         private void cargarPrecio()
         {
+            if (ddlProducto.Items.Count == 0)
+                return;
+
             int idProducto = int.Parse(ddlProducto.SelectedValue);
             ProductoNegocio prodN = new ProductoNegocio();
             Producto producto = prodN.BuscarPorId(idProducto);
-            txtPrecio.Text = producto.UltimoPrecio.ToString("F2"); //  f2 = lo paso a 2 decimales
+            txtPrecio.Text = producto.UltimoPrecio.ToString("F2");
             lblStock.Text = producto.StockActual.ToString();
             Session["PrecioActual"] = producto.UltimoPrecio.ToString("F2");
         }
+
+        protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarProductosPorProveedor();
+        }
+
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
             cargarPrecio();
@@ -85,11 +108,16 @@ namespace Comercio_Web
 
         protected void btnAgregarLinea_Click(object sender, EventArgs e)
         {
+            if (ddlProducto.Items.Count == 0)
+            {
+                lblMensaje.Text = "El proveedor seleccionado no tiene productos disponibles.";
+                return;
+            }
+
             int idProducto = int.Parse(ddlProducto.SelectedValue);
             string nombreProducto = ddlProducto.SelectedItem.Text;
             int cantidad;
             decimal precio;
-            //decimal total;
             if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad <= 0)
             {
                 lblMensaje.Text = "La cantidad debe ser un número mayor a 0.";
