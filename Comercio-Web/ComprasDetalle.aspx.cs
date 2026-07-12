@@ -32,9 +32,18 @@ namespace Comercio_Web
         private void cargarDetalle(int idCompra)
         {
             ComprasNegocio negocio = new ComprasNegocio();
+            Compra compra = negocio.ObtenerPorId(idCompra);
+            if (compra == null)
+            {
+                Response.Redirect("ComprasLista.aspx", false);
+                return;
+            }
+
             List<DetalleCompra> detalles = negocio.ListarDetalleCompra(idCompra);
 
             lblDetalleCompraTitulo.Text = "Compra N° " + idCompra;
+            lblTotalValor.Text = compra.Total.ToString("N2");
+
             dgvDetalleCompra.DataSource = detalles;
             dgvDetalleCompra.DataBind();
         }

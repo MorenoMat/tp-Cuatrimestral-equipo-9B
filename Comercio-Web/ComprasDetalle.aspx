@@ -11,7 +11,13 @@
 
     <div class="card shadow-sm border-0 mb-3">
         <div class="card-body">
-            <asp:Label ID="lblDetalleCompraTitulo" runat="server" CssClass="fw-semibold d-block mb-2" />
+            <asp:Label ID="lblDetalleCompraTitulo" runat="server" CssClass="fw-semibold d-block mb-3" />
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <span class="text-muted d-block">Total de la compra</span>
+                    <asp:Label ID="lblTotalValor" runat="server" CssClass="fw-semibold" />
+                </div>
+            </div>
         </div>
     </div>
 

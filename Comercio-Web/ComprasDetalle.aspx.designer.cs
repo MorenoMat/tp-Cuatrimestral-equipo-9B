@@ -10,6 +10,7 @@ namespace Comercio_Web
     {
         protected global::System.Web.UI.WebControls.HyperLink lnkVolver;
         protected global::System.Web.UI.WebControls.Label lblDetalleCompraTitulo;
+        protected global::System.Web.UI.WebControls.Label lblTotalValor;
         protected global::System.Web.UI.WebControls.GridView dgvDetalleCompra;
     }
 }

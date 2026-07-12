@@ -215,6 +215,42 @@ namespace negocio
             }
         }
 
+        public Compra ObtenerPorId(int idCompra)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT c.IdCompra,
+                                             p.IdProveedor, p.Nombre AS ProveedorNombre,
+                                             ISNULL(SUM(dc.Cantidad * dc.PrecioUnitario), 0) AS Total
+                                      FROM Compras c
+                                      INNER JOIN Proveedores p ON c.IdProveedor = p.IdProveedor
+                                      LEFT JOIN DetalleCompras dc ON c.IdCompra = dc.IdCompra
+                                      WHERE c.IdCompra = @idCompra
+                                      GROUP BY c.IdCompra, p.IdProveedor, p.Nombre");
+                datos.setearParametro("@idCompra", idCompra);
+                datos.ejecutarLectura();
+
+                Compra compra = null;
+                if (datos.Lector.Read())
+                {
+                    compra = new Compra();
+                    compra.IdCompra = (int)datos.Lector["IdCompra"];
+                    compra.Proveedor = new Proveedor();
+                    compra.Proveedor.IdProveedor = (int)datos.Lector["IdProveedor"];
+                    compra.Proveedor.Nombre = (string)datos.Lector["ProveedorNombre"];
+                    compra.Total = Convert.ToDecimal(datos.Lector["Total"]);
+                }
+
+                datos.cerrarConexion();
+                return compra;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void Registrar(Compra compra)
         {
             try 
