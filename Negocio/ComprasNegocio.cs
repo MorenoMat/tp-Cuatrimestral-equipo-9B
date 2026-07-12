@@ -14,10 +14,13 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = @"SELECT c.IdCompra, c.FechaCompra, 
                                               p.IdProveedor, p.Nombre AS ProveedorNombre,
-                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre,
+                                              ISNULL(SUM(dc.Cantidad * dc.PrecioUnitario), 0) AS Total
                                        FROM Compras c
                                        INNER JOIN Proveedores p ON c.IdProveedor = p.IdProveedor
                                        INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
+                                       LEFT JOIN DetalleCompras dc ON c.IdCompra = dc.IdCompra
+                                       GROUP BY c.IdCompra, c.FechaCompra, p.IdProveedor, p.Nombre, u.IdUsuario, u.Nombre
                                        ORDER BY c.FechaCompra DESC, c.IdCompra DESC";
 
                 datos.setearConsulta(consulta);
@@ -33,6 +36,7 @@ namespace negocio
                     c.Usuario = new Usuario();
                     c.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
                     c.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
+                    c.Total = Convert.ToDecimal(datos.Lector["Total"]);
                     lista.Add(c);
                 }
                 datos.cerrarConexion();
@@ -53,13 +57,16 @@ namespace negocio
                 int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = @"SELECT c.IdCompra, c.FechaCompra, 
                                               p.IdProveedor, p.Nombre AS ProveedorNombre,
-                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre,
+                                              ISNULL(SUM(dc.Cantidad * dc.PrecioUnitario), 0) AS Total
                                        FROM Compras c
                                        INNER JOIN Proveedores p ON c.IdProveedor = p.IdProveedor
                                        INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
+                                       LEFT JOIN DetalleCompras dc ON c.IdCompra = dc.IdCompra
                                        WHERE 1=1";
 
                 consulta += ObtenerWhereFiltros(busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
+                consulta += " GROUP BY c.IdCompra, c.FechaCompra, p.IdProveedor, p.Nombre, u.IdUsuario, u.Nombre";
                 consulta += " ORDER BY c.FechaCompra DESC, c.IdCompra DESC OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
@@ -79,6 +86,7 @@ namespace negocio
                     c.Usuario = new Usuario();
                     c.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
                     c.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
+                    c.Total = Convert.ToDecimal(datos.Lector["Total"]);
                     lista.Add(c);
                 }
                 datos.cerrarConexion();

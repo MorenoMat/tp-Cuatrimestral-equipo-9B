@@ -62,6 +62,7 @@
                         <asp:BoundField HeaderText="Fecha" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
                         <asp:BoundField HeaderText="Proveedor" DataField="Proveedor.Nombre" />
                         <asp:BoundField HeaderText="Usuario" DataField="Usuario.Nombre" />
+                        <asp:BoundField HeaderText="Total" DataField="Total" DataFormatString="{0:N2}" />
                     </Columns>
                 </asp:GridView>
             </div>
