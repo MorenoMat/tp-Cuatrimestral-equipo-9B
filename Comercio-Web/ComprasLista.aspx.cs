@@ -151,5 +151,6 @@ namespace Comercio_Web
                 cargarGrilla(txtBuscar.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
             }
         }
+
     }
 }

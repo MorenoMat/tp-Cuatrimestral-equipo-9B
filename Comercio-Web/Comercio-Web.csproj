@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -80,6 +80,7 @@
     <Content Include="ProductosLista.aspx" />
     <Content Include="ComprasFormulario.aspx" />
     <Content Include="ComprasLista.aspx" />
+    <Content Include="ComprasDetalle.aspx" />
     <Content Include="VentasLista.aspx" />
     <Content Include="ProveedoresFormulario.aspx" />
     <Content Include="ProveedoresLista.aspx" />
@@ -179,6 +180,13 @@
     <Compile Include="ComprasLista.aspx.designer.cs">
       <DependentUpon>ComprasLista.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ComprasDetalle.aspx.cs">
+      <DependentUpon>ComprasDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComprasDetalle.aspx.designer.cs">
+      <DependentUpon>ComprasDetalle.aspx</DependentUpon>
+    </Compile>
     <Compile Include="VentasLista.aspx.cs">
       <DependentUpon>VentasLista.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -277,4 +285,5 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
 </Project>
+
 

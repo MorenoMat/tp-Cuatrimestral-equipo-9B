@@ -180,6 +180,41 @@ namespace negocio
             }
         }
 
+        public List<DetalleCompra> ListarDetalleCompra(int idCompra)
+        {
+            List<DetalleCompra> lista = new List<DetalleCompra>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT dc.IdDetalleCompra, dc.Cantidad, dc.PrecioUnitario, dc.IdCompra, dc.IdProducto, p.Nombre AS ProductoNombre
+                                       FROM DetalleCompras dc
+                                       INNER JOIN Productos p ON dc.IdProducto = p.IdProducto
+                                       WHERE dc.IdCompra = @idCompra
+                                       ORDER BY dc.IdDetalleCompra");
+                datos.setearParametro("@idCompra", idCompra);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    DetalleCompra detalle = new DetalleCompra();
+                    detalle.Id = (int)datos.Lector["IdDetalleCompra"];
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalle.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
+                    detalle.IdCompra = (int)datos.Lector["IdCompra"];
+                    detalle.IdProducto = (int)datos.Lector["IdProducto"];
+                    detalle.ProductoNombre = (string)datos.Lector["ProductoNombre"];
+                    lista.Add(detalle);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void Registrar(Compra compra)
         {
             try 

@@ -63,6 +63,12 @@
                         <asp:BoundField HeaderText="Proveedor" DataField="Proveedor.Nombre" />
                         <asp:BoundField HeaderText="Usuario" DataField="Usuario.Nombre" />
                         <asp:BoundField HeaderText="Total" DataField="Total" DataFormatString="{0:N2}" />
+                        <asp:TemplateField HeaderText="Acción">
+                            <ItemTemplate>
+                                <asp:HyperLink ID="lnkVerDetalle" runat="server" CssClass="btn btn-outline-primary btn-sm"
+                                    NavigateUrl='<%# "ComprasDetalle.aspx?id=" + Eval("IdCompra") %>' Text="Ver Detalle" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
@@ -90,4 +96,5 @@
             </div>
         </div>
     </div>
+
 </asp:Content>
