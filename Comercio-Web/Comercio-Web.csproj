@@ -187,6 +187,7 @@
       <DependentUpon>VentasLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AlertasStockHelper.cs" />
+    <Compile Include="Helpers\PaginacionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProveedoresFormulario.aspx.cs">
       <DependentUpon>ProveedoresFormulario.aspx</DependentUpon>
@@ -276,3 +277,4 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
 </Project>
+

@@ -1,19 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Comercio_Web.Helpers;
 using negocio;
 
 namespace Comercio_Web
 {
     public partial class MarcasLista : System.Web.UI.Page
     {
-        private class PaginaItem
-        {
-            public int Numero { get; set; }
-            public bool Actual { get; set; }
-        }
-
         private int PaginaActual
         {
             get { return ViewState["PaginaActual"] != null ? (int)ViewState["PaginaActual"] : 1; }
@@ -46,43 +40,20 @@ namespace Comercio_Web
         {
             MarcaNegocio negocio = new MarcaNegocio();
             int totalRegistros = negocio.Contar(busqueda);
-            int totalPaginas = totalRegistros == 0 ? 1 : (int)Math.Ceiling((double)totalRegistros / TamanioPagina);
+            EstadoPaginacion paginacion = PaginacionHelper.Crear(PaginaActual, TamanioPagina, totalRegistros);
 
-            if (PaginaActual > totalPaginas)
-                PaginaActual = totalPaginas;
-            if (PaginaActual < 1)
-                PaginaActual = 1;
-
+            PaginaActual = paginacion.PaginaActual;
             dgvMarcas.DataSource = negocio.BuscarPaginado(busqueda, PaginaActual, TamanioPagina);
             dgvMarcas.DataBind();
 
-            int desde = totalRegistros == 0 ? 0 : ((PaginaActual - 1) * TamanioPagina) + 1;
-            int hasta = totalRegistros == 0 ? 0 : Math.Min(PaginaActual * TamanioPagina, totalRegistros);
-
-            lblPaginacion.Text = "Mostrando " + desde + "-" + hasta + " de " + totalRegistros + " marcas";
-            btnAnterior.Enabled = PaginaActual > 1;
-            btnSiguiente.Enabled = PaginaActual < totalPaginas;
+            lblPaginacion.Text = "Mostrando " + paginacion.Desde + "-" + paginacion.Hasta + " de " + paginacion.TotalRegistros + " marcas";
+            btnAnterior.Enabled = paginacion.PuedeIrAnterior;
+            btnSiguiente.Enabled = paginacion.PuedeIrSiguiente;
             btnAnterior.CssClass = btnAnterior.Enabled ? "btn btn-outline-secondary btn-sm" : "btn btn-outline-secondary btn-sm disabled";
             btnSiguiente.CssClass = btnSiguiente.Enabled ? "btn btn-outline-secondary btn-sm" : "btn btn-outline-secondary btn-sm disabled";
 
             ddlTamanioPagina.SelectedValue = TamanioPagina.ToString();
-            cargarPaginas(totalPaginas);
-        }
-
-        private void cargarPaginas(int totalPaginas)
-        {
-            List<PaginaItem> paginas = new List<PaginaItem>();
-
-            for (int i = 1; i <= totalPaginas; i++)
-            {
-                paginas.Add(new PaginaItem
-                {
-                    Numero = i,
-                    Actual = i == PaginaActual
-                });
-            }
-
-            rptPaginas.DataSource = paginas;
+            rptPaginas.DataSource = paginacion.Paginas;
             rptPaginas.DataBind();
         }
 

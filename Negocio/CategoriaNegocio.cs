@@ -8,27 +8,51 @@ namespace negocio
     {
         public List<Categoria> Listar()
         {
-            return Buscar(null);
+            List<Categoria> lista = new List<Categoria>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdCategoria, Descripcion FROM Categorias ORDER BY Descripcion, IdCategoria");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Categoria c = new Categoria();
+                    c.IdCategoria = (int)datos.Lector["IdCategoria"];
+                    c.Descripcion = (string)datos.Lector["Descripcion"];
+                    lista.Add(c);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Categoria> Buscar(string busqueda)
+        public List<Categoria> BuscarPaginado(string busqueda, int numeroPagina, int tamanioPagina)
         {
             List<Categoria> lista = new List<Categoria>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                string consulta = "SELECT IdCategoria, Descripcion FROM Categorias";
+                int offset = (numeroPagina - 1) * tamanioPagina;
+                string consulta = "SELECT IdCategoria, Descripcion FROM Categorias WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta += " WHERE Descripcion LIKE @busqueda";
+                    consulta += " AND Descripcion LIKE @busqueda";
                 }
+
+                consulta += " ORDER BY Descripcion, IdCategoria OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
                 }
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
 
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
@@ -40,6 +64,34 @@ namespace negocio
                 }
                 datos.cerrarConexion();
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Categorias WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND Descripcion LIKE @busqueda";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                int total = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return total;
             }
             catch (Exception ex)
             {
