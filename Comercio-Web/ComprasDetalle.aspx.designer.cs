@@ -8,6 +8,7 @@ namespace Comercio_Web
 {
     public partial class ComprasDetalle
     {
+        protected global::System.Web.UI.WebControls.HyperLink lnkVolver;
         protected global::System.Web.UI.WebControls.Label lblDetalleCompraTitulo;
         protected global::System.Web.UI.WebControls.GridView dgvDetalleCompra;
     }

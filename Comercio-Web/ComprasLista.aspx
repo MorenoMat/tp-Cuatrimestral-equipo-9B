@@ -66,7 +66,7 @@
                         <asp:TemplateField HeaderText="Acción">
                             <ItemTemplate>
                                 <asp:HyperLink ID="lnkVerDetalle" runat="server" CssClass="btn btn-outline-primary btn-sm"
-                                    NavigateUrl='<%# "ComprasDetalle.aspx?id=" + Eval("IdCompra") %>' Text="Ver Detalle" />
+                                    NavigateUrl='<%# ObtenerUrlDetalle(Eval("IdCompra")) %>' Text="Ver Detalle" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

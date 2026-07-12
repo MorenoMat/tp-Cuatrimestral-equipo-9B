@@ -24,6 +24,7 @@ namespace Comercio_Web
                     return;
                 }
 
+                configurarVolver();
                 cargarDetalle(idCompra);
             }
         }
@@ -36,6 +37,28 @@ namespace Comercio_Web
             lblDetalleCompraTitulo.Text = "Compra N° " + idCompra;
             dgvDetalleCompra.DataSource = detalles;
             dgvDetalleCompra.DataBind();
+        }
+
+        private void configurarVolver()
+        {
+            int pagina;
+            int tamanio;
+
+            bool paginaValida = int.TryParse(Request.QueryString["pagina"], out pagina) && pagina > 0;
+            bool tamanioValido = int.TryParse(Request.QueryString["tamanio"], out tamanio) && tamanio > 0;
+
+            string url = "ComprasLista.aspx";
+            if (paginaValida || tamanioValido)
+            {
+                url += "?";
+                if (paginaValida)
+                    url += "pagina=" + pagina;
+
+                if (tamanioValido)
+                    url += (paginaValida ? "&" : string.Empty) + "tamanio=" + tamanio;
+            }
+
+            lnkVolver.NavigateUrl = url;
         }
     }
 }
