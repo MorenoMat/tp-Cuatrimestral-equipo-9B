@@ -12,10 +12,18 @@
         <div class="card-body">
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por DNI, nombre o mail" />
                     </div>
-                    <div class="col-md-4 d-flex gap-2">
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFiltroEstado" runat="server" Text="Filtrar por estado" CssClass="form-label" />
+                        <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-select">
+                            <asp:ListItem Text="TODOS" Value="" />
+                            <asp:ListItem Text="Activos" Value="true" />
+                            <asp:ListItem Text="Inactivos" Value="false" />
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-3 d-flex gap-2">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
                         <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                     </div>
