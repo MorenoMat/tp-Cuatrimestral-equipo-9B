@@ -8,21 +8,92 @@ namespace negocio
     {
         public List<Proveedor> Listar()
         {
-            return Buscar(null, null);
+            List<Proveedor> lista = new List<Proveedor>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores ORDER BY Nombre, IdProveedor");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Proveedor p = new Proveedor();
+                    p.IdProveedor = (int)datos.Lector["IdProveedor"];
+                    p.Nombre = (string)datos.Lector["Nombre"];
+                    p.Telefono = datos.Lector["Telefono"] is DBNull ? "" : (string)datos.Lector["Telefono"];
+                    p.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
+                    p.Cuit = (string)datos.Lector["Cuit"];
+                    p.Activo = Convert.ToBoolean(datos.Lector["Activo"]);
+                    lista.Add(p);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Proveedor> Buscar(string busqueda)
-        {
-            return Buscar(busqueda, null);
-        }
-
-        public List<Proveedor> Buscar(string busqueda, bool? activo)
+        public List<Proveedor> BuscarPaginado(string busqueda, bool? activo, int numeroPagina, int tamanioPagina)
         {
             List<Proveedor> lista = new List<Proveedor>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
+                int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = "SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND (Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda)";
+                }
+
+                if (activo.HasValue)
+                {
+                    consulta += " AND Activo = @activo";
+                }
+
+                consulta += " ORDER BY Nombre, IdProveedor OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+                if (activo.HasValue)
+                {
+                    datos.setearParametro("@activo", activo.Value);
+                }
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Proveedor p = new Proveedor();
+                    p.IdProveedor = (int)datos.Lector["IdProveedor"];
+                    p.Nombre = (string)datos.Lector["Nombre"];
+                    p.Telefono = datos.Lector["Telefono"] is DBNull ? "" : (string)datos.Lector["Telefono"];
+                    p.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
+                    p.Cuit = (string)datos.Lector["Cuit"];
+                    p.Activo = Convert.ToBoolean(datos.Lector["Activo"]);
+                    lista.Add(p);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda, bool? activo)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Proveedores WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
@@ -39,26 +110,14 @@ namespace negocio
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
                 }
-
                 if (activo.HasValue)
                 {
                     datos.setearParametro("@activo", activo.Value);
                 }
 
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    Proveedor p = new Proveedor();
-                    p.IdProveedor = (int)datos.Lector["IdProveedor"];
-                    p.Nombre = (string)datos.Lector["Nombre"];
-                    p.Telefono = datos.Lector["Telefono"] is DBNull ? "" : (string)datos.Lector["Telefono"];
-                    p.Email = datos.Lector["Email"] is DBNull ? "" : (string)datos.Lector["Email"];
-                    p.Cuit = (string)datos.Lector["Cuit"];
-                    p.Activo = Convert.ToBoolean(datos.Lector["Activo"]);
-                    lista.Add(p);
-                }
+                int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
-                return lista;
+                return total;
             }
             catch (Exception ex)
             {
