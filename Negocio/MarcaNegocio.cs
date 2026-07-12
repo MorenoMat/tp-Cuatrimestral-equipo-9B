@@ -8,27 +8,51 @@ namespace negocio
     {
         public List<Marca> Listar()
         {
-            return Buscar(null);
+            List<Marca> lista = new List<Marca>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SELECT IdMarca, Descripcion FROM Marcas ORDER BY Descripcion, IdMarca");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Marca m = new Marca();
+                    m.IdMarca = (int)datos.Lector["IdMarca"];
+                    m.Descripcion = (string)datos.Lector["Descripcion"];
+                    lista.Add(m);
+                }
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Marca> Buscar(string busqueda)
+        public List<Marca> BuscarPaginado(string busqueda, int numeroPagina, int tamanioPagina)
         {
             List<Marca> lista = new List<Marca>();
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                string consulta = "SELECT IdMarca, Descripcion FROM Marcas";
+                int offset = (numeroPagina - 1) * tamanioPagina;
+                string consulta = "SELECT IdMarca, Descripcion FROM Marcas WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta += " WHERE Descripcion LIKE @busqueda";
+                    consulta += " AND Descripcion LIKE @busqueda";
                 }
+
+                consulta += " ORDER BY Descripcion, IdMarca OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
                 if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     datos.setearParametro("@busqueda", "%" + busqueda + "%");
                 }
+                datos.setearParametro("@offset", offset);
+                datos.setearParametro("@tamanioPagina", tamanioPagina);
 
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
@@ -40,6 +64,34 @@ namespace negocio
                 }
                 datos.cerrarConexion();
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Contar(string busqueda)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT COUNT(*) FROM Marcas WHERE 1=1";
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta += " AND Descripcion LIKE @busqueda";
+                }
+
+                datos.setearConsulta(consulta);
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
+                }
+
+                int total = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return total;
             }
             catch (Exception ex)
             {
