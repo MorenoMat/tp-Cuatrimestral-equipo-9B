@@ -19,6 +19,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Ventas</h1>
+        <a href="VentasFormulario.aspx" class="btn btn-primary">Nueva Venta</a>
     </div>
     <div class="card shadow-sm border-0 mb-3">
         <div class="card-body">

@@ -88,6 +88,7 @@
     <Content Include="UsuariosLista.aspx" />
     <Content Include="Web.config" />
     <Content Include="VentasDetalle.aspx" />
+    <Content Include="VentasFormulario.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -233,6 +234,13 @@
     <Compile Include="VentasDetalle.aspx.designer.cs">
       <DependentUpon>VentasDetalle.aspx</DependentUpon>
     </Compile>
+    <Compile Include="VentasFormulario.aspx.cs">
+      <DependentUpon>VentasFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VentasFormulario.aspx.designer.cs">
+      <DependentUpon>VentasFormulario.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
@@ -288,7 +296,7 @@
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauraci�n de paquetes NuGet para descargarlos. Para obtener m�s informaci�n, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauraciï¿½n de paquetes NuGet para descargarlos. Para obtener mï¿½s informaciï¿½n, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
