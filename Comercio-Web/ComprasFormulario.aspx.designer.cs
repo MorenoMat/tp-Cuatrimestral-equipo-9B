@@ -24,13 +24,13 @@ namespace Comercio_Web
         protected global::System.Web.UI.WebControls.DropDownList ddlProveedor;
 
         /// <summary>
-        /// Control ddlUsuario.
+        /// Control lblUsuarioCompra.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUsuario;
+        protected global::System.Web.UI.WebControls.Label lblUsuarioCompra;
 
         /// <summary>
         /// Control ddlProducto.

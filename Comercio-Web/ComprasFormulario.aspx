@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Usuario</label>
-                    <asp:DropDownList ID="ddlUsuario" runat="server" CssClass="form-select" />
+                    <asp:Label ID="lblUsuarioCompra" runat="server" CssClass="form-control" />
                 </div>
             </div>
 

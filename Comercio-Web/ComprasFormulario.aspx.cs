@@ -33,11 +33,8 @@ namespace Comercio_Web
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();
 
-            UsuarioNegocio usuNeg = new UsuarioNegocio();
-            ddlUsuario.DataSource = usuNeg.Listar();
-            ddlUsuario.DataTextField = "Nombre";
-            ddlUsuario.DataValueField = "IdUsuario";
-            ddlUsuario.DataBind();
+            Usuario usuarioLogueado = (Usuario)Session["usuario"];
+            lblUsuarioCompra.Text = usuarioLogueado != null ? usuarioLogueado.Nombre : string.Empty;
 
             cargarProductosPorProveedor();
         }
@@ -189,9 +186,16 @@ namespace Comercio_Web
             }
 
             Compra compra = new Compra();
+            Usuario usuarioLogueado = (Usuario)Session["usuario"];
+            if (usuarioLogueado == null)
+            {
+                Response.Redirect("Login.aspx", false);
+                return;
+            }
+
             compra.FechaCompra = DateTime.Now;
             compra.Proveedor = new Proveedor { IdProveedor = int.Parse(ddlProveedor.SelectedValue) };
-            compra.Usuario = new Usuario { IdUsuario = int.Parse(ddlUsuario.SelectedValue) };
+            compra.Usuario = usuarioLogueado;
             compra.DetalleCompras = lineas;
 
             try
