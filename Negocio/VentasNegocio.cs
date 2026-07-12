@@ -186,6 +186,69 @@ namespace negocio
             }
         }
 
+        public List<DetalleVenta> ListarDetalleVenta(int idVenta)
+        {
+            List<DetalleVenta> lista = new List<DetalleVenta>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT dv.IdDetalleVenta, dv.Cantidad, dv.PrecioUnitario, dv.IdVenta, dv.IdProducto, p.Nombre AS ProductoNombre
+                                       FROM DetalleVentas dv
+                                       INNER JOIN Productos p ON dv.IdProducto = p.IdProducto
+                                       WHERE dv.IdVenta = @idVenta
+                                       ORDER BY dv.IdDetalleVenta");
+                datos.setearParametro("@idVenta", idVenta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.Id = (int)datos.Lector["IdDetalleVenta"];
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalle.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
+                    detalle.IdVenta = (int)datos.Lector["IdVenta"];
+                    detalle.IdProducto = (int)datos.Lector["IdProducto"];
+                    detalle.ProductoNombre = (string)datos.Lector["ProductoNombre"];
+                    lista.Add(detalle);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Venta ObtenerPorId(int idVenta)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT v.IdVenta, v.Total
+                                      FROM Ventas v
+                                      WHERE v.IdVenta = @idVenta");
+                datos.setearParametro("@idVenta", idVenta);
+                datos.ejecutarLectura();
+
+                Venta venta = null;
+                if (datos.Lector.Read())
+                {
+                    venta = new Venta();
+                    venta.IdVenta = (int)datos.Lector["IdVenta"];
+                    venta.Total = (decimal)datos.Lector["Total"];
+                }
+
+                datos.cerrarConexion();
+                return venta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void Registrar(Venta venta)
         {
             try

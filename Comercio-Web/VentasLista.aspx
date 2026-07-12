@@ -68,6 +68,12 @@
                         <asp:BoundField HeaderText="Cliente" DataField="Cliente.Nombre" />
                         <asp:BoundField HeaderText="Usuario" DataField="Usuario.Nombre" />
                         <asp:BoundField HeaderText="Total" DataField="Total" DataFormatString="{0:N2}" />
+                        <asp:TemplateField HeaderText="Acción">
+                            <ItemTemplate>
+                                <asp:HyperLink ID="lnkVerDetalle" runat="server" CssClass="btn btn-outline-primary btn-sm"
+                                    NavigateUrl='<%# ObtenerUrlDetalle(Eval("IdVenta")) %>' Text="Ver Detalle" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>

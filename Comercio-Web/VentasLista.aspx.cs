@@ -25,8 +25,22 @@ namespace Comercio_Web
             {
                 cargarClientes();
                 cargarUsuarios();
-                TamanioPagina = int.Parse(ddlTamanioPagina.SelectedValue);
-                PaginaActual = 1;
+
+                int tamanioPaginaUrl;
+                if (int.TryParse(Request.QueryString["tamanio"], out tamanioPaginaUrl) && ddlTamanioPagina.Items.FindByValue(tamanioPaginaUrl.ToString()) != null)
+                {
+                    TamanioPagina = tamanioPaginaUrl;
+                }
+                else
+                {
+                    TamanioPagina = int.Parse(ddlTamanioPagina.SelectedValue);
+                }
+
+                ddlTamanioPagina.SelectedValue = TamanioPagina.ToString();
+
+                int paginaUrl;
+                PaginaActual = int.TryParse(Request.QueryString["pagina"], out paginaUrl) && paginaUrl > 0 ? paginaUrl : 1;
+
                 cargarGrilla();
             }
         }
@@ -145,6 +159,11 @@ namespace Comercio_Web
                 DateTime? fechaHastaFiltro = DateTime.TryParse(txtFechaHasta.Text, out fechaHasta) ? fechaHasta : (DateTime?)null;
                 cargarGrilla(txtBuscar.Text.Trim(), txtBuscarFactura.Text.Trim(), fechaDesdeFiltro, fechaHastaFiltro);
             }
+        }
+
+        protected string ObtenerUrlDetalle(object idVenta)
+        {
+            return "VentasDetalle.aspx?id=" + idVenta + "&pagina=" + PaginaActual + "&tamanio=" + TamanioPagina;
         }
     }
 }
