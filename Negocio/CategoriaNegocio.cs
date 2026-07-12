@@ -39,18 +39,11 @@ namespace negocio
                 int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = "SELECT IdCategoria, Descripcion FROM Categorias WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND Descripcion LIKE @busqueda";
-                }
-
+                consulta += ObtenerWhereFiltros(busqueda);
                 consulta += " ORDER BY Descripcion, IdCategoria OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
+                CargarParametrosFiltros(datos, busqueda);
                 datos.setearParametro("@offset", offset);
                 datos.setearParametro("@tamanioPagina", tamanioPagina);
 
@@ -78,16 +71,10 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT COUNT(*) FROM Categorias WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND Descripcion LIKE @busqueda";
-                }
+                consulta += ObtenerWhereFiltros(busqueda);
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
+                CargarParametrosFiltros(datos, busqueda);
 
                 int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
@@ -96,6 +83,26 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string ObtenerWhereFiltros(string busqueda)
+        {
+            string where = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                where += " AND Descripcion LIKE @busqueda";
+            }
+
+            return where;
+        }
+
+        private void CargarParametrosFiltros(AccesoDatos datos, string busqueda)
+        {
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                datos.setearParametro("@busqueda", "%" + busqueda + "%");
             }
         }
 

@@ -61,69 +61,11 @@ namespace negocio
                                        INNER JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
                                        WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busquedaVenta))
-                {
-                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busquedaVenta";
-                }
-
-                if (!string.IsNullOrWhiteSpace(busquedaFactura))
-                {
-                    consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
-                }
-
-                if (idCliente > 0)
-                {
-                    consulta += " AND v.IdCliente = @idCliente";
-                }
-
-                if (idUsuario > 0)
-                {
-                    consulta += " AND v.IdUsuario = @idUsuario";
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    consulta += " AND v.fechaVenta >= @fechaDesde";
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    consulta += " AND v.fechaVenta < @fechaHasta";
-                }
-
+                consulta += ObtenerWhereFiltros(busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
                 consulta += " ORDER BY v.IdVenta DESC OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busquedaVenta))
-                {
-                    datos.setearParametro("@busquedaVenta", "%" + busquedaVenta + "%");
-                }
-
-                if (!string.IsNullOrWhiteSpace(busquedaFactura))
-                {
-                    datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
-                }
-
-                if (idCliente > 0)
-                {
-                    datos.setearParametro("@idCliente", idCliente);
-                }
-
-                if (idUsuario > 0)
-                {
-                    datos.setearParametro("@idUsuario", idUsuario);
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
-                }
-
+                CargarParametrosFiltros(datos, busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
                 datos.setearParametro("@offset", offset);
                 datos.setearParametro("@tamanioPagina", tamanioPagina);
 
@@ -159,66 +101,10 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT COUNT(*) FROM Ventas v WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busquedaVenta))
-                {
-                    consulta += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busquedaVenta";
-                }
-
-                if (!string.IsNullOrWhiteSpace(busquedaFactura))
-                {
-                    consulta += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
-                }
-
-                if (idCliente > 0)
-                {
-                    consulta += " AND v.IdCliente = @idCliente";
-                }
-
-                if (idUsuario > 0)
-                {
-                    consulta += " AND v.IdUsuario = @idUsuario";
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    consulta += " AND v.fechaVenta >= @fechaDesde";
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    consulta += " AND v.fechaVenta < @fechaHasta";
-                }
+                consulta += ObtenerWhereFiltros(busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busquedaVenta))
-                {
-                    datos.setearParametro("@busquedaVenta", "%" + busquedaVenta + "%");
-                }
-
-                if (!string.IsNullOrWhiteSpace(busquedaFactura))
-                {
-                    datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
-                }
-
-                if (idCliente > 0)
-                {
-                    datos.setearParametro("@idCliente", idCliente);
-                }
-
-                if (idUsuario > 0)
-                {
-                    datos.setearParametro("@idUsuario", idUsuario);
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
-                }
+                CargarParametrosFiltros(datos, busquedaVenta, busquedaFactura, idCliente, idUsuario, fechaDesde, fechaHasta);
 
                 int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
@@ -227,6 +113,76 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string ObtenerWhereFiltros(string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            string where = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(busquedaVenta))
+            {
+                where += " AND CAST(v.IdVenta AS VARCHAR(20)) LIKE @busquedaVenta";
+            }
+
+            if (!string.IsNullOrWhiteSpace(busquedaFactura))
+            {
+                where += " AND CAST(v.NumeroFactura AS VARCHAR(20)) LIKE @busquedaFactura";
+            }
+
+            if (idCliente > 0)
+            {
+                where += " AND v.IdCliente = @idCliente";
+            }
+
+            if (idUsuario > 0)
+            {
+                where += " AND v.IdUsuario = @idUsuario";
+            }
+
+            if (fechaDesde.HasValue)
+            {
+                where += " AND v.fechaVenta >= @fechaDesde";
+            }
+
+            if (fechaHasta.HasValue)
+            {
+                where += " AND v.fechaVenta < @fechaHasta";
+            }
+
+            return where;
+        }
+
+        private void CargarParametrosFiltros(AccesoDatos datos, string busquedaVenta, string busquedaFactura, int idCliente, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            if (!string.IsNullOrWhiteSpace(busquedaVenta))
+            {
+                datos.setearParametro("@busquedaVenta", "%" + busquedaVenta + "%");
+            }
+
+            if (!string.IsNullOrWhiteSpace(busquedaFactura))
+            {
+                datos.setearParametro("@busquedaFactura", "%" + busquedaFactura + "%");
+            }
+
+            if (idCliente > 0)
+            {
+                datos.setearParametro("@idCliente", idCliente);
+            }
+
+            if (idUsuario > 0)
+            {
+                datos.setearParametro("@idUsuario", idUsuario);
+            }
+
+            if (fechaDesde.HasValue)
+            {
+                datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+            }
+
+            if (fechaHasta.HasValue)
+            {
+                datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
             }
         }
 

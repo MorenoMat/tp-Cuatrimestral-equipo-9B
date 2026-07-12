@@ -68,39 +68,11 @@ namespace negocio
                                        INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
                                        WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND p.Nombre LIKE @busqueda";
-                }
-
-                if (idMarca > 0)
-                {
-                    consulta += " AND p.IdMarca = @idMarca";
-                }
-
-                if (idCategoria > 0)
-                {
-                    consulta += " AND p.IdCategoria = @idCategoria";
-                }
-
+                consulta += ObtenerWhereFiltros(busqueda, idMarca, idCategoria);
                 consulta += " ORDER BY p.Nombre, p.IdProducto OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-
-                if (idMarca > 0)
-                {
-                    datos.setearParametro("@idMarca", idMarca);
-                }
-
-                if (idCategoria > 0)
-                {
-                    datos.setearParametro("@idCategoria", idCategoria);
-                }
-
+                CargarParametrosFiltros(datos, busqueda, idMarca, idCategoria);
                 datos.setearParametro("@offset", offset);
                 datos.setearParametro("@tamanioPagina", tamanioPagina);
 
@@ -139,36 +111,10 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT COUNT(*) FROM Productos p WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND p.Nombre LIKE @busqueda";
-                }
-
-                if (idMarca > 0)
-                {
-                    consulta += " AND p.IdMarca = @idMarca";
-                }
-
-                if (idCategoria > 0)
-                {
-                    consulta += " AND p.IdCategoria = @idCategoria";
-                }
+                consulta += ObtenerWhereFiltros(busqueda, idMarca, idCategoria);
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-
-                if (idMarca > 0)
-                {
-                    datos.setearParametro("@idMarca", idMarca);
-                }
-
-                if (idCategoria > 0)
-                {
-                    datos.setearParametro("@idCategoria", idCategoria);
-                }
+                CargarParametrosFiltros(datos, busqueda, idMarca, idCategoria);
 
                 int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
@@ -177,6 +123,46 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string ObtenerWhereFiltros(string busqueda, int idMarca, int idCategoria)
+        {
+            string where = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                where += " AND p.Nombre LIKE @busqueda";
+            }
+
+            if (idMarca > 0)
+            {
+                where += " AND p.IdMarca = @idMarca";
+            }
+
+            if (idCategoria > 0)
+            {
+                where += " AND p.IdCategoria = @idCategoria";
+            }
+
+            return where;
+        }
+
+        private void CargarParametrosFiltros(AccesoDatos datos, string busqueda, int idMarca, int idCategoria)
+        {
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                datos.setearParametro("@busqueda", "%" + busqueda + "%");
+            }
+
+            if (idMarca > 0)
+            {
+                datos.setearParametro("@idMarca", idMarca);
+            }
+
+            if (idCategoria > 0)
+            {
+                datos.setearParametro("@idCategoria", idCategoria);
             }
         }
 

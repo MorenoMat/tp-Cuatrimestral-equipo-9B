@@ -43,27 +43,11 @@ namespace negocio
                 int offset = (numeroPagina - 1) * tamanioPagina;
                 string consulta = "SELECT IdProveedor, Nombre, Telefono, Email, Cuit, Activo FROM Proveedores WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND (Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda)";
-                }
-
-                if (activo.HasValue)
-                {
-                    consulta += " AND Activo = @activo";
-                }
-
+                consulta += ObtenerWhereFiltros(busqueda, activo);
                 consulta += " ORDER BY Nombre, IdProveedor OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-                if (activo.HasValue)
-                {
-                    datos.setearParametro("@activo", activo.Value);
-                }
+                CargarParametrosFiltros(datos, busqueda, activo);
                 datos.setearParametro("@offset", offset);
                 datos.setearParametro("@tamanioPagina", tamanioPagina);
 
@@ -95,25 +79,10 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT COUNT(*) FROM Proveedores WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND (Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda)";
-                }
-
-                if (activo.HasValue)
-                {
-                    consulta += " AND Activo = @activo";
-                }
+                consulta += ObtenerWhereFiltros(busqueda, activo);
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-                if (activo.HasValue)
-                {
-                    datos.setearParametro("@activo", activo.Value);
-                }
+                CargarParametrosFiltros(datos, busqueda, activo);
 
                 int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
@@ -122,6 +91,35 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string ObtenerWhereFiltros(string busqueda, bool? activo)
+        {
+            string where = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                where += " AND (Nombre LIKE @busqueda OR Telefono LIKE @busqueda OR Email LIKE @busqueda OR Cuit LIKE @busqueda)";
+            }
+
+            if (activo.HasValue)
+            {
+                where += " AND Activo = @activo";
+            }
+
+            return where;
+        }
+
+        private void CargarParametrosFiltros(AccesoDatos datos, string busqueda, bool? activo)
+        {
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                datos.setearParametro("@busqueda", "%" + busqueda + "%");
+            }
+            if (activo.HasValue)
+            {
+                datos.setearParametro("@activo", activo.Value);
             }
         }
 

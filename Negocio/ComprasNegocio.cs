@@ -59,59 +59,11 @@ namespace negocio
                                        INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
                                        WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
-                }
-
-                if (idProveedor > 0)
-                {
-                    consulta += " AND c.IdProveedor = @idProveedor";
-                }
-
-                if (idUsuario > 0)
-                {
-                    consulta += " AND c.IdUsuario = @idUsuario";
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    consulta += " AND c.FechaCompra >= @fechaDesde";
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    consulta += " AND c.FechaCompra < @fechaHasta";
-                }
-
+                consulta += ObtenerWhereFiltros(busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
                 consulta += " ORDER BY c.FechaCompra DESC, c.IdCompra DESC OFFSET @offset ROWS FETCH NEXT @tamanioPagina ROWS ONLY";
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-
-                if (idProveedor > 0)
-                {
-                    datos.setearParametro("@idProveedor", idProveedor);
-                }
-
-                if (idUsuario > 0)
-                {
-                    datos.setearParametro("@idUsuario", idUsuario);
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
-                }
-
+                CargarParametrosFiltros(datos, busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
                 datos.setearParametro("@offset", offset);
                 datos.setearParametro("@tamanioPagina", tamanioPagina);
 
@@ -145,56 +97,10 @@ namespace negocio
                 AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT COUNT(*) FROM Compras c WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    consulta += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
-                }
-
-                if (idProveedor > 0)
-                {
-                    consulta += " AND c.IdProveedor = @idProveedor";
-                }
-
-                if (idUsuario > 0)
-                {
-                    consulta += " AND c.IdUsuario = @idUsuario";
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    consulta += " AND c.FechaCompra >= @fechaDesde";
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    consulta += " AND c.FechaCompra < @fechaHasta";
-                }
+                consulta += ObtenerWhereFiltros(busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
 
                 datos.setearConsulta(consulta);
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    datos.setearParametro("@busqueda", "%" + busqueda + "%");
-                }
-
-                if (idProveedor > 0)
-                {
-                    datos.setearParametro("@idProveedor", idProveedor);
-                }
-
-                if (idUsuario > 0)
-                {
-                    datos.setearParametro("@idUsuario", idUsuario);
-                }
-
-                if (fechaDesde.HasValue)
-                {
-                    datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
-                }
-
-                if (fechaHasta.HasValue)
-                {
-                    datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
-                }
+                CargarParametrosFiltros(datos, busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta);
 
                 int total = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
@@ -203,6 +109,66 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private string ObtenerWhereFiltros(string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            string where = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                where += " AND CAST(c.IdCompra AS VARCHAR(20)) LIKE @busqueda";
+            }
+
+            if (idProveedor > 0)
+            {
+                where += " AND c.IdProveedor = @idProveedor";
+            }
+
+            if (idUsuario > 0)
+            {
+                where += " AND c.IdUsuario = @idUsuario";
+            }
+
+            if (fechaDesde.HasValue)
+            {
+                where += " AND c.FechaCompra >= @fechaDesde";
+            }
+
+            if (fechaHasta.HasValue)
+            {
+                where += " AND c.FechaCompra < @fechaHasta";
+            }
+
+            return where;
+        }
+
+        private void CargarParametrosFiltros(AccesoDatos datos, string busqueda, int idProveedor, int idUsuario, DateTime? fechaDesde, DateTime? fechaHasta)
+        {
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                datos.setearParametro("@busqueda", "%" + busqueda + "%");
+            }
+
+            if (idProveedor > 0)
+            {
+                datos.setearParametro("@idProveedor", idProveedor);
+            }
+
+            if (idUsuario > 0)
+            {
+                datos.setearParametro("@idUsuario", idUsuario);
+            }
+
+            if (fechaDesde.HasValue)
+            {
+                datos.setearParametro("@fechaDesde", fechaDesde.Value.Date);
+            }
+
+            if (fechaHasta.HasValue)
+            {
+                datos.setearParametro("@fechaHasta", fechaHasta.Value.Date.AddDays(1));
             }
         }
 
