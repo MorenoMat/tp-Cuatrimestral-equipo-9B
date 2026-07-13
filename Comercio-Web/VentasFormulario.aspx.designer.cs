@@ -8,6 +8,7 @@ namespace Comercio_Web
 {
     public partial class VentasFormulario
     {
+        protected global::System.Web.UI.WebControls.Panel pnlFormularioVenta;
         protected global::System.Web.UI.WebControls.TextBox txtNumeroFactura;
         protected global::System.Web.UI.WebControls.DropDownList ddlCliente;
         protected global::System.Web.UI.WebControls.Label lblUsuarioVenta;

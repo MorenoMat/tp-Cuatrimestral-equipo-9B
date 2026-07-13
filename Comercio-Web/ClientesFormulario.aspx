@@ -5,29 +5,31 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-4">
-            <h1 class="h3 mb-4"><asp:Label ID="lblTitulo" runat="server" Text="Nuevo Cliente" /></h1>
-            <div class="mb-3">
-                <asp:Label Text="DNI" runat="server" CssClass="form-label" />
-                <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" TextMode="Number" />
-                <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtDni" runat="server" TextStyle="" />
-            </div>
-            <div class="mb-3">
-                <asp:Label Text="Nombre" runat="server" CssClass="form-label" />
-                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtNombre" runat="server" TextStyle="" />
-            </div>
-            <div class="mb-3">
-                <asp:Label Text="Email" runat="server" CssClass="form-label" />
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
-                <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtEmail" runat="server" TextStyle="" />
-            </div>
-            <div class="d-flex gap-2">
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" Visible="false" />
-                <a href="ClientesLista.aspx" class="btn btn-secondary">Cancelar</a>
+    <asp:Panel ID="pnlFormularioCliente" runat="server" DefaultButton="btnGuardar" DefaultFocus="txtDni">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-4"><asp:Label ID="lblTitulo" runat="server" Text="Nuevo Cliente" /></h1>
+                <div class="mb-3">
+                    <asp:Label Text="DNI" runat="server" CssClass="form-label" />
+                    <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" TextMode="Number" />
+                    <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtDni" runat="server" TextStyle="" />
+                </div>
+                <div class="mb-3">
+                    <asp:Label Text="Nombre" runat="server" CssClass="form-label" />
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                    <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtNombre" runat="server" TextStyle="" />
+                </div>
+                <div class="mb-3">
+                    <asp:Label Text="Email" runat="server" CssClass="form-label" />
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
+                    <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtEmail" runat="server" TextStyle="" />
+                </div>
+                <div class="d-flex gap-2">
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
+                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" Visible="false" />
+                    <a href="ClientesLista.aspx" class="btn btn-secondary">Cancelar</a>
+                </div>
             </div>
         </div>
-    </div>
+    </asp:Panel>
 </asp:Content>

@@ -51,7 +51,8 @@
                     <div class="d-flex align-items-center gap-2">
                         <asp:Label ID="lblUsuario" runat="server" CssClass="text-white" />
                         <asp:Button ID="btnSalir" runat="server" Text="Salir"
-                            CssClass="btn btn-outline-light btn-sm" OnClick="btnSalir_Click" />
+                            CssClass="btn btn-outline-light btn-sm" OnClick="btnSalir_Click"
+                            UseSubmitBehavior="false" CausesValidation="false" />
                     </div>
                 </div>
             </div>
