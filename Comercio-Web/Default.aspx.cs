@@ -1,5 +1,6 @@
 ﻿using System;
 using Dominio;
+using negocio;
 
 namespace Comercio_Web
 {
@@ -17,6 +18,10 @@ namespace Comercio_Web
             {
                 Usuario usuario = (Usuario)Session["usuario"];
                 lblSaludo.Text = "HOLA " + usuario.Nombre;
+
+                VentasNegocio ventasNegocio = new VentasNegocio();
+                decimal totalFacturadoHoy = ventasNegocio.ObtenerTotalFacturadoHoyPorUsuario(usuario.IdUsuario);
+                lblVentasDia.Text = totalFacturadoHoy.ToString("N2");
             }
         }
     }

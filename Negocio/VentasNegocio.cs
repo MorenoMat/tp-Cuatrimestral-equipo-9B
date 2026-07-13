@@ -288,6 +288,39 @@ namespace negocio
                 throw ex;
             }
         }
+        public decimal ObtenerTotalFacturadoHoyPorUsuario(int idUsuario)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime hoy = DateTime.Today;
+                DateTime manana = hoy.AddDays(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.IdUsuario = @idUsuario
+                                        AND v.FechaVenta >= @hoy
+                                        AND v.FechaVenta < @manana");
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@hoy", hoy);
+                datos.setearParametro("@manana", manana);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool nroFacturaExiste(int nroFactura) {
 
             AccesoDatos datos = new AccesoDatos();
@@ -301,7 +334,7 @@ namespace negocio
 
 
                 int cantidad = Convert.ToInt32(datos.ejecutarAccionScalar());
-               
+
                 return cantidad > 0;
             }
             catch (Exception ex)

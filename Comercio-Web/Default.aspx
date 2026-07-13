@@ -42,8 +42,8 @@
                             <span class="home-kpi-icon" style="background:#e8eeff;color:#2f62ff;">💵</span>
                             <span class="badge text-bg-success-subtle text-success">+12.5%</span>
                         </div>
-                        <div class="text-uppercase text-muted small fw-semibold">Ventas del día</div>
-                        <div class="fs-3 fw-semibold">$42,850.00</div>
+                        <div class="text-uppercase text-muted small fw-semibold">Dinero facturado hoy</div>
+                        <div class="fs-3 fw-semibold">$ <asp:Label ID="lblVentasDia" runat="server" Text="0,00" /></div>
                     </div>
                 </div>
             </button>
