@@ -23,9 +23,11 @@ namespace Comercio_Web
                 VentasNegocio ventasNegocio = new VentasNegocio();
                 decimal totalFacturadoHoy = ventasNegocio.ObtenerTotalFacturadoHoyPorUsuario(usuario.IdUsuario);
                 decimal totalFacturadoMes = ventasNegocio.ObtenerTotalFacturadoMesPorUsuario(usuario.IdUsuario);
+                int cantidadVentasMes = ventasNegocio.ObtenerCantidadVentasMesPorUsuario(usuario.IdUsuario);
 
                 lblVentasDia.Text = totalFacturadoHoy.ToString("N2");
                 lblVentasMes.Text = totalFacturadoMes.ToString("N2");
+                lblCantidadVentasMes.Text = cantidadVentasMes.ToString();
 
                 int cantidadBajoStock = AlertasStockHelper.ObtenerCantidadProductosBajoStock();
                 lblAlertasStock.Text = cantidadBajoStock == 1
