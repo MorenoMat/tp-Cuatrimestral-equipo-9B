@@ -15,9 +15,7 @@ namespace Comercio_Web.Helpers
             {
                 panelAlertas.Controls.Clear();
 
-                ProductoNegocio productoNegocio = new ProductoNegocio();
-                List<Producto> productos = productoNegocio.Listar();
-                List<Producto> bajoStock = productos.FindAll(p => p.StockActual < p.StockMinimo);
+                List<Producto> bajoStock = ObtenerProductosBajoStock();
 
                 if (bajoStock.Count == 0)
                 {
@@ -46,6 +44,18 @@ namespace Comercio_Web.Helpers
                     HttpUtility.HtmlEncode(ex.Message));
                 panelAlertas.Controls.Add(error);
             }
+        }
+
+        public static int ObtenerCantidadProductosBajoStock()
+        {
+            return ObtenerProductosBajoStock().Count;
+        }
+
+        private static List<Producto> ObtenerProductosBajoStock()
+        {
+            ProductoNegocio productoNegocio = new ProductoNegocio();
+            List<Producto> productos = productoNegocio.Listar();
+            return productos.FindAll(p => p.StockActual < p.StockMinimo);
         }
     }
 }

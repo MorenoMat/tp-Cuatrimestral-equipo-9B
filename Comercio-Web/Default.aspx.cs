@@ -1,4 +1,5 @@
 ﻿using System;
+using Comercio_Web.Helpers;
 using Dominio;
 using negocio;
 
@@ -25,6 +26,12 @@ namespace Comercio_Web
 
                 lblVentasDia.Text = totalFacturadoHoy.ToString("N2");
                 lblVentasMes.Text = totalFacturadoMes.ToString("N2");
+
+                int cantidadBajoStock = AlertasStockHelper.ObtenerCantidadProductosBajoStock();
+                lblAlertasStock.Text = cantidadBajoStock == 1
+                    ? "1 producto bajo"
+                    : cantidadBajoStock + " productos bajos";
+                lblAlertasStock.CssClass = cantidadBajoStock == 0 ? "text-success" : "text-danger";
             }
         }
     }

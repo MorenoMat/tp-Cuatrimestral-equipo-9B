@@ -8,10 +8,6 @@
             border-radius: .75rem;
             transition: transform .15s ease, box-shadow .15s ease;
         }
-        .home-kpi-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.08);
-        }
         .home-kpi-icon {
             width: 44px;
             height: 44px;
@@ -30,7 +26,7 @@
         <h1 class="h2 mb-1 home-hero-title">
             <asp:Label ID="lblSaludo" runat="server" />
         </h1>
-        <p class="text-muted mb-0">Aquí tienes un resumen de la actividad comercial de hoy.</p>
+        <p class="text-muted mb-0">Aquí tienes un resumen de tu actividad comercial.</p>
     </div>
 
     <div class="row g-3">
@@ -70,7 +66,7 @@
                             <span class="home-kpi-icon" style="background:#fff3cd;color:#8a6d3b;">⚠</span>
                         </div>
                         <div class="text-uppercase text-muted small fw-semibold">Alertas de stock</div>
-                        <div class="fs-3 fw-semibold text-danger">8 productos bajos</div>
+                        <div class="fs-3 fw-semibold"><asp:Label ID="lblAlertasStock" runat="server" Text="0 productos bajos" /></div>
                     </div>
                 </div>
             </button>
