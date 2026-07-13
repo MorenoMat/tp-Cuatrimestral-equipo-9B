@@ -28,7 +28,7 @@
             <div class="table-responsive">
                 <asp:GridView ID="dgvUsuarios" runat="server" DataKeyNames="IdUsuario"
                     CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
-                    OnSelectedIndexChanged="dgvUsuarios_SelectedIndexChanged">
+                    OnSelectedIndexChanged="dgvUsuarios_SelectedIndexChanged" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="Usuario" DataField="UsuarioLogin" />
                         <asp:BoundField HeaderText="Nombre" DataField="Nombre" />

@@ -56,7 +56,7 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <asp:GridView ID="dgvCompras" runat="server" DataKeyNames="IdCompra"
-                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false">
+                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="N° Compra" DataField="IdCompra" />
                         <asp:BoundField HeaderText="Fecha" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy HH:mm}" />

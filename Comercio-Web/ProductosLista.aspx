@@ -57,7 +57,7 @@
             <div class="table-responsive">
                 <asp:GridView ID="dgvProductos" runat="server" DataKeyNames="IdProducto"
                     CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
-                    OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged">
+                    OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                         <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />

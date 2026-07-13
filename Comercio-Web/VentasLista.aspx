@@ -61,7 +61,7 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <asp:GridView ID="dgvVentas" runat="server" DataKeyNames="IdVenta"
-                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false">
+                    CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="N° Venta" DataField="IdVenta" />
                         <asp:BoundField HeaderText="N° Factura" DataField="NumeroFactura" />

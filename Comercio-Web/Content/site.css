@@ -194,3 +194,53 @@ h5 { font-size: 20px; font-weight: 600; line-height: 1.4; }
     border-color: #f5c6c6;
     color: var(--error);
 }
+
+/* --- Estado sin resultados en tablas ------------------------- */
+.tabla-empty-state {
+    text-align: center;
+    padding: 1.25rem 1rem;
+}
+
+.tabla-empty-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--on-surface);
+    margin-bottom: 0.35rem;
+}
+
+.tabla-empty-message {
+    font-size: 14px;
+    color: var(--on-surface-variant);
+    margin-bottom: 0.85rem;
+}
+
+.tabla-empty-skeleton {
+    display: grid;
+    gap: 0.45rem;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.tabla-empty-skeleton span {
+    display: block;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #edf0f5 25%, #e2e8f0 40%, #edf0f5 65%);
+    background-size: 220% 100%;
+    animation: tablaSkeletonShimmer 1.2s ease-in-out infinite;
+}
+
+.tabla-empty-skeleton span:nth-child(2) {
+    width: 86%;
+    justify-self: center;
+}
+
+.tabla-empty-skeleton span:nth-child(3) {
+    width: 72%;
+    justify-self: center;
+}
+
+@keyframes tablaSkeletonShimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}

@@ -43,6 +43,8 @@ namespace Comercio_Web
             EstadoPaginacion paginacion = PaginacionHelper.Crear(PaginaActual, TamanioPagina, totalRegistros);
 
             PaginaActual = paginacion.PaginaActual;
+            bool hayFiltros = !string.IsNullOrWhiteSpace(busqueda);
+            TablaSinResultadosHelper.Aplicar(dgvMarcas, hayFiltros);
             dgvMarcas.DataSource = negocio.BuscarPaginado(busqueda, PaginaActual, TamanioPagina);
             dgvMarcas.DataBind();
 

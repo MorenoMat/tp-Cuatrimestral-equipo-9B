@@ -36,7 +36,7 @@
             <div class="table-responsive">
                 <asp:GridView ID="dgvClientes" runat="server" DataKeyNames="IdCliente"
                     CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
-                    OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged">
+                    OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="DNI" DataField="Dni" />
                         <asp:BoundField HeaderText="Nombre" DataField="Nombre" />

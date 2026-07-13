@@ -28,7 +28,7 @@
             <div class="table-responsive">
                 <asp:GridView ID="dgvMarcas" runat="server" DataKeyNames="IdMarca"
                     CssClass="table table-bordered table-hover table-striped mb-0 align-middle" AutoGenerateColumns="false"
-                    OnSelectedIndexChanged="dgvMarcas_SelectedIndexChanged">
+                    OnSelectedIndexChanged="dgvMarcas_SelectedIndexChanged" ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                         <asp:CommandField HeaderText="Acción" ShowSelectButton="true" SelectText="Editar Marca" />

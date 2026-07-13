@@ -81,6 +81,12 @@ namespace Comercio_Web
             EstadoPaginacion paginacion = PaginacionHelper.Crear(PaginaActual, TamanioPagina, totalRegistros);
 
             PaginaActual = paginacion.PaginaActual;
+            bool hayFiltros = !string.IsNullOrWhiteSpace(busqueda)
+                || idProveedor > 0
+                || idUsuario > 0
+                || fechaDesde.HasValue
+                || fechaHasta.HasValue;
+            TablaSinResultadosHelper.Aplicar(dgvCompras, hayFiltros);
             dgvCompras.DataSource = n.BuscarPaginado(busqueda, idProveedor, idUsuario, fechaDesde, fechaHasta, PaginaActual, TamanioPagina);
             dgvCompras.DataBind();
 
