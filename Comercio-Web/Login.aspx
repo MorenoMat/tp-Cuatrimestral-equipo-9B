@@ -8,26 +8,32 @@
     <title>Comercio Web — Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body class="bg-light">
+<body class="bg-light" style="background-image: radial-gradient(#cdd6ff 1px, transparent 1px); background-size: 32px 32px;">
     <form id="form1" runat="server">
-        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-            <div class="card shadow" style="width: 380px;">
-                <div class="card-header bg-dark text-white text-center py-3">
-                    <h4 class="mb-0">Comercio Web</h4>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="card-title mb-4">Iniciar Sesión</h5>
-                    <div class="mb-3">
-                        <label class="form-label">Usuario</label>
-                        <asp:TextBox ID="txtUsuarioLogin" runat="server" CssClass="form-control" />
+        <div class="container min-vh-100 d-flex flex-column py-4">
+            <div class="flex-grow-1 d-flex justify-content-center align-items-start align-items-md-center">
+                <div class="card border-0 shadow-sm" style="max-width: 460px; width: 100%;">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="h1 fw-bold mb-2">Bienvenido</h2>
+                        <p class="text-muted mb-4">Ingresa tus credenciales para acceder</p>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-uppercase small text-secondary">Usuario</label>
+                            <asp:TextBox ID="txtUsuarioLogin" runat="server" CssClass="form-control form-control-lg" placeholder="ejemplo@comercio.com" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-uppercase small text-secondary">Contraseña</label>
+                            <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control form-control-lg" placeholder="••••••••" />
+                        </div>
+
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger d-block mb-3" Visible="false" />
+
+                        <asp:Button ID="btnIngresar" runat="server" Text="Iniciar Sesión  →"
+                            CssClass="btn btn-primary btn-lg w-100 fw-semibold py-2" OnClick="btnIngresar_Click" />
+
+                        <hr class="my-4" />
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" CssClass="form-control" />
-                    </div>
-                    <asp:Label ID="lblError" runat="server" CssClass="text-danger d-block mb-3" Visible="false" />
-                    <asp:Button ID="btnIngresar" runat="server" Text="Ingresar"
-                        CssClass="btn btn-dark w-100" OnClick="btnIngresar_Click" />
                 </div>
             </div>
         </div>
