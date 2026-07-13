@@ -321,6 +321,39 @@ namespace negocio
             }
         }
 
+        public decimal ObtenerTotalFacturadoMesPorUsuario(int idUsuario)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime inicioMesSiguiente = inicioMes.AddMonths(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.IdUsuario = @idUsuario
+                                        AND v.FechaVenta >= @inicioMes
+                                        AND v.FechaVenta < @inicioMesSiguiente");
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@inicioMes", inicioMes);
+                datos.setearParametro("@inicioMesSiguiente", inicioMesSiguiente);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool nroFacturaExiste(int nroFactura) {
 
             AccesoDatos datos = new AccesoDatos();

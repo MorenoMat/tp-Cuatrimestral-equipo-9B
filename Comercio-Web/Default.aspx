@@ -40,7 +40,6 @@
                     <div class="card-body p-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <span class="home-kpi-icon" style="background:#e8eeff;color:#2f62ff;">💵</span>
-                            <span class="badge text-bg-success-subtle text-success">+12.5%</span>
                         </div>
                         <div class="text-uppercase text-muted small fw-semibold">Dinero facturado hoy</div>
                         <div class="fs-3 fw-semibold">$ <asp:Label ID="lblVentasDia" runat="server" Text="0,00" /></div>
@@ -53,11 +52,11 @@
             <button type="button" class="btn w-100 text-start p-0 border-0 bg-transparent">
                 <div class="card home-kpi-card h-100">
                     <div class="card-body p-3">
-                        <div class="mb-3">
-                            <span class="home-kpi-icon" style="background:#eef1f5;color:#6c757d;">📋</span>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="home-kpi-icon" style="background:#eef1f5;color:#6c757d;">📅</span>
                         </div>
-                        <div class="text-uppercase text-muted small fw-semibold">Compras pendientes</div>
-                        <div class="fs-3 fw-semibold">14 órdenes</div>
+                        <div class="text-uppercase text-muted small fw-semibold">Tu facturación desde inicio de mes</div>
+                        <div class="fs-3 fw-semibold">$ <asp:Label ID="lblVentasMes" runat="server" Text="0,00" /></div>
                     </div>
                 </div>
             </button>

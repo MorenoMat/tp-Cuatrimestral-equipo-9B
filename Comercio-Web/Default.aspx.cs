@@ -21,7 +21,10 @@ namespace Comercio_Web
 
                 VentasNegocio ventasNegocio = new VentasNegocio();
                 decimal totalFacturadoHoy = ventasNegocio.ObtenerTotalFacturadoHoyPorUsuario(usuario.IdUsuario);
+                decimal totalFacturadoMes = ventasNegocio.ObtenerTotalFacturadoMesPorUsuario(usuario.IdUsuario);
+
                 lblVentasDia.Text = totalFacturadoHoy.ToString("N2");
+                lblVentasMes.Text = totalFacturadoMes.ToString("N2");
             }
         }
     }
