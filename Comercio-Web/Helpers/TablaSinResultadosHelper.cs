@@ -13,9 +13,6 @@ namespace Comercio_Web.Helpers
             grid.EmptyDataText = "<div class='tabla-empty-state'>"
                 + "<div class='tabla-empty-title'>Sin resultados</div>"
                 + "<div class='tabla-empty-message'>" + mensaje + "</div>"
-                + "<div class='tabla-empty-skeleton'>"
-                + "<span></span><span></span><span></span>"
-                + "</div>"
                 + "</div>";
         }
     }
