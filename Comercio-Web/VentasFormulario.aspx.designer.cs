@@ -13,6 +13,10 @@ namespace Comercio_Web
         protected global::System.Web.UI.WebControls.DropDownList ddlCliente;
         protected global::System.Web.UI.WebControls.Label lblUsuarioVenta;
         protected global::System.Web.UI.WebControls.DropDownList ddlProducto;
+
+        protected global::System.Web.UI.WebControls.Label lblDescripcionProducto;
+
+        protected global::System.Web.UI.WebControls.Label lblStockDisponible;
         protected global::System.Web.UI.WebControls.TextBox txtCantidad;
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
         protected global::System.Web.UI.WebControls.Button btnAgregarLinea;

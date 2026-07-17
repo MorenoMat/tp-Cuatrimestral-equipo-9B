@@ -2,7 +2,6 @@ using Dominio;
 using negocio;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 
 namespace Comercio_Web
 {
@@ -34,7 +33,13 @@ namespace Comercio_Web
             lblUsuarioVenta.Text = usuarioLogueado.Nombre;
 
             ProductoNegocio pn = new ProductoNegocio();
-            ddlProducto.DataSource = pn.Listar();
+            List<Producto> productos = pn.Listar();
+            foreach (Producto producto in productos)
+            {
+                producto.Nombre = producto.Nombre + " - " + producto.Marca.Descripcion;
+            }
+
+            ddlProducto.DataSource = productos;
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
@@ -47,7 +52,8 @@ namespace Comercio_Web
 
             decimal precioVenta = producto.UltimoPrecio + (producto.UltimoPrecio * (producto.PorcentajeGanancia / 100m));
             txtPrecio.Text = precioVenta.ToString("F2");
-            Session["PrecioActual"] = precioVenta.ToString("F2");
+            lblDescripcionProducto.Text = producto.Descripcion;
+            lblStockDisponible.Text = producto.StockActual.ToString();
         }
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -93,8 +99,16 @@ namespace Comercio_Web
             }
 
             List<DetalleVenta> lineas = ObtenerLineas();
+            Producto producto = new ProductoNegocio().BuscarPorId(idProducto);
 
             DetalleVenta linea = lineas.Find(l => l.IdProducto == idProducto);
+            int cantidadTotal = (linea != null ? linea.Cantidad : 0) + cantidad;
+            if (cantidadTotal > producto.StockActual)
+            {
+                lblMensaje.Text = "La cantidad solicitada supera el stock disponible de " + producto.Nombre + " (" + producto.StockActual + ").";
+                return;
+            }
+
             if (linea != null)
             {
                 linea.Cantidad += cantidad;
@@ -135,9 +149,17 @@ namespace Comercio_Web
                 }
                 else if (e.CommandName == "Sumar")
                 {
+                    Producto producto = new ProductoNegocio().BuscarPorId(idProducto);
+                    if (linea.Cantidad >= producto.StockActual)
+                    {
+                        lblMensaje.Text = "No hay más stock disponible de " + producto.Nombre + " (" + producto.StockActual + ").";
+                        return;
+                    }
+
                     linea.Cantidad++;
                 }
             Session[SESSION_LINEAS] = lineas;
+            lblMensaje.Text = string.Empty;
             actualizarTotal();
             cargarGrillaLineas();
         }
@@ -163,8 +185,18 @@ namespace Comercio_Web
 
 
             decimal total = 0;
+            ProductoNegocio productoNegocio = new ProductoNegocio();
             foreach (DetalleVenta d in lineas)
+            {
+                Producto producto = productoNegocio.BuscarPorId(d.IdProducto);
+                if (producto == null || d.Cantidad > producto.StockActual)
+                {
+                    lblMensaje.Text = "El stock de " + d.ProductoNombre + " cambió. Revise las cantidades antes de guardar.";
+                    return;
+                }
+
                 total += d.Cantidad * d.PrecioUnitario;
+            }
 
             Venta venta = new Venta();
             venta.NumeroFactura = nroFactura; 
@@ -178,7 +210,7 @@ namespace Comercio_Web
                 VentasNegocio vn = new VentasNegocio();
                 vn.Registrar(venta);
                 Session.Remove(SESSION_LINEAS);
-                Response.Redirect("VentasLista.aspx");
+                Response.Redirect("VentasLista.aspx?ventaOK=1");
 
             }
             catch (Exception ex)
