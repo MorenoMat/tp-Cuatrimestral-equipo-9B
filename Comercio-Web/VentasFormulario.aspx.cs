@@ -24,13 +24,13 @@ namespace Comercio_Web
         private void cargarDropDowns()
         {
             ClienteNegocio cn = new ClienteNegocio();
-            ddlCliente.DataSource = cn.Listar();
+            ddlCliente.DataSource = cn.Listar().FindAll(c => c.Activo);
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
 
             Usuario usuarioLogueado = (Usuario)Session["usuario"];
-            lblUsuarioVenta.Text = usuarioLogueado.Nombre;
+            lblUsuarioVenta.Text = usuarioLogueado != null ? usuarioLogueado.Nombre : string.Empty;
 
             ProductoNegocio pn = new ProductoNegocio();
             List<Producto> productos = pn.Listar();

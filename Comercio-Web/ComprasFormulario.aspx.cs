@@ -27,7 +27,8 @@ namespace Comercio_Web
             }
         }
 
-        private void cargarDropDowns()
+        private void cargarDropDowns() // carga ddl proveedor, label usuario logeado
+                                       // y en base a proveedor los productos
         {
             ProveedorNegocio provNeg = new ProveedorNegocio();
             ddlProveedor.DataSource = provNeg.Listar().FindAll(p => p.Activo);
