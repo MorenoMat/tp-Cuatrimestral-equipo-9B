@@ -51,6 +51,15 @@ namespace Comercio_Web
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navUsuarios;
 
         /// <summary>
+        /// Control navReportes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navReportes;
+
+        /// <summary>
         /// Control pnlInventarioSidebar.
         /// </summary>
         /// <remarks>

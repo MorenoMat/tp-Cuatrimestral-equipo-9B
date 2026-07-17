@@ -35,6 +35,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="VentasLista.aspx">Ventas</a>
                         </li>
+                        <li class="nav-item" runat="server" id="navReportes">
+                            <a class="nav-link" href="Reportes.aspx">Reportes</a>
+                        </li>
                     </ul>
                     <div class="d-flex align-items-center gap-2">
                         <asp:Label ID="lblUsuario" runat="server" CssClass="text-white" />

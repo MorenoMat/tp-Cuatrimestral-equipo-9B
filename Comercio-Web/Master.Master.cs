@@ -25,6 +25,7 @@ namespace Comercio_Web
                     bool esAdministrador = Seguridad.esAdmin(Session["usuario"]);
                     navInventario.Visible = esAdministrador;
                     navUsuarios.Visible = esAdministrador;
+                    navReportes.Visible = esAdministrador;
 
                     string paginaActual = VirtualPathUtility.GetFileName(Request.Path);
                     bool paginaInventario = EsPagina(paginaActual, "MarcasLista.aspx", "MarcasFormulario.aspx")
