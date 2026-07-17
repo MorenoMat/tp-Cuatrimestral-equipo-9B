@@ -43,6 +43,8 @@ namespace Comercio_Web
 
             lblDetalleVentaTitulo.Text = "Venta N° " + idVenta;
             lblTotalValor.Text = venta.Total.ToString("N2");
+            lblCliente.Text = venta.Cliente.Nombre;
+            lblUsuario.Text = venta.Usuario.Nombre;
 
             dgvDetalleVenta.DataSource = detalles;
             dgvDetalleVenta.DataBind();

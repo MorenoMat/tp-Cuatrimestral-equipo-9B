@@ -7,10 +7,20 @@
     <script>
         $(function () {
             $('#<%= ddlCliente.ClientID %>').select2({
-                width: '100%'
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return 'No se encontraron resultados';
+                    }
+                }
             });
             $('#<%= ddlProducto.ClientID %>').select2({
-                width: '100%'
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return 'No se encontraron resultados';
+                    }
+                }
             });
         });
     </script>
@@ -45,6 +55,7 @@
                         <label class="form-label">Producto</label>
                         <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-select"
                             AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged" />
+                        <asp:Label ID="lblDescripcionProducto" runat="server" CssClass="form-text d-block" />
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Cantidad</label>
@@ -58,6 +69,7 @@
                         <asp:Button ID="btnAgregarLinea" runat="server" Text="Agregar" CssClass="btn btn-primary w-100" OnClick="btnAgregarLinea_Click" />
                     </div>
                 </div>
+                <div class="text-muted small mb-3">Stock disponible: <asp:Label ID="lblStockDisponible" runat="server" Text="0" /></div>
 
                 <asp:GridView ID="dgvLineas" runat="server" DataKeyNames="IdProducto"
                     CssClass="table table-bordered mb-1" AutoGenerateColumns="false"

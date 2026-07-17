@@ -13,9 +13,17 @@
         <div class="card-body">
             <asp:Label ID="lblDetalleVentaTitulo" runat="server" CssClass="fw-semibold d-block mb-3" />
             <div class="row g-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <span class="text-muted d-block">Total de la venta</span>
                     <asp:Label ID="lblTotalValor" runat="server" CssClass="fw-semibold" />
+                </div>
+                <div class="col-md-4">
+                    <span class="text-muted d-block">Cliente</span>
+                    <asp:Label ID="lblCliente" runat="server" CssClass="fw-semibold" />
+                </div>
+                <div class="col-md-4">
+                    <span class="text-muted d-block">Vendedor</span>
+                    <asp:Label ID="lblUsuario" runat="server" CssClass="fw-semibold" />
                 </div>
             </div>
         </div>

@@ -226,9 +226,13 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT v.IdVenta, v.Total
-                                      FROM Ventas v
-                                      WHERE v.IdVenta = @idVenta");
+                datos.setearConsulta(@"SELECT v.IdVenta, v.Total,
+                                              c.IdCliente, c.Nombre AS ClienteNombre,
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                       FROM Ventas v
+                                       INNER JOIN Clientes c ON c.IdCliente = v.IdCliente
+                                       INNER JOIN Usuarios u ON u.IdUsuario = v.IdUsuario
+                                       WHERE v.IdVenta = @idVenta");
                 datos.setearParametro("@idVenta", idVenta);
                 datos.ejecutarLectura();
 
@@ -238,6 +242,12 @@ namespace negocio
                     venta = new Venta();
                     venta.IdVenta = (int)datos.Lector["IdVenta"];
                     venta.Total = (decimal)datos.Lector["Total"];
+                    venta.Cliente = new Cliente();
+                    venta.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                    venta.Cliente.Nombre = (string)datos.Lector["ClienteNombre"];
+                    venta.Usuario = new Usuario();
+                    venta.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    venta.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
                 }
 
                 datos.cerrarConexion();
@@ -374,6 +384,211 @@ namespace negocio
                 int cantidad = datos.ejecutarAccionScalar();
                 datos.cerrarConexion();
                 return cantidad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public decimal ObtenerTotalFacturadoHoyGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime hoy = DateTime.Today;
+                DateTime manana = hoy.AddDays(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @hoy
+                                        AND v.FechaVenta < @manana");
+                datos.setearParametro("@hoy", hoy);
+                datos.setearParametro("@manana", manana);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public decimal ObtenerTotalFacturadoMesGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime inicioMesSiguiente = inicioMes.AddMonths(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @inicioMes
+                                        AND v.FechaVenta < @inicioMesSiguiente");
+                datos.setearParametro("@inicioMes", inicioMes);
+                datos.setearParametro("@inicioMesSiguiente", inicioMesSiguiente);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int ObtenerCantidadVentasMesGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime inicioMesSiguiente = inicioMes.AddMonths(1);
+
+                datos.setearConsulta(@"SELECT COUNT(*)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @inicioMes
+                                        AND v.FechaVenta < @inicioMesSiguiente");
+                datos.setearParametro("@inicioMes", inicioMes);
+                datos.setearParametro("@inicioMesSiguiente", inicioMesSiguiente);
+
+                int cantidad = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return cantidad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<TopVendedorReporte> ObtenerTopVendedores(string periodo)
+        {
+            List<TopVendedorReporte> lista = new List<TopVendedorReporte>();
+            try
+            {
+                DateTime fechaInicio;
+                DateTime fechaFin;
+                string periodoNormalizado = (periodo ?? string.Empty).Trim().ToLower();
+
+                if (periodoNormalizado == "anual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, 1, 1);
+                    fechaFin = fechaInicio.AddYears(1);
+                }
+                else if (periodoNormalizado == "mensual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    fechaFin = fechaInicio.AddMonths(1);
+                }
+                else
+                {
+                    fechaInicio = DateTime.Today;
+                    fechaFin = fechaInicio.AddDays(1);
+                }
+
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT TOP 10
+                                              u.Nombre AS Vendedor,
+                                              COUNT(v.IdVenta) AS CantidadVentas,
+                                              ISNULL(SUM(v.Total), 0) AS TotalFacturado
+                                       FROM Ventas v
+                                       INNER JOIN Usuarios u ON u.IdUsuario = v.IdUsuario
+                                       WHERE v.FechaVenta >= @fechaInicio
+                                         AND v.FechaVenta < @fechaFin
+                                       GROUP BY u.Nombre
+                                       ORDER BY TotalFacturado DESC");
+                datos.setearParametro("@fechaInicio", fechaInicio);
+                datos.setearParametro("@fechaFin", fechaFin);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TopVendedorReporte item = new TopVendedorReporte();
+                    item.Vendedor = (string)datos.Lector["Vendedor"];
+                    item.CantidadVentas = (int)datos.Lector["CantidadVentas"];
+                    item.TotalFacturado = Convert.ToDecimal(datos.Lector["TotalFacturado"]);
+                    lista.Add(item);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<TopArticuloVendidoReporte> ObtenerTopArticulosVendidos(string periodo)
+        {
+            List<TopArticuloVendidoReporte> lista = new List<TopArticuloVendidoReporte>();
+            try
+            {
+                DateTime fechaInicio;
+                DateTime fechaFin;
+                string periodoNormalizado = (periodo ?? string.Empty).Trim().ToLower();
+
+                if (periodoNormalizado == "anual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, 1, 1);
+                    fechaFin = fechaInicio.AddYears(1);
+                }
+                else if (periodoNormalizado == "mensual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    fechaFin = fechaInicio.AddMonths(1);
+                }
+                else
+                {
+                    fechaInicio = DateTime.Today;
+                    fechaFin = fechaInicio.AddDays(1);
+                }
+
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT TOP 10
+                                              p.Nombre AS Articulo,
+                                              c.Descripcion AS Categoria,
+                                              SUM(dv.Cantidad) AS CantidadVendida
+                                       FROM DetalleVentas dv
+                                       INNER JOIN Ventas v ON v.IdVenta = dv.IdVenta
+                                       INNER JOIN Productos p ON p.IdProducto = dv.IdProducto
+                                       INNER JOIN Categorias c ON c.IdCategoria = p.IdCategoria
+                                       WHERE v.FechaVenta >= @fechaInicio
+                                         AND v.FechaVenta < @fechaFin
+                                       GROUP BY p.Nombre, c.Descripcion
+                                       ORDER BY CantidadVendida DESC");
+                datos.setearParametro("@fechaInicio", fechaInicio);
+                datos.setearParametro("@fechaFin", fechaFin);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TopArticuloVendidoReporte item = new TopArticuloVendidoReporte();
+                    item.Articulo = (string)datos.Lector["Articulo"];
+                    item.Categoria = (string)datos.Lector["Categoria"];
+                    item.CantidadVendida = (int)datos.Lector["CantidadVendida"];
+                    lista.Add(item);
+                }
+
+                datos.cerrarConexion();
+                return lista;
             }
             catch (Exception ex)
             {
