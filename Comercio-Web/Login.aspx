@@ -19,7 +19,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-uppercase small text-secondary">Usuario</label>
-                            <asp:TextBox ID="txtUsuarioLogin" runat="server" CssClass="form-control form-control-lg" placeholder="ejemplo@comercio.com" />
+                            <asp:TextBox ID="txtUsuarioLogin" runat="server" CssClass="form-control form-control-lg" placeholder="Ingresa tu usuario" />
                         </div>
 
                         <div class="mb-3">
