@@ -7,10 +7,20 @@
     <script>
         $(function () {
             $('#<%= ddlCliente.ClientID %>').select2({
-                width: '100%'
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return 'No se encontraron resultados';
+                    }
+                }
             });
             $('#<%= ddlProducto.ClientID %>').select2({
-                width: '100%'
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return 'No se encontraron resultados';
+                    }
+                }
             });
         });
     </script>
