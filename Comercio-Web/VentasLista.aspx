@@ -26,10 +26,10 @@
             <asp:Panel runat="server" DefaultButton="btnBuscar">
                 <div class="row g-2 align-items-end">
                     <div class="col-md-2">
-                        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por número de venta" />
+                        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por nº de venta" />
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txtBuscarFactura" runat="server" CssClass="form-control" placeholder="Buscar por número de factura" />
+                        <asp:TextBox ID="txtBuscarFactura" runat="server" CssClass="form-control" placeholder="Buscar por nº de factura" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblFiltroCliente" runat="server" Text="Filtrar por cliente" CssClass="form-label" />
