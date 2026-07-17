@@ -12,6 +12,19 @@ namespace Comercio_Web
                 Response.Redirect("Default.aspx", false);
                 return;
             }
+
+            if (!IsPostBack)
+            {
+                VentasNegocio ventasNegocio = new VentasNegocio();
+
+                decimal facturacionDia = ventasNegocio.ObtenerTotalFacturadoHoyGeneral();
+                decimal facturacionMes = ventasNegocio.ObtenerTotalFacturadoMesGeneral();
+                int cantidadVentasMes = ventasNegocio.ObtenerCantidadVentasMesGeneral();
+
+                lblFacturacionDia.Text = facturacionDia.ToString("N2");
+                lblFacturacionMes.Text = facturacionMes.ToString("N2");
+                lblVentasMes.Text = cantidadVentasMes.ToString();
+            }
         }
     }
 }

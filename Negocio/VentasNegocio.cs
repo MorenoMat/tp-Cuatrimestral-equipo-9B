@@ -381,6 +381,93 @@ namespace negocio
             }
         }
 
+        public decimal ObtenerTotalFacturadoHoyGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime hoy = DateTime.Today;
+                DateTime manana = hoy.AddDays(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @hoy
+                                        AND v.FechaVenta < @manana");
+                datos.setearParametro("@hoy", hoy);
+                datos.setearParametro("@manana", manana);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public decimal ObtenerTotalFacturadoMesGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime inicioMesSiguiente = inicioMes.AddMonths(1);
+
+                datos.setearConsulta(@"SELECT ISNULL(SUM(v.Total), 0)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @inicioMes
+                                        AND v.FechaVenta < @inicioMesSiguiente");
+                datos.setearParametro("@inicioMes", inicioMes);
+                datos.setearParametro("@inicioMesSiguiente", inicioMesSiguiente);
+                datos.ejecutarLectura();
+
+                decimal total = 0;
+                if (datos.Lector.Read())
+                {
+                    total = Convert.ToDecimal(datos.Lector[0]);
+                }
+
+                datos.cerrarConexion();
+                return total;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int ObtenerCantidadVentasMesGeneral()
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                DateTime inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                DateTime inicioMesSiguiente = inicioMes.AddMonths(1);
+
+                datos.setearConsulta(@"SELECT COUNT(*)
+                                      FROM Ventas v
+                                      WHERE v.FechaVenta >= @inicioMes
+                                        AND v.FechaVenta < @inicioMesSiguiente");
+                datos.setearParametro("@inicioMes", inicioMes);
+                datos.setearParametro("@inicioMesSiguiente", inicioMesSiguiente);
+
+                int cantidad = datos.ejecutarAccionScalar();
+                datos.cerrarConexion();
+                return cantidad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool nroFacturaExiste(int nroFactura) {
 
             AccesoDatos datos = new AccesoDatos();

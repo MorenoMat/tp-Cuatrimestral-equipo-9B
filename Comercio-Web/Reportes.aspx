@@ -35,7 +35,7 @@
                         <span class="reportes-kpi-icon" style="background:#e8eeff;color:#2f62ff;">💵</span>
                     </div>
                     <div class="text-uppercase text-muted small fw-semibold">Facturación del día</div>
-                    <div class="fs-3 fw-semibold">$ 0,00</div>
+                    <div class="fs-3 fw-semibold">$ <asp:Label ID="lblFacturacionDia" runat="server" Text="0,00" /></div>
                 </div>
             </div>
         </div>
@@ -47,19 +47,7 @@
                         <span class="reportes-kpi-icon" style="background:#eef1f5;color:#6c757d;">📅</span>
                     </div>
                     <div class="text-uppercase text-muted small fw-semibold">Facturación mensual</div>
-                    <div class="fs-3 fw-semibold">$ 0,00</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card reportes-kpi-card h-100">
-                <div class="card-body p-3">
-                    <div class="mb-3">
-                        <span class="reportes-kpi-icon" style="background:#fff3cd;color:#8a6d3b;">⚠</span>
-                    </div>
-                    <div class="text-uppercase text-muted small fw-semibold">Productos con bajo stock</div>
-                    <div class="fs-3 fw-semibold">0 productos</div>
+                    <div class="fs-3 fw-semibold">$ <asp:Label ID="lblFacturacionMes" runat="server" Text="0,00" /></div>
                 </div>
             </div>
         </div>
@@ -71,7 +59,7 @@
                         <span class="reportes-kpi-icon" style="background:#ede9ff;color:#5b4abf;">📈</span>
                     </div>
                     <div class="text-uppercase text-muted small fw-semibold">Ventas cerradas del mes</div>
-                    <div class="fs-3 fw-semibold">0 ventas</div>
+                    <div class="fs-3 fw-semibold"><asp:Label ID="lblVentasMes" runat="server" Text="0" /> ventas</div>
                 </div>
             </div>
         </div>
