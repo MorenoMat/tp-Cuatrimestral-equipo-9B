@@ -468,6 +468,64 @@ namespace negocio
             }
         }
 
+        public List<TopVendedorReporte> ObtenerTopVendedores(string periodo)
+        {
+            List<TopVendedorReporte> lista = new List<TopVendedorReporte>();
+            try
+            {
+                DateTime fechaInicio;
+                DateTime fechaFin;
+                string periodoNormalizado = (periodo ?? string.Empty).Trim().ToLower();
+
+                if (periodoNormalizado == "anual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, 1, 1);
+                    fechaFin = fechaInicio.AddYears(1);
+                }
+                else if (periodoNormalizado == "mensual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    fechaFin = fechaInicio.AddMonths(1);
+                }
+                else
+                {
+                    fechaInicio = DateTime.Today;
+                    fechaFin = fechaInicio.AddDays(1);
+                }
+
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT TOP 10
+                                              u.Nombre AS Vendedor,
+                                              COUNT(v.IdVenta) AS CantidadVentas,
+                                              ISNULL(SUM(v.Total), 0) AS TotalFacturado
+                                       FROM Ventas v
+                                       INNER JOIN Usuarios u ON u.IdUsuario = v.IdUsuario
+                                       WHERE v.FechaVenta >= @fechaInicio
+                                         AND v.FechaVenta < @fechaFin
+                                       GROUP BY u.Nombre
+                                       ORDER BY TotalFacturado DESC");
+                datos.setearParametro("@fechaInicio", fechaInicio);
+                datos.setearParametro("@fechaFin", fechaFin);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TopVendedorReporte item = new TopVendedorReporte();
+                    item.Vendedor = (string)datos.Lector["Vendedor"];
+                    item.CantidadVentas = (int)datos.Lector["CantidadVentas"];
+                    item.TotalFacturado = Convert.ToDecimal(datos.Lector["TotalFacturado"]);
+                    lista.Add(item);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool nroFacturaExiste(int nroFactura) {
 
             AccesoDatos datos = new AccesoDatos();

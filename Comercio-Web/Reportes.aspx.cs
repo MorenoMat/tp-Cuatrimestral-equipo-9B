@@ -24,7 +24,21 @@ namespace Comercio_Web
                 lblFacturacionDia.Text = facturacionDia.ToString("N2");
                 lblFacturacionMes.Text = facturacionMes.ToString("N2");
                 lblVentasMes.Text = cantidadVentasMes.ToString();
+
+                CargarTopVendedores();
             }
+        }
+
+        protected void ddlPeriodoTopVendedores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarTopVendedores();
+        }
+
+        private void CargarTopVendedores()
+        {
+            VentasNegocio ventasNegocio = new VentasNegocio();
+            dgvTopVendedores.DataSource = ventasNegocio.ObtenerTopVendedores(ddlPeriodoTopVendedores.SelectedValue);
+            dgvTopVendedores.DataBind();
         }
     }
 }
