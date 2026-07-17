@@ -33,31 +33,13 @@ namespace Comercio_Web
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control navMarcas.
+        /// Control navInventario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navMarcas;
-
-        /// <summary>
-        /// Control navCategorias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navCategorias;
-
-        /// <summary>
-        /// Control navProveedores.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navProveedores;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navInventario;
 
         /// <summary>
         /// Control navUsuarios.
@@ -69,22 +51,67 @@ namespace Comercio_Web
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navUsuarios;
 
         /// <summary>
-        /// Control navProductos.
+        /// Control pnlInventarioSidebar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navProductos;
+        protected global::System.Web.UI.WebControls.Panel pnlInventarioSidebar;
 
         /// <summary>
-        /// Control navCompras.
+        /// Control lnkSidebarMarcas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navCompras;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkSidebarMarcas;
+
+        /// <summary>
+        /// Control lnkSidebarCategorias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkSidebarCategorias;
+
+        /// <summary>
+        /// Control lnkSidebarProveedores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkSidebarProveedores;
+
+        /// <summary>
+        /// Control lnkSidebarProductos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkSidebarProductos;
+
+        /// <summary>
+        /// Control lnkSidebarCompras.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkSidebarCompras;
+
+        /// <summary>
+        /// Control contenedorContenido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contenedorContenido;
 
         /// <summary>
         /// Control lblUsuario.
