@@ -226,9 +226,13 @@ namespace negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta(@"SELECT v.IdVenta, v.Total
-                                      FROM Ventas v
-                                      WHERE v.IdVenta = @idVenta");
+                datos.setearConsulta(@"SELECT v.IdVenta, v.Total,
+                                              c.IdCliente, c.Nombre AS ClienteNombre,
+                                              u.IdUsuario, u.Nombre AS UsuarioNombre
+                                       FROM Ventas v
+                                       INNER JOIN Clientes c ON c.IdCliente = v.IdCliente
+                                       INNER JOIN Usuarios u ON u.IdUsuario = v.IdUsuario
+                                       WHERE v.IdVenta = @idVenta");
                 datos.setearParametro("@idVenta", idVenta);
                 datos.ejecutarLectura();
 
@@ -238,6 +242,12 @@ namespace negocio
                     venta = new Venta();
                     venta.IdVenta = (int)datos.Lector["IdVenta"];
                     venta.Total = (decimal)datos.Lector["Total"];
+                    venta.Cliente = new Cliente();
+                    venta.Cliente.IdCliente = (int)datos.Lector["IdCliente"];
+                    venta.Cliente.Nombre = (string)datos.Lector["ClienteNombre"];
+                    venta.Usuario = new Usuario();
+                    venta.Usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    venta.Usuario.Nombre = (string)datos.Lector["UsuarioNombre"];
                 }
 
                 datos.cerrarConexion();
