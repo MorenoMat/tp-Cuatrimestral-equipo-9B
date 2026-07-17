@@ -66,10 +66,10 @@
     </div>
 
     <div class="row g-3">
-        <div class="col-12">
+        <div class="col-12 col-xl-6">
             <div class="card h-100">
                 <div class="card-header d-flex flex-wrap gap-2 justify-content-between align-items-center">
-                    <strong>Top 10 vendedores</strong>
+                    <strong>Top 10 vendedores por dinero facturado</strong>
                     <div class="d-flex align-items-center gap-2">
                         <span class="text-muted small">Periodo</span>
                         <asp:DropDownList ID="ddlPeriodoTopVendedores" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriodoTopVendedores_SelectedIndexChanged">
@@ -86,6 +86,33 @@
                                 <asp:BoundField HeaderText="Vendedor" DataField="Vendedor" />
                                 <asp:BoundField HeaderText="Cantidad de ventas" DataField="CantidadVentas" />
                                 <asp:BoundField HeaderText="Total facturado" DataField="TotalFacturado" DataFormatString="$ {0:N2}" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-6">
+            <div class="card h-100">
+                <div class="card-header d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                    <strong>Top 10 artículos más vendidos</strong>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted small">Periodo</span>
+                        <asp:DropDownList ID="ddlPeriodoTopArticulos" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlPeriodoTopArticulos_SelectedIndexChanged">
+                            <asp:ListItem Text="Diario" Value="diario" />
+                            <asp:ListItem Text="Mensual" Value="mensual" Selected="True" />
+                            <asp:ListItem Text="Anual" Value="anual" />
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <asp:GridView ID="dgvTopArticulos" runat="server" CssClass="table table-bordered table-striped mb-0 align-middle" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" EmptyDataText="No hay ventas para el período seleccionado.">
+                            <Columns>
+                                <asp:BoundField HeaderText="Artículo" DataField="Articulo" />
+                                <asp:BoundField HeaderText="Categoría" DataField="Categoria" />
+                                <asp:BoundField HeaderText="Cantidad vendida" DataField="CantidadVendida" />
                             </Columns>
                         </asp:GridView>
                     </div>

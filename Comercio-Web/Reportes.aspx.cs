@@ -26,6 +26,7 @@ namespace Comercio_Web
                 lblVentasMes.Text = cantidadVentasMes.ToString();
 
                 CargarTopVendedores();
+                CargarTopArticulos();
             }
         }
 
@@ -39,6 +40,18 @@ namespace Comercio_Web
             VentasNegocio ventasNegocio = new VentasNegocio();
             dgvTopVendedores.DataSource = ventasNegocio.ObtenerTopVendedores(ddlPeriodoTopVendedores.SelectedValue);
             dgvTopVendedores.DataBind();
+        }
+
+        protected void ddlPeriodoTopArticulos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarTopArticulos();
+        }
+
+        private void CargarTopArticulos()
+        {
+            VentasNegocio ventasNegocio = new VentasNegocio();
+            dgvTopArticulos.DataSource = ventasNegocio.ObtenerTopArticulosVendidos(ddlPeriodoTopArticulos.SelectedValue);
+            dgvTopArticulos.DataBind();
         }
     }
 }

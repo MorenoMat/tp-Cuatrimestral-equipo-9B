@@ -526,6 +526,66 @@ namespace negocio
             }
         }
 
+        public List<TopArticuloVendidoReporte> ObtenerTopArticulosVendidos(string periodo)
+        {
+            List<TopArticuloVendidoReporte> lista = new List<TopArticuloVendidoReporte>();
+            try
+            {
+                DateTime fechaInicio;
+                DateTime fechaFin;
+                string periodoNormalizado = (periodo ?? string.Empty).Trim().ToLower();
+
+                if (periodoNormalizado == "anual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, 1, 1);
+                    fechaFin = fechaInicio.AddYears(1);
+                }
+                else if (periodoNormalizado == "mensual")
+                {
+                    fechaInicio = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    fechaFin = fechaInicio.AddMonths(1);
+                }
+                else
+                {
+                    fechaInicio = DateTime.Today;
+                    fechaFin = fechaInicio.AddDays(1);
+                }
+
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta(@"SELECT TOP 10
+                                              p.Nombre AS Articulo,
+                                              c.Descripcion AS Categoria,
+                                              SUM(dv.Cantidad) AS CantidadVendida
+                                       FROM DetalleVentas dv
+                                       INNER JOIN Ventas v ON v.IdVenta = dv.IdVenta
+                                       INNER JOIN Productos p ON p.IdProducto = dv.IdProducto
+                                       INNER JOIN Categorias c ON c.IdCategoria = p.IdCategoria
+                                       WHERE v.FechaVenta >= @fechaInicio
+                                         AND v.FechaVenta < @fechaFin
+                                       GROUP BY p.Nombre, c.Descripcion
+                                       ORDER BY CantidadVendida DESC");
+                datos.setearParametro("@fechaInicio", fechaInicio);
+                datos.setearParametro("@fechaFin", fechaFin);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TopArticuloVendidoReporte item = new TopArticuloVendidoReporte();
+                    item.Articulo = (string)datos.Lector["Articulo"];
+                    item.Categoria = (string)datos.Lector["Categoria"];
+                    item.CantidadVendida = (int)datos.Lector["CantidadVendida"];
+                    lista.Add(item);
+                }
+
+                datos.cerrarConexion();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool nroFacturaExiste(int nroFactura) {
 
             AccesoDatos datos = new AccesoDatos();
