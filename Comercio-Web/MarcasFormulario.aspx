@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="MarcasFormulario.aspx.cs" Inherits="Comercio_Web.MarcasFormulario" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <style> .validation{ color:red; font-size:15px;} </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -11,6 +12,7 @@
                 <div class="mb-3">
                     <asp:Label Text="Nombre de la Marca:" runat="server" CssClass="form-label" />
                     <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" />
+                     <asp:RequiredFieldValidator CssClass="validation" ErrorMessage="Este campo no puede quedar vacio" ControlToValidate="txtDescripcion" runat="server" TextStyle="" />
                 </div>
                 <div class="d-flex gap-2">
                     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />

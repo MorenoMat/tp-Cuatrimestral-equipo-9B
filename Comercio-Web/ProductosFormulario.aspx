@@ -38,10 +38,11 @@
                             <asp:Label Text="Nombre" runat="server" CssClass="form-label" />
                             <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
                             <asp:RequiredFieldValidator ErrorMessage="Rellena el nombre del producto" ControlToValidate="txtNombre" runat="server" CssClass="validation" />
+                            <asp:RegularExpressionValidator ErrorMessage="El nombre del producto debe tener entre 3 y 50 caracteres" ControlToValidate="txtNombre" runat="server" CssClass="validation" ValidationExpression="^.{3,50}$" />
                         </div>
                         <div class="mb-3">
                             <asp:Label Text="Descripción" runat="server" CssClass="form-label" />
-                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" />
+                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"  MaxLength="49"/>
                         </div>
                         <div class="mb-3">
                             <asp:Label Text="Marca" runat="server" CssClass="form-label" />
@@ -57,21 +58,25 @@
                             <asp:Label Text="Stock Actual" runat="server" CssClass="form-label" />
                             <asp:TextBox ID="txtStockActual" runat="server" CssClass="form-control" TextMode="Number" />
                             <asp:RequiredFieldValidator ErrorMessage="Rellena el stock actual" ControlToValidate="txtStockActual" runat="server" CssClass="validation" />
+                            <asp:RegularExpressionValidator ErrorMessage="El stock actual debe ser un número entero positivo" ControlToValidate="txtStockActual" runat="server" CssClass="validation" ValidationExpression="^\d+$" />
                         </div>
                         <div class="mb-3">
                             <asp:Label Text="Stock Mínimo" runat="server" CssClass="form-label" />
-                            <asp:TextBox ID="txtStockMinimo" runat="server" CssClass="form-control" TextMode="Number" />
+                            <asp:TextBox ID="txtStockMinimo" runat="server" CssClass="form-control" TextMode="Number" MaxLength="5" />
                             <asp:RequiredFieldValidator ErrorMessage="Rellena el stock mínimo" ControlToValidate="txtStockMinimo" runat="server" CssClass="validation" />
+                            <asp:RegularExpressionValidator ErrorMessage="El stock mínimo debe ser un número entero positivo" ControlToValidate="txtStockMinimo" runat="server" CssClass="validation" ValidationExpression="^\d+$" />
                         </div>
                         <div class="mb-3">
                             <asp:Label Text="Precio de Compra ($)" runat="server" CssClass="form-label" />
                             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" />
                             <asp:RequiredFieldValidator ErrorMessage="El precio de compra es obligatorio" ControlToValidate="txtPrecio" runat="server" CssClass="validation" />
-                        </div>
+                            <asp:RegularExpressionValidator ErrorMessage="El precio de compra debe: ser positivo, tener maximo 8 digitos enteros y 2 decimales" ControlToValidate="txtPrecio" runat="server" CssClass="validation" ValidationExpression="^\d{1,8}([,]\d{1,2})?$" />
+                            </div>
                         <div class="mb-3">
                             <asp:Label Text="% Ganancia" runat="server" CssClass="form-label" />
-                            <asp:TextBox ID="txtGanancia" runat="server" CssClass="form-control" />
+                            <asp:TextBox ID="txtGanancia" runat="server" CssClass="form-control"  />
                             <asp:RequiredFieldValidator ErrorMessage="Rellena el porcentaje de ganancia (20%-60% por lo general)" ControlToValidate="txtGanancia" runat="server" CssClass="validation" />
+                            <asp:RegularExpressionValidator ErrorMessage="El porcentaje de ganancia debe ser un número válido(0-99)" ControlToValidate="txtGanancia" runat="server" CssClass="validation" ValidationExpression="^\d{1,8}([,]\d{1,2})?$" />
                         </div>
                         <div class="mb-3">
                             <asp:Label Text="Proveedores" runat="server" CssClass="form-label" />
