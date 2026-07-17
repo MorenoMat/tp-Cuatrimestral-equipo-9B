@@ -22,6 +22,8 @@ namespace Comercio_Web
                 Session.Remove(SESSION_LINEAS);
                 cargarDropDowns();
                 cargarGrillaLineas();
+                Session[SESSION_LINEAS] = new List<DetalleCompra>();
+
             }
         }
 
@@ -85,9 +87,7 @@ namespace Comercio_Web
 
         private List<DetalleCompra> ObtenerLineas()
         {
-            if (Session[SESSION_LINEAS] == null)
-                Session[SESSION_LINEAS] = new List<DetalleCompra>();
-            return (List<DetalleCompra>)Session[SESSION_LINEAS];
+            return Session[SESSION_LINEAS] as List<DetalleCompra>;  // puede devolver null
         }
 
         private void cargarGrillaLineas()
@@ -127,7 +127,11 @@ namespace Comercio_Web
             }
 
             List<DetalleCompra> lineas = ObtenerLineas();
-
+            if (lineas == null)
+            {
+                Response.Redirect("ComprasFormulario.aspx");
+                return;
+            }
             DetalleCompra linea = lineas.Find(l => l.IdProducto == idProducto);
             if (linea != null)
             {
@@ -155,6 +159,11 @@ namespace Comercio_Web
         {
             int idProducto = int.Parse(e.CommandArgument.ToString());
             List<DetalleCompra> lineas = ObtenerLineas(); // carga la lista de  detallesCompra
+            if (lineas == null)
+            {
+                Response.Redirect("ComprasFormulario.aspx");
+                return;
+            }
             DetalleCompra linea = lineas.Find(l => l.IdProducto == idProducto); // carga en el detalleCompra la q coincida con el id
             if (e.CommandName == "Quitar")
             { 
@@ -179,7 +188,12 @@ namespace Comercio_Web
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             List<DetalleCompra> lineas = ObtenerLineas();
-            if (lineas.Count == 0)
+            if (lineas == null )
+            {
+                lblMensaje.Text = "Esta compra ya fue procesada.";
+                return;
+            }
+            if ( lineas.Count == 0)
             {
                 lblMensaje.Text = "Debe agregar al menos un producto.";
                 return;
